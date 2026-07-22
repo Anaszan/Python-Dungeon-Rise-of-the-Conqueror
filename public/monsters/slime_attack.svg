@@ -1,0 +1,96 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="slimeBody" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#baf7a0"/>
+      <stop offset="45%" stop-color="#6fdc4f"/>
+      <stop offset="80%" stop-color="#3fae2c"/>
+      <stop offset="100%" stop-color="#2a8a1c"/>
+    </radialGradient>
+    <radialGradient id="slimeSpike" cx="35%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#d4ffbf"/>
+      <stop offset="60%" stop-color="#5fce42"/>
+      <stop offset="100%" stop-color="#2f9420"/>
+    </radialGradient>
+    <radialGradient id="groundShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0a3d0a" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="250" cy="430" rx="150" ry="30" fill="url(#groundShadow)"/>
+
+  <!-- motion streaks (attack lunge) -->
+  <path d="M60 260 L150 250" stroke="#bdf7a3" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+  <path d="M75 300 L165 288" stroke="#bdf7a3" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+  <path d="M90 340 L175 322" stroke="#bdf7a3" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- splash droplets -->
+  <circle cx="120" cy="220" r="10" fill="url(#slimeBody)"/>
+  <circle cx="95" cy="180" r="6" fill="url(#slimeBody)"/>
+  <circle cx="150" cy="185" r="7" fill="url(#slimeBody)"/>
+
+  <g filter="url(#softShadow)">
+    <!-- main gelatinous body, leaning forward attacking to the left -->
+    <path d="M250 420
+             C150 420 130 340 155 280
+             C170 245 150 200 190 165
+             C220 138 250 130 290 150
+             C330 170 360 130 385 165
+             C410 200 400 250 380 290
+             C400 340 360 420 250 420 Z"
+          fill="url(#slimeBody)"/>
+
+    <!-- pointed attack spike (front, left side) -->
+    <path d="M155 280 C120 255 90 235 65 245 C90 260 115 285 150 300 Z" fill="url(#slimeSpike)"/>
+
+    <!-- top highlight sheen -->
+    <ellipse cx="235" cy="195" rx="70" ry="42" fill="#ffffff" opacity="0.35"/>
+    <ellipse cx="200" cy="180" rx="22" ry="14" fill="#ffffff" opacity="0.55"/>
+
+    <!-- inner body core glow -->
+    <ellipse cx="270" cy="290" rx="60" ry="50" fill="#eaffde" opacity="0.25">
+      <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.2s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <!-- face: angry attacking eyes -->
+    <g>
+      <path d="M195 230 L230 245 L195 255 Z" fill="#0d2b06"/>
+      <path d="M300 235 L270 248 L305 258 Z" fill="#0d2b06"/>
+    </g>
+    <!-- open jagged mouth -->
+    <path d="M215 285 Q250 320 290 285 Q270 300 250 300 Q230 300 215 285 Z" fill="#134a0c"/>
+    <path d="M225 285 L232 298 L240 285 Z" fill="#eafce0"/>
+    <path d="M245 288 L252 302 L260 288 Z" fill="#eafce0"/>
+    <path d="M265 285 L272 296 L280 285 Z" fill="#eafce0"/>
+  </g>
+
+  <!-- small bubble details -->
+  <circle cx="310" cy="360" r="9" fill="#8fe873" opacity="0.6">
+    <animate attributeName="r" values="7;10;7" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="200" cy="380" r="6" fill="#8fe873" opacity="0.6">
+    <animate attributeName="r" values="5;7;5" dur="1.3s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- impact burst at point of contact (spike tip) -->
+  <g transform="translate(55,248)">
+    <path d="M0 -10 L3 -3 L11 -2 L5 5 L6 13 L0 8 L-6 13 L-5 5 L-11 -2 L-3 -3 Z" fill="#d4ffbf" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.15;0.6" dur="0.45s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.55;0.95;0.55" dur="0.45s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- flying splatter droplets from impact -->
+  <circle r="4" fill="#6fdc4f" opacity="0.8">
+    <animateMotion path="M55,248 L18,215" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0" dur="0.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="3" fill="#3fae2c" opacity="0.7">
+    <animateMotion path="M55,248 L25,285" dur="0.9s" begin="0.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0" dur="0.9s" begin="0.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

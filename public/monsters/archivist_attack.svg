@@ -1,0 +1,64 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="avSkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#e8cda0"/>
+      <stop offset="55%" stop-color="#c9a878"/>
+      <stop offset="100%" stop-color="#7a5a38"/>
+    </radialGradient>
+    <linearGradient id="avRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6a9a88"/>
+      <stop offset="100%" stop-color="#2a4a3a"/>
+    </linearGradient>
+    <linearGradient id="avScroll" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f2e8c9"/>
+      <stop offset="100%" stop-color="#c9b98a"/>
+    </linearGradient>
+    <radialGradient id="avShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="avSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a1a12" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="440" rx="120" ry="22" fill="url(#avShadow)"/>
+
+  <g filter="url(#avSoft)">
+    <path d="M195 250 C175 300 172 360 192 420 L308 420 C328 360 325 300 305 250
+             C270 222 230 222 195 250 Z" fill="url(#avRobe)"/>
+    <path d="M212 262 L288 258 L292 288 L208 293 Z" fill="#f2e8c9" opacity="0.7"/>
+
+    <ellipse cx="220" cy="245" rx="22" ry="17" fill="url(#avRobe)" transform="rotate(-12 220 245)"/>
+
+    <path d="M218 190 C220 160 280 160 282 190 C285 222 262 245 250 245
+             C238 245 215 220 218 190 Z" fill="url(#avSkin)"/>
+
+    <!-- round glasses -->
+    <circle cx="230" cy="205" r="14" fill="none" stroke="#3a5a48" stroke-width="3"/>
+    <circle cx="270" cy="205" r="14" fill="none" stroke="#3a5a48" stroke-width="3"/>
+    <line x1="244" y1="205" x2="256" y2="205" stroke="#3a5a48" stroke-width="3"/>
+
+    <path d="M223 205 L235 210 L223 214 Z" fill="#1a2a20"/>
+    <path d="M277 205 L265 210 L277 214 Z" fill="#1a2a20"/>
+    <ellipse cx="228" cy="208" rx="2.5" ry="3" fill="#c9fff0"/>
+    <ellipse cx="272" cy="208" rx="2.5" ry="3" fill="#c9fff0"/>
+
+    <path d="M234 228 Q250 234 266 228" stroke="#5a3a20" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+    <!-- neat hair -->
+    <path d="M215 178 C218 155 282 155 285 178 C270 168 230 168 215 178 Z" fill="#4a3a28"/>
+
+    <path d="M300 265 C325 252 345 230 358 202 L380 212 C365 242 342 265 315 285 Z" fill="url(#avSkin)"/>
+  </g>
+
+  <g transform="translate(385,190) rotate(-10)">
+    <animateTransform attributeName="transform" type="rotate" values="-25;5;-25" dur="0.6s" repeatCount="indefinite"/>
+    <rect x="-14" y="-40" width="28" height="80" rx="14" fill="url(#avScroll)"/>
+    <rect x="-14" y="-46" width="28" height="10" rx="5" fill="#a89860"/>
+    <rect x="-14" y="36" width="28" height="10" rx="5" fill="#a89860"/>
+    <line x1="-8" y1="-20" x2="8" y2="-20" stroke="#8a7a50" stroke-width="2" opacity="0.6"/>
+    <line x1="-8" y1="-8" x2="8" y2="-8" stroke="#8a7a50" stroke-width="2" opacity="0.6"/>
+    <line x1="-8" y1="4" x2="8" y2="4" stroke="#8a7a50" stroke-width="2" opacity="0.6"/>
+  </g>
+</svg>

@@ -1,0 +1,135 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gsBody" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#e2b0ff"/>
+      <stop offset="45%" stop-color="#a233f2"/>
+      <stop offset="80%" stop-color="#6b1aa8"/>
+      <stop offset="100%" stop-color="#3d0e63"/>
+    </radialGradient>
+    <radialGradient id="gsSpike" cx="35%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#f7ccff"/>
+      <stop offset="60%" stop-color="#c14fef"/>
+      <stop offset="100%" stop-color="#7a1fb0"/>
+    </radialGradient>
+    <radialGradient id="gsShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="gsSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#2a0a45" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="430" rx="150" ry="30" fill="url(#gsShadow)"/>
+
+  <!-- motion streaks (attack lunge) -->
+  <path d="M60 260 L150 250" stroke="#e2b0ff" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+  <path d="M75 300 L165 288" stroke="#e2b0ff" stroke-width="5" stroke-linecap="round" opacity="0.35"/>
+  <path d="M90 340 L175 322" stroke="#e2b0ff" stroke-width="4" stroke-linecap="round" opacity="0.28"/>
+
+  <!-- chromatic-aberration echo silhouettes (glitch ghosting) -->
+  <path d="M254 420 C154 420 134 340 159 280 C174 245 154 200 194 165
+           C224 138 254 130 294 150 C334 170 364 130 389 165
+           C414 200 404 250 384 290 C404 340 364 420 254 420 Z"
+        fill="#2ef2ff" opacity="0.25">
+    <animate attributeName="opacity" values="0.05;0.3;0.05" dur="0.35s" repeatCount="indefinite"/>
+  </path>
+  <path d="M246 420 C146 420 126 340 151 280 C166 245 146 200 186 165
+           C216 138 246 130 286 150 C326 170 356 130 381 165
+           C406 200 396 250 376 290 C396 340 356 420 246 420 Z"
+        fill="#ff2ecb" opacity="0.22">
+    <animate attributeName="opacity" values="0.3;0.05;0.3" dur="0.4s" repeatCount="indefinite"/>
+  </path>
+
+  <g filter="url(#gsSoft)">
+    <!-- main gelatinous body -->
+    <path d="M250 420
+             C150 420 130 340 155 280
+             C170 245 150 200 190 165
+             C220 138 250 130 290 150
+             C330 170 360 130 385 165
+             C410 200 400 250 380 290
+             C400 340 360 420 250 420 Z"
+          fill="url(#gsBody)"/>
+
+    <!-- blocky glitch displacement chunks cut from the silhouette -->
+    <rect x="150" y="220" width="70" height="16" fill="#3d0e63" opacity="0.7"/>
+    <rect x="170" y="220" width="70" height="16" fill="url(#gsSpike)" opacity="0.9" transform="translate(18,0)"/>
+    <rect x="280" y="310" width="90" height="14" fill="#3d0e63" opacity="0.6"/>
+    <rect x="266" y="310" width="90" height="14" fill="url(#gsSpike)" opacity="0.85" transform="translate(-22,0)"/>
+    <rect x="200" y="365" width="60" height="12" fill="#3d0e63" opacity="0.55"/>
+
+    <!-- pointed attack spike (front, left side) -->
+    <path d="M155 280 C120 255 90 235 65 245 C90 260 115 285 150 300 Z" fill="url(#gsSpike)"/>
+
+    <!-- top highlight sheen -->
+    <ellipse cx="235" cy="195" rx="70" ry="42" fill="#ffffff" opacity="0.3"/>
+
+    <!-- static noise flecks -->
+    <g opacity="0.8">
+      <rect x="205" y="175" width="6" height="6" fill="#ffffff">
+        <animate attributeName="opacity" values="1;0;1;0;1" dur="0.3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="300" y="240" width="8" height="4" fill="#2ef2ff">
+        <animate attributeName="opacity" values="0;1;0" dur="0.25s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="240" y="330" width="5" height="9" fill="#ff2ecb">
+        <animate attributeName="opacity" values="1;0;1" dur="0.4s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="330" y="200" width="7" height="5" fill="#ffffff">
+        <animate attributeName="opacity" values="0;1;0" dur="0.35s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+
+    <!-- inner body core glow -->
+    <ellipse cx="270" cy="290" rx="60" ry="50" fill="#f2d9ff" opacity="0.25">
+      <animate attributeName="opacity" values="0.1;0.4;0.1" dur="0.5s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <!-- face: blocky double-vision glitch eyes -->
+    <g>
+      <rect x="192" y="228" width="34" height="16" fill="#1a0630"/>
+      <rect x="196" y="228" width="34" height="16" fill="#2ef2ff" opacity="0.6">
+        <animate attributeName="x" values="196;202;196" dur="0.3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="272" y="233" width="34" height="16" fill="#1a0630"/>
+      <rect x="268" y="233" width="34" height="16" fill="#ff2ecb" opacity="0.6">
+        <animate attributeName="x" values="268;262;268" dur="0.3s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+    <!-- open jagged mouth -->
+    <path d="M215 285 Q250 320 290 285 Q270 300 250 300 Q230 300 215 285 Z" fill="#2a0a45"/>
+    <path d="M225 285 L232 298 L240 285 Z" fill="#f2d9ff"/>
+    <path d="M245 288 L252 302 L260 288 Z" fill="#f2d9ff"/>
+    <path d="M265 285 L272 296 L280 285 Z" fill="#f2d9ff"/>
+  </g>
+
+  <!-- floating glitch shards drifting off the body -->
+  <rect x="380" y="200" width="14" height="10" fill="#2ef2ff" opacity="0.75" transform="rotate(12 387 205)">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="0.3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="130" y="160" width="10" height="14" fill="#ff2ecb" opacity="0.7" transform="rotate(-18 135 167)">
+    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="0.35s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="360" y="340" width="12" height="8" fill="#e2b0ff" opacity="0.65" transform="rotate(6 366 344)">
+    <animate attributeName="opacity" values="0.6;0.15;0.6" dur="0.28s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- impact burst at point of contact (spike tip) -->
+  <g transform="translate(55,248)">
+    <path d="M0 -10 L3 -3 L11 -2 L5 5 L6 13 L0 8 L-6 13 L-5 5 L-11 -2 L-3 -3 Z" fill="#f7ccff" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.15;0.6" dur="0.35s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.55;0.95;0.55" dur="0.35s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- flying static-charged splatter -->
+  <circle r="4" fill="#2ef2ff" opacity="0.8">
+    <animateMotion path="M55,248 L18,215" dur="0.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0" dur="0.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="3" fill="#ff2ecb" opacity="0.7">
+    <animateMotion path="M55,248 L25,285" dur="0.7s" begin="0.15s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0" dur="0.7s" begin="0.15s" repeatCount="indefinite"/>
+  </circle>
+</svg>

@@ -1,0 +1,65 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="hySkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#f28a85"/>
+      <stop offset="50%" stop-color="#d1453f"/>
+      <stop offset="100%" stop-color="#7a1f1c"/>
+    </radialGradient>
+    <radialGradient id="hyShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="hySoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#2a0a08" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="450" rx="150" ry="26" fill="url(#hyShadow)"/>
+
+  <g filter="url(#hySoft)">
+    <path d="M180 300 C150 340 145 390 165 430 L200 430 C190 395 195 355 210 315 Z" fill="url(#hySkin)"/>
+    <path d="M320 300 C350 340 355 390 335 430 L300 430 C310 395 305 355 290 315 Z" fill="url(#hySkin)"/>
+
+    <path d="M170 260 C150 300 155 340 180 365 C220 395 280 395 320 365
+             C345 340 350 300 330 260 C300 225 200 225 170 260 Z" fill="url(#hySkin)"/>
+
+    <!-- three necks/heads -->
+    <g>
+      <path d="M195 270 C160 240 140 195 145 150 C170 165 190 200 205 240 Z" fill="url(#hySkin)"/>
+      <ellipse cx="140" cy="140" rx="26" ry="20" fill="url(#hySkin)"/>
+      <path d="M120 130 L108 108 L128 122 Z" fill="url(#hySkin)"/>
+      <path d="M152 130 L164 108 L144 122 Z" fill="url(#hySkin)"/>
+      <path d="M122 138 L138 143 L122 148 Z" fill="#1a0806"/>
+      <ellipse cx="128" cy="142" rx="2.5" ry="2.5" fill="#ffe14a"/>
+    </g>
+    <g>
+      <path d="M250 258 C250 215 250 170 250 130 C260 165 260 210 260 250 Z" fill="url(#hySkin)"/>
+      <ellipse cx="255" cy="120" rx="30" ry="24" fill="url(#hySkin)"/>
+      <path d="M232 106 L222 82 L244 100 Z" fill="url(#hySkin)"/>
+      <path d="M270 106 L284 82 L260 100 Z" fill="url(#hySkin)"/>
+      <path d="M235 118 L253 124 L235 130 Z" fill="#1a0806"/>
+      <path d="M275 118 L257 124 L275 130 Z" fill="#1a0806"/>
+      <ellipse cx="242" cy="123" rx="3" ry="3" fill="#ffe14a"/>
+      <ellipse cx="268" cy="123" rx="3" ry="3" fill="#ffe14a"/>
+      <path d="M240 138 Q255 150 270 138 Q260 145 255 145 Q250 145 240 138 Z" fill="#4a0f0c"/>
+    </g>
+    <g>
+      <path d="M305 270 C340 240 360 195 355 150 C330 165 310 200 295 240 Z" fill="url(#hySkin)"/>
+      <ellipse cx="360" cy="140" rx="26" ry="20" fill="url(#hySkin)"/>
+      <path d="M340 130 L328 108 L348 122 Z" fill="url(#hySkin)"/>
+      <path d="M372 130 L384 108 L364 122 Z" fill="url(#hySkin)"/>
+      <path d="M348 138 L364 143 L348 148 Z" fill="#1a0806"/>
+      <ellipse cx="356" cy="142" rx="2.5" ry="2.5" fill="#ffe14a"/>
+    </g>
+
+    <path d="M190 310 L182 335 L200 330 L210 350 L220 328 L235 340 L232 315 Z" fill="url(#hySkin)" opacity="0.85"/>
+    <path d="M280 315 L295 340 L305 320 L318 335 L322 310 L335 325 L328 300 Z" fill="url(#hySkin)" opacity="0.85"/>
+  </g>
+
+  <g transform="translate(255,148)">
+    <path d="M0 -10 L3 -3 L11 -2 L5 5 L6 13 L0 8 L-6 13 L-5 5 L-11 -2 L-3 -3 Z" fill="#ffcf8a" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.2;0.6" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

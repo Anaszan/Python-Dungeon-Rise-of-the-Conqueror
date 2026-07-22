@@ -1,0 +1,98 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="wraithAura" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#8a5fe0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#8a5fe0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wraithBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5c4a8a"/>
+      <stop offset="45%" stop-color="#2c1f4d"/>
+      <stop offset="100%" stop-color="#120a26"/>
+    </linearGradient>
+    <linearGradient id="wraithCloak" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a2c63"/>
+      <stop offset="100%" stop-color="#0a061a"/>
+    </linearGradient>
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e6ffff"/>
+      <stop offset="40%" stop-color="#6fe8ff"/>
+      <stop offset="100%" stop-color="#0fb8d9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blastCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#9be8ff"/>
+      <stop offset="70%" stop-color="#5f6fe0"/>
+      <stop offset="100%" stop-color="#5f6fe0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glowBlur"><feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+
+  <rect width="500" height="500" fill="none"/>
+  <ellipse cx="250" cy="250" rx="230" ry="230" fill="url(#wraithAura)">
+    <animate attributeName="rx" values="210;235;210" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="ry" values="210;235;210" dur="2s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- tattered cloak base -->
+  <path d="M250 120
+           C310 130 350 190 340 250
+           C365 300 380 380 360 440
+           C340 400 330 380 320 440
+           C305 395 300 380 288 440
+           C275 390 265 380 255 440
+           C240 390 230 380 220 440
+           C205 395 195 380 182 440
+           C165 390 155 380 145 440
+           C120 380 135 300 165 250
+           C150 190 190 130 250 120 Z"
+        fill="url(#wraithCloak)"/>
+
+  <!-- inner body silhouette -->
+  <path d="M250 140 C295 150 320 195 312 240 C330 280 335 330 320 380
+           C300 340 290 300 288 260 C280 220 260 200 250 200
+           C240 200 220 220 212 260 C210 300 200 340 180 380
+           C165 330 170 280 188 240 C180 195 205 150 250 140 Z"
+        fill="url(#wraithBody)" opacity="0.85"/>
+
+  <!-- hood shadow -->
+  <path d="M250 110 C300 115 330 160 322 205 C310 190 285 175 250 175
+           C215 175 190 190 178 205 C170 160 200 115 250 110 Z" fill="#0a061a"/>
+
+  <!-- glowing eyes -->
+  <ellipse cx="228" cy="175" rx="12" ry="8" fill="url(#eyeGlow)">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="1s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="272" cy="175" rx="12" ry="8" fill="url(#eyeGlow)">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="1s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="228" cy="175" rx="4" ry="4" fill="#ffffff"/>
+  <ellipse cx="272" cy="175" rx="4" ry="4" fill="#ffffff"/>
+
+  <!-- casting arm raised, releasing dark-energy blast -->
+  <path d="M320 260 C360 240 390 210 415 185 C405 205 395 230 385 250
+           C400 245 415 235 428 220 C415 250 390 270 360 280 Z"
+        fill="url(#wraithCloak)"/>
+
+  <!-- energy blast from hand -->
+  <circle cx="430" cy="195" r="34" fill="url(#blastCore)" filter="url(#glowBlur)">
+    <animate attributeName="r" values="28;38;28" dur="0.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="430" cy="195" r="14" fill="#ffffff" opacity="0.9">
+    <animate attributeName="r" values="11;16;11" dur="0.4s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M430 195 L470 160" stroke="#bfefff" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M430 195 L472 195" stroke="#bfefff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+  <path d="M430 195 L465 225" stroke="#bfefff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- impact burst at blast contact point -->
+  <g transform="translate(476,158)">
+    <path d="M0 -11 L3 -3 L12 -2 L5 5 L7 14 L0 8 L-7 14 L-5 5 L-12 -2 L-3 -3 Z" fill="#e6ffff" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.2;0.6" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- wispy trailing energy from other hand -->
+  <path d="M180 300 C150 320 130 350 120 385" stroke="#8a5fe0" stroke-width="6" stroke-linecap="round" opacity="0.5" fill="none"/>
+  <path d="M195 310 C170 335 155 360 148 390" stroke="#8a5fe0" stroke-width="4" stroke-linecap="round" opacity="0.35" fill="none"/>
+</svg>

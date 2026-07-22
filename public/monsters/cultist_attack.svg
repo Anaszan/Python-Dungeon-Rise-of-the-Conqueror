@@ -1,0 +1,60 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cuSkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#d8a888"/>
+      <stop offset="60%" stop-color="#a9705a"/>
+      <stop offset="100%" stop-color="#5a2e22"/>
+    </radialGradient>
+    <linearGradient id="cuRobe" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7a3d3d"/>
+      <stop offset="100%" stop-color="#2a0e0e"/>
+    </linearGradient>
+    <radialGradient id="cuGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff5a3a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff5a3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cuShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cuSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1a0505" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="440" rx="120" ry="22" fill="url(#cuShadow)"/>
+
+  <g filter="url(#cuSoft)">
+    <path d="M190 250 C170 300 165 360 185 420 L315 420 C335 360 330 300 310 250
+             C275 220 225 220 190 250 Z" fill="url(#cuRobe)"/>
+
+    <!-- hood, deep shadow over face -->
+    <path d="M170 200 C165 145 200 100 250 100 C300 100 335 145 330 200
+             C325 155 292 128 250 128 C208 128 175 155 170 200 Z" fill="url(#cuRobe)"/>
+
+    <path d="M210 175 C212 155 288 155 290 175 C292 210 268 235 250 235
+             C232 235 208 208 210 175 Z" fill="url(#cuSkin)"/>
+    <path d="M215 178 C220 165 280 165 285 178 C280 168 220 168 215 178 Z" fill="#000000" opacity="0.5"/>
+
+    <path d="M215 200 L238 208 L215 216 Z" fill="#1a0505"/>
+    <path d="M285 200 L262 208 L285 216 Z" fill="#1a0505"/>
+    <ellipse cx="224" cy="207" rx="3.5" ry="3.5" fill="#ff5a3a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="276" cy="207" rx="3.5" ry="3.5" fill="#ff5a3a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <path d="M226 225 Q250 235 274 225" stroke="#3a1414" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+    <path d="M300 260 C325 245 345 222 358 195 L380 205 C365 235 342 260 315 280 Z" fill="url(#cuSkin)"/>
+  </g>
+
+  <g transform="translate(385,175)">
+    <circle r="26" fill="url(#cuGlow)">
+      <animate attributeName="r" values="20;32;20" dur="0.7s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M-5 15 L-5 -20 L5 -20 L5 15 Z" fill="#3a2020" transform="rotate(20)"/>
+    <path d="M-9 -20 L9 -20 L0 -35 Z" fill="#a6adb5" transform="rotate(20)"/>
+  </g>
+</svg>
