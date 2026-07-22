@@ -282,6 +282,31 @@ canvas {
   margin: -8px 0 16px;
 }
 
+.monster-attack-timer {
+  margin: 0 0 16px;
+}
+
+.monster-attack-timer-label {
+  font-size: 12px;
+  color: var(--parchment-dim);
+  margin: 0 0 4px;
+}
+
+.monster-attack-timer-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--wood-dark);
+  border: 1px solid var(--gold-dim);
+  overflow: hidden;
+}
+
+.monster-attack-timer-fill {
+  height: 100%;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold-dim));
+  transition: width 1s linear;
+}
+
 .combat-message {
   font-size: 18px;
   margin-bottom: 16px;
@@ -863,6 +888,58 @@ canvas {
 .auth-subtitle {
   margin: 0 0 26px;
   font-size: 13px;
+  color: var(--parchment-dim);
+}
+
+.auth-oauth-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 12px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid var(--gold-dim);
+  background: var(--parchment-text);
+  color: #1f1f1f;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+
+.auth-oauth-btn:hover {
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.18);
+}
+
+.auth-oauth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: var(--parchment-dim);
+  font-size: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-dim);
+  opacity: 0.4;
+}
+
+.auth-password-hint {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  line-height: 1.4;
   color: var(--parchment-dim);
 }
 

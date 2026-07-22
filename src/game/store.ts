@@ -10,6 +10,7 @@ export type CombatMonster = {
   id: string
   name: string
   maxHp: number
+  attackInterval: number
 }
 
 type GamePhase = 'exploring' | 'combat' | 'gameover'
@@ -29,6 +30,10 @@ type GameState = {
   // is never persisted to Supabase (see startAttackCooldown), it's short
   // enough that losing it on a page reload isn't worth a DB migration.
   attackCooldown: number
+  // Seconds until the current monster's next attack — driven by
+  // CombatTicker, displayed as a countdown in CombatOverlay. Never
+  // persisted, same reasoning as attackCooldown.
+  monsterAttackCountdown: number
   characterClass: CharacterClass | null
   skinColor: string
   saveLoaded: boolean
@@ -42,6 +47,7 @@ type GameState = {
   startSkillCooldown: () => void
   startAttackCooldown: () => void
   tickCooldowns: (delta: number) => void
+  setMonsterAttackCountdown: (seconds: number) => void
   exitCombat: () => void
   clearFledMonster: () => void
   confirmCharacter: (characterClass: CharacterClass, skinColor: string) => void
@@ -87,6 +93,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   collectedPickupIds: new Set(),
   skillCooldown: 0,
   attackCooldown: 0,
+  monsterAttackCountdown: 0,
   characterClass: null,
   skinColor: DEFAULT_SKIN_COLOR,
   saveLoaded: false,
@@ -99,6 +106,7 @@ export const useGameStore = create<GameState>((set, get) => ({
         ...state.monsterHp,
         [monster.id]: state.monsterHp[monster.id] ?? monster.maxHp,
       },
+      monsterAttackCountdown: monster.attackInterval,
     })),
 
   damageMonster: (amount) => {
@@ -177,6 +185,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       attackCooldown: state.attackCooldown > 0 ? Math.max(0, state.attackCooldown - delta) : state.attackCooldown,
     })),
 
+  setMonsterAttackCountdown: (seconds) => set({ monsterAttackCountdown: seconds }),
+
   exitCombat: () => {
     const { activeMonsterId, defeatedIds, currentLevel, playerHp } = get()
     if (playerHp <= 0) return // already dead — the game-over overlay owns the reset from here
@@ -243,6 +253,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       collectedPickupIds: new Set(),
       skillCooldown: 0,
       attackCooldown: 0,
+      monsterAttackCountdown: 0,
     })
     persist()
   },
@@ -263,6 +274,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       collectedPickupIds: new Set(),
       skillCooldown: 0,
       attackCooldown: 0,
+      monsterAttackCountdown: 0,
       characterClass: null,
       skinColor: DEFAULT_SKIN_COLOR,
       saveLoaded: false,

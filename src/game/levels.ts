@@ -71,21 +71,21 @@ const LEVEL_1_WALLS: Wall[] = [
 // levels still reuse a shared sprite per stat tier under a new name/color.
 const LEVEL_1_MONSTERS: MonsterData[] = [
   // main corridor
-  { id: 'slime-1', name: 'Slime', maxHp: 30, color: '#6fdc4f', attackDamage: 5, attackInterval: 2, position: [0, 0.5, -4], imageUrl: '/monsters/slime_attack.svg' },
-  { id: 'slime-2', name: 'Glitch Slime', maxHp: 30, color: '#a233f2', attackDamage: 5, attackInterval: 2, position: [0, 0.5, -16], imageUrl: '/monsters/glitchslime_attack.svg' },
-  { id: 'wraith-2', name: 'Null Wraith', maxHp: 80, color: '#3a3a42', attackDamage: 12, attackInterval: 1.5, position: [0, 0.5, -28], imageUrl: '/monsters/nullwraith_attack.svg' },
+  { id: 'slime-1', name: 'Slime', maxHp: 30, color: '#6fdc4f', attackDamage: 5, attackInterval: 10, position: [0, 0.5, -4], imageUrl: '/monsters/slime_attack.png' },
+  { id: 'slime-2', name: 'Glitch Slime', maxHp: 30, color: '#a233f2', attackDamage: 5, attackInterval: 10, position: [0, 0.5, -16], imageUrl: '/monsters/glitchslime_attack.png' },
+  { id: 'wraith-2', name: 'Null Wraith', maxHp: 80, color: '#3a3a42', attackDamage: 12, attackInterval: 10, position: [0, 0.5, -28], imageUrl: '/monsters/nullwraith_attack.png' },
 
   // west branch room
-  { id: 'goblin-1', name: 'Goblin', maxHp: 50, color: '#8fc23f', attackDamage: 8, attackInterval: 1.8, position: [-4, 0.5, -8], imageUrl: '/monsters/goblin_attack.svg' },
-  { id: 'goblin-2', name: 'Goblin Scout', maxHp: 50, color: '#a8d95e', attackDamage: 8, attackInterval: 1.8, position: [-6.5, 0.5, -11], imageUrl: '/monsters/goblinscout_attack.svg' },
+  { id: 'goblin-1', name: 'Goblin', maxHp: 50, color: '#8fc23f', attackDamage: 8, attackInterval: 10, position: [-4, 0.5, -8], imageUrl: '/monsters/goblin_attack.png' },
+  { id: 'goblin-2', name: 'Goblin Scout', maxHp: 50, color: '#a8d95e', attackDamage: 8, attackInterval: 10, position: [-6.5, 0.5, -11], imageUrl: '/monsters/goblinscout_attack.png' },
 
   // east branch room
-  { id: 'goblin-3', name: 'Goblin Brute', maxHp: 50, color: '#3a7a26', attackDamage: 8, attackInterval: 1.8, position: [5, 0.5, -19], imageUrl: '/monsters/goblinbrute_attack.svg' },
-  { id: 'wraith-1', name: 'Wraith', maxHp: 80, color: '#8a6fd1', attackDamage: 12, attackInterval: 1.5, position: [7, 0.5, -21], imageUrl: '/monsters/wraith_attack.svg' },
+  { id: 'goblin-3', name: 'Goblin Brute', maxHp: 50, color: '#3a7a26', attackDamage: 8, attackInterval: 10, position: [5, 0.5, -19], imageUrl: '/monsters/goblinbrute_attack.png' },
+  { id: 'wraith-1', name: 'Wraith', maxHp: 80, color: '#8a6fd1', attackDamage: 12, attackInterval: 10, position: [7, 0.5, -21], imageUrl: '/monsters/wraith_attack.png' },
 
   // end room
-  { id: 'wraith-3', name: 'Echo Wraith', maxHp: 80, color: '#3a6bd1', attackDamage: 12, attackInterval: 1.5, position: [-3, 0.5, -37], imageUrl: '/monsters/echowraith_attack.svg' },
-  { id: 'dragon-1', name: 'Dragon', maxHp: 150, color: '#e05263', attackDamage: 20, attackInterval: 1.3, position: [3, 0.5, -37], imageUrl: '/monsters/dragon_attack.svg' },
+  { id: 'wraith-3', name: 'Echo Wraith', maxHp: 80, color: '#3a6bd1', attackDamage: 12, attackInterval: 10, position: [-3, 0.5, -37], imageUrl: '/monsters/echowraith_attack.png' },
+  { id: 'dragon-1', name: 'Dragon', maxHp: 150, color: '#e05263', attackDamage: 20, attackInterval: 10, position: [3, 0.5, -37], imageUrl: '/monsters/dragon_attack.png' },
 ]
 
 const LEVEL_1_PICKUPS: PickupData[] = [
@@ -172,24 +172,24 @@ const LEVEL_2_WALLS: Wall[] = [
 
 const LEVEL_2_MONSTERS: MonsterData[] = [
   // main corridor
-  { id: 'goblin-warrior-1', name: 'Goblin Warrior', maxHp: 70, color: '#a8632f', attackDamage: 12, attackInterval: 1.6, position: [0, 0.5, -5], imageUrl: '/monsters/goblin_attack.svg' },
-  { id: 'specter-1', name: 'Specter', maxHp: 60, color: '#b8d9f0', attackDamage: 14, attackInterval: 1, position: [0, 0.5, -19], imageUrl: '/monsters/specter_attack.svg' },
-  { id: 'wraith-elite-1', name: 'Wraith Elite', maxHp: 120, color: '#5a3f8a', attackDamage: 18, attackInterval: 1.4, position: [0, 0.5, -33], imageUrl: '/monsters/wraith_attack.svg' },
+  { id: 'goblin-warrior-1', name: 'Goblin Warrior', maxHp: 70, color: '#a8632f', attackDamage: 12, attackInterval: 10, position: [0, 0.5, -5], imageUrl: '/monsters/goblin_attack.svg' },
+  { id: 'specter-1', name: 'Specter', maxHp: 60, color: '#b8d9f0', attackDamage: 14, attackInterval: 10, position: [0, 0.5, -19], imageUrl: '/monsters/specter_attack.svg' },
+  { id: 'wraith-elite-1', name: 'Wraith Elite', maxHp: 120, color: '#5a3f8a', attackDamage: 18, attackInterval: 10, position: [0, 0.5, -33], imageUrl: '/monsters/wraith_attack.svg' },
 
   // west branch room
-  { id: 'orc-1', name: 'Orc', maxHp: 90, color: '#5c7a3d', attackDamage: 15, attackInterval: 1.7, position: [-5, 0.5, -11], imageUrl: '/monsters/orc_attack.svg' },
-  { id: 'orc-2', name: 'Orc Berserker', maxHp: 90, color: '#4a6a2f', attackDamage: 15, attackInterval: 1.7, position: [-7, 0.5, -14], imageUrl: '/monsters/orc_attack.svg' },
+  { id: 'orc-1', name: 'Orc', maxHp: 90, color: '#5c7a3d', attackDamage: 15, attackInterval: 10, position: [-5, 0.5, -11], imageUrl: '/monsters/orc_attack.svg' },
+  { id: 'orc-2', name: 'Orc Berserker', maxHp: 90, color: '#4a6a2f', attackDamage: 15, attackInterval: 10, position: [-7, 0.5, -14], imageUrl: '/monsters/orc_attack.svg' },
 
   // east branch room
-  { id: 'goblin-warrior-2', name: 'Goblin Marauder', maxHp: 70, color: '#b8763a', attackDamage: 12, attackInterval: 1.6, position: [5, 0.5, -23], imageUrl: '/monsters/goblin_attack.svg' },
-  { id: 'specter-2', name: 'Wisp Specter', maxHp: 60, color: '#9fc9e8', attackDamage: 14, attackInterval: 1, position: [7, 0.5, -26], imageUrl: '/monsters/specter_attack.svg' },
+  { id: 'goblin-warrior-2', name: 'Goblin Marauder', maxHp: 70, color: '#b8763a', attackDamage: 12, attackInterval: 10, position: [5, 0.5, -23], imageUrl: '/monsters/goblin_attack.svg' },
+  { id: 'specter-2', name: 'Wisp Specter', maxHp: 60, color: '#9fc9e8', attackDamage: 14, attackInterval: 10, position: [7, 0.5, -26], imageUrl: '/monsters/specter_attack.svg' },
 
   // end room
-  { id: 'wraith-elite-2', name: 'Wraith Sovereign', maxHp: 120, color: '#4a3570', attackDamage: 18, attackInterval: 1.4, position: [-4, 0.5, -45], imageUrl: '/monsters/wraith_attack.svg' },
-  { id: 'elder-dragon-1', name: 'Elder Dragon', maxHp: 260, color: '#c21f3a', attackDamage: 28, attackInterval: 1.2, position: [4, 0.5, -46], imageUrl: '/monsters/dragon_attack.svg' },
+  { id: 'wraith-elite-2', name: 'Wraith Sovereign', maxHp: 120, color: '#4a3570', attackDamage: 18, attackInterval: 10, position: [-4, 0.5, -45], imageUrl: '/monsters/wraith_attack.svg' },
+  { id: 'elder-dragon-1', name: 'Elder Dragon', maxHp: 260, color: '#c21f3a', attackDamage: 28, attackInterval: 10, position: [4, 0.5, -46], imageUrl: '/monsters/dragon_attack.svg' },
 
   // vault room
-  { id: 'specter-3', name: 'Hollow Specter', maxHp: 60, color: '#7fb8d9', attackDamage: 14, attackInterval: 1, position: [-10, 0.5, -45], imageUrl: '/monsters/specter_attack.svg' },
+  { id: 'specter-3', name: 'Hollow Specter', maxHp: 60, color: '#7fb8d9', attackDamage: 14, attackInterval: 10, position: [-10, 0.5, -45], imageUrl: '/monsters/specter_attack.svg' },
 ]
 
 const LEVEL_2_PICKUPS: PickupData[] = [
@@ -242,18 +242,18 @@ const LEVEL_3_REGIONS: Region[] = LEVEL_1_REGIONS
 const LEVEL_3_WALLS: Wall[] = LEVEL_1_WALLS
 
 const LEVEL_3_MONSTERS: MonsterData[] = [
-  { id: 'imp-1', name: 'Imp', maxHp: 85, color: '#8fd35f', attackDamage: 16, attackInterval: 1.5, position: [0, 0.5, -4], imageUrl: '/monsters/imp_attack.svg' },
-  { id: 'imp-2', name: 'Loop Imp', maxHp: 85, color: '#6fd38f', attackDamage: 16, attackInterval: 1.5, position: [0, 0.5, -16], imageUrl: '/monsters/imp_attack.svg' },
-  { id: 'banshee-1', name: 'Banshee', maxHp: 150, color: '#b58fe8', attackDamage: 22, attackInterval: 1.2, position: [0, 0.5, -28], imageUrl: '/monsters/banshee_attack.svg' },
+  { id: 'imp-1', name: 'Imp', maxHp: 85, color: '#8fd35f', attackDamage: 16, attackInterval: 10, position: [0, 0.5, -4], imageUrl: '/monsters/imp_attack.svg' },
+  { id: 'imp-2', name: 'Loop Imp', maxHp: 85, color: '#6fd38f', attackDamage: 16, attackInterval: 10, position: [0, 0.5, -16], imageUrl: '/monsters/imp_attack.svg' },
+  { id: 'banshee-1', name: 'Banshee', maxHp: 150, color: '#b58fe8', attackDamage: 22, attackInterval: 10, position: [0, 0.5, -28], imageUrl: '/monsters/banshee_attack.svg' },
 
-  { id: 'raider-1', name: 'Goblin Raider', maxHp: 115, color: '#d1954b', attackDamage: 19, attackInterval: 1.3, position: [-4, 0.5, -8], imageUrl: '/monsters/goblin_attack.svg' },
-  { id: 'raider-2', name: 'Goblin Skirmisher', maxHp: 115, color: '#d1b04b', attackDamage: 19, attackInterval: 1.3, position: [-6.5, 0.5, -11], imageUrl: '/monsters/goblin_attack.svg' },
+  { id: 'raider-1', name: 'Goblin Raider', maxHp: 115, color: '#d1954b', attackDamage: 19, attackInterval: 10, position: [-4, 0.5, -8], imageUrl: '/monsters/goblin_attack.svg' },
+  { id: 'raider-2', name: 'Goblin Skirmisher', maxHp: 115, color: '#d1b04b', attackDamage: 19, attackInterval: 10, position: [-6.5, 0.5, -11], imageUrl: '/monsters/goblin_attack.svg' },
 
-  { id: 'raider-3', name: 'Goblin Vanguard', maxHp: 115, color: '#b17a3a', attackDamage: 19, attackInterval: 1.3, position: [5, 0.5, -19], imageUrl: '/monsters/goblin_attack.svg' },
-  { id: 'banshee-2', name: 'Wailing Banshee', maxHp: 150, color: '#9f7fe8', attackDamage: 22, attackInterval: 1.2, position: [7, 0.5, -21], imageUrl: '/monsters/banshee_attack.svg' },
+  { id: 'raider-3', name: 'Goblin Vanguard', maxHp: 115, color: '#b17a3a', attackDamage: 19, attackInterval: 10, position: [5, 0.5, -19], imageUrl: '/monsters/goblin_attack.svg' },
+  { id: 'banshee-2', name: 'Wailing Banshee', maxHp: 150, color: '#9f7fe8', attackDamage: 22, attackInterval: 10, position: [7, 0.5, -21], imageUrl: '/monsters/banshee_attack.svg' },
 
-  { id: 'banshee-3', name: 'Shrieking Banshee', maxHp: 150, color: '#c7a8f0', attackDamage: 22, attackInterval: 1.2, position: [-3, 0.5, -37], imageUrl: '/monsters/banshee_attack.svg' },
-  { id: 'hydra-1', name: 'Hydra', maxHp: 300, color: '#e0524f', attackDamage: 32, attackInterval: 1.1, position: [3, 0.5, -37], imageUrl: '/monsters/hydra_attack.svg' },
+  { id: 'banshee-3', name: 'Shrieking Banshee', maxHp: 150, color: '#c7a8f0', attackDamage: 22, attackInterval: 10, position: [-3, 0.5, -37], imageUrl: '/monsters/banshee_attack.svg' },
+  { id: 'hydra-1', name: 'Hydra', maxHp: 300, color: '#e0524f', attackDamage: 32, attackInterval: 10, position: [3, 0.5, -37], imageUrl: '/monsters/hydra_attack.svg' },
 ]
 
 const LEVEL_3_PICKUPS: PickupData[] = [
@@ -280,20 +280,20 @@ const LEVEL_4_REGIONS: Region[] = LEVEL_2_REGIONS
 const LEVEL_4_WALLS: Wall[] = LEVEL_2_WALLS
 
 const LEVEL_4_MONSTERS: MonsterData[] = [
-  { id: 'wisp-1', name: 'Arcane Wisp', maxHp: 95, color: '#8fc7e8', attackDamage: 16, attackInterval: 1.5, position: [0, 0.5, -5], imageUrl: '/monsters/wisp_attack.svg' },
-  { id: 'hexsprite-1', name: 'Hex Sprite', maxHp: 80, color: '#c98fe8', attackDamage: 18, attackInterval: 0.9, position: [0, 0.5, -19], imageUrl: '/monsters/hexsprite_attack.svg' },
-  { id: 'spellknight-1', name: 'Spell Knight', maxHp: 160, color: '#5a4f8a', attackDamage: 23, attackInterval: 1.3, position: [0, 0.5, -33], imageUrl: '/monsters/spellknight_attack.svg' },
+  { id: 'wisp-1', name: 'Arcane Wisp', maxHp: 95, color: '#8fc7e8', attackDamage: 16, attackInterval: 10, position: [0, 0.5, -5], imageUrl: '/monsters/wisp_attack.svg' },
+  { id: 'hexsprite-1', name: 'Hex Sprite', maxHp: 80, color: '#c98fe8', attackDamage: 18, attackInterval: 10, position: [0, 0.5, -19], imageUrl: '/monsters/hexsprite_attack.svg' },
+  { id: 'spellknight-1', name: 'Spell Knight', maxHp: 160, color: '#5a4f8a', attackDamage: 23, attackInterval: 10, position: [0, 0.5, -33], imageUrl: '/monsters/spellknight_attack.svg' },
 
-  { id: 'cultist-1', name: 'Cultist', maxHp: 120, color: '#7a3d3d', attackDamage: 19, attackInterval: 1.6, position: [-5, 0.5, -11], imageUrl: '/monsters/cultist_attack.svg' },
-  { id: 'cultist-2', name: 'Cultist Zealot', maxHp: 120, color: '#5a2a2a', attackDamage: 19, attackInterval: 1.6, position: [-7, 0.5, -14], imageUrl: '/monsters/cultist_attack.svg' },
+  { id: 'cultist-1', name: 'Cultist', maxHp: 120, color: '#7a3d3d', attackDamage: 19, attackInterval: 10, position: [-5, 0.5, -11], imageUrl: '/monsters/cultist_attack.svg' },
+  { id: 'cultist-2', name: 'Cultist Zealot', maxHp: 120, color: '#5a2a2a', attackDamage: 19, attackInterval: 10, position: [-7, 0.5, -14], imageUrl: '/monsters/cultist_attack.svg' },
 
-  { id: 'wisp-2', name: 'Function Wisp', maxHp: 95, color: '#6fb0e8', attackDamage: 16, attackInterval: 1.5, position: [5, 0.5, -23], imageUrl: '/monsters/wisp_attack.svg' },
-  { id: 'hexsprite-2', name: 'Hex Imp', maxHp: 80, color: '#b06fe8', attackDamage: 18, attackInterval: 0.9, position: [7, 0.5, -26], imageUrl: '/monsters/hexsprite_attack.svg' },
+  { id: 'wisp-2', name: 'Function Wisp', maxHp: 95, color: '#6fb0e8', attackDamage: 16, attackInterval: 10, position: [5, 0.5, -23], imageUrl: '/monsters/wisp_attack.svg' },
+  { id: 'hexsprite-2', name: 'Hex Imp', maxHp: 80, color: '#b06fe8', attackDamage: 18, attackInterval: 10, position: [7, 0.5, -26], imageUrl: '/monsters/hexsprite_attack.svg' },
 
-  { id: 'spellknight-2', name: 'Spell Warden', maxHp: 160, color: '#3a2f6a', attackDamage: 23, attackInterval: 1.3, position: [-4, 0.5, -45], imageUrl: '/monsters/spellknight_attack.svg' },
-  { id: 'archmage-1', name: 'Archmage', maxHp: 340, color: '#2b1d55', attackDamage: 34, attackInterval: 1.1, position: [4, 0.5, -46], imageUrl: '/monsters/archmage_attack.svg' },
+  { id: 'spellknight-2', name: 'Spell Warden', maxHp: 160, color: '#3a2f6a', attackDamage: 23, attackInterval: 10, position: [-4, 0.5, -45], imageUrl: '/monsters/spellknight_attack.svg' },
+  { id: 'archmage-1', name: 'Archmage', maxHp: 340, color: '#2b1d55', attackDamage: 34, attackInterval: 10, position: [4, 0.5, -46], imageUrl: '/monsters/archmage_attack.svg' },
 
-  { id: 'hexsprite-3', name: 'Curse Sprite', maxHp: 80, color: '#e08fd0', attackDamage: 18, attackInterval: 0.9, position: [-10, 0.5, -45], imageUrl: '/monsters/hexsprite_attack.svg' },
+  { id: 'hexsprite-3', name: 'Curse Sprite', maxHp: 80, color: '#e08fd0', attackDamage: 18, attackInterval: 10, position: [-10, 0.5, -45], imageUrl: '/monsters/hexsprite_attack.svg' },
 ]
 
 const LEVEL_4_PICKUPS: PickupData[] = [
@@ -320,18 +320,18 @@ const LEVEL_5_REGIONS: Region[] = LEVEL_1_REGIONS
 const LEVEL_5_WALLS: Wall[] = LEVEL_1_WALLS
 
 const LEVEL_5_MONSTERS: MonsterData[] = [
-  { id: 'bookgolem-1', name: 'Book Golem', maxHp: 115, color: '#7a6a4f', attackDamage: 20, attackInterval: 1.35, position: [0, 0.5, -4], imageUrl: '/monsters/bookgolem_attack.svg' },
-  { id: 'bookgolem-2', name: 'Index Golem', maxHp: 115, color: '#8a7a5f', attackDamage: 20, attackInterval: 1.35, position: [0, 0.5, -16], imageUrl: '/monsters/bookgolem_attack.svg' },
-  { id: 'ghostlib-1', name: 'Ghost Librarian', maxHp: 200, color: '#cfd8f0', attackDamage: 26, attackInterval: 1.1, position: [0, 0.5, -28], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
+  { id: 'bookgolem-1', name: 'Book Golem', maxHp: 115, color: '#7a6a4f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -4], imageUrl: '/monsters/bookgolem_attack.svg' },
+  { id: 'bookgolem-2', name: 'Index Golem', maxHp: 115, color: '#8a7a5f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -16], imageUrl: '/monsters/bookgolem_attack.svg' },
+  { id: 'ghostlib-1', name: 'Ghost Librarian', maxHp: 200, color: '#cfd8f0', attackDamage: 26, attackInterval: 10, position: [0, 0.5, -28], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
 
-  { id: 'archivist-1', name: 'Archivist', maxHp: 155, color: '#4f7a6a', attackDamage: 23, attackInterval: 1.2, position: [-4, 0.5, -8], imageUrl: '/monsters/archivist_attack.svg' },
-  { id: 'archivist-2', name: 'Archivist Scribe', maxHp: 155, color: '#5f8a7a', attackDamage: 23, attackInterval: 1.2, position: [-6.5, 0.5, -11], imageUrl: '/monsters/archivist_attack.svg' },
+  { id: 'archivist-1', name: 'Archivist', maxHp: 155, color: '#4f7a6a', attackDamage: 23, attackInterval: 10, position: [-4, 0.5, -8], imageUrl: '/monsters/archivist_attack.svg' },
+  { id: 'archivist-2', name: 'Archivist Scribe', maxHp: 155, color: '#5f8a7a', attackDamage: 23, attackInterval: 10, position: [-6.5, 0.5, -11], imageUrl: '/monsters/archivist_attack.svg' },
 
-  { id: 'archivist-3', name: 'Archivist Warden', maxHp: 155, color: '#3f6a5a', attackDamage: 23, attackInterval: 1.2, position: [5, 0.5, -19], imageUrl: '/monsters/archivist_attack.svg' },
-  { id: 'ghostlib-2', name: 'Whispering Librarian', maxHp: 200, color: '#b8c7e8', attackDamage: 26, attackInterval: 1.1, position: [7, 0.5, -21], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
+  { id: 'archivist-3', name: 'Archivist Warden', maxHp: 155, color: '#3f6a5a', attackDamage: 23, attackInterval: 10, position: [5, 0.5, -19], imageUrl: '/monsters/archivist_attack.svg' },
+  { id: 'ghostlib-2', name: 'Whispering Librarian', maxHp: 200, color: '#b8c7e8', attackDamage: 26, attackInterval: 10, position: [7, 0.5, -21], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
 
-  { id: 'ghostlib-3', name: 'Silent Librarian', maxHp: 200, color: '#e0e8f8', attackDamage: 26, attackInterval: 1.1, position: [-3, 0.5, -37], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
-  { id: 'tome-1', name: 'Forbidden Tome', maxHp: 380, color: '#3a2a66', attackDamage: 38, attackInterval: 1.0, position: [3, 0.5, -37], imageUrl: '/monsters/tome_attack.svg' },
+  { id: 'ghostlib-3', name: 'Silent Librarian', maxHp: 200, color: '#e0e8f8', attackDamage: 26, attackInterval: 10, position: [-3, 0.5, -37], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
+  { id: 'tome-1', name: 'Forbidden Tome', maxHp: 380, color: '#3a2a66', attackDamage: 38, attackInterval: 10, position: [3, 0.5, -37], imageUrl: '/monsters/tome_attack.svg' },
 ]
 
 const LEVEL_5_PICKUPS: PickupData[] = [
@@ -361,20 +361,20 @@ const LEVEL_6_REGIONS: Region[] = LEVEL_2_REGIONS
 const LEVEL_6_WALLS: Wall[] = LEVEL_2_WALLS
 
 const LEVEL_6_MONSTERS: MonsterData[] = [
-  { id: 'trapsprite-1', name: 'Trap Sprite', maxHp: 125, color: '#e8c78f', attackDamage: 21, attackInterval: 1.4, position: [0, 0.5, -5], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
-  { id: 'cursedwisp-1', name: 'Cursed Wisp', maxHp: 105, color: '#7a2f2f', attackDamage: 23, attackInterval: 0.85, position: [0, 0.5, -19], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
-  { id: 'brokengolem-1', name: 'Broken Golem', maxHp: 210, color: '#5a5248', attackDamage: 28, attackInterval: 1.2, position: [0, 0.5, -33], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
+  { id: 'trapsprite-1', name: 'Trap Sprite', maxHp: 125, color: '#e8c78f', attackDamage: 21, attackInterval: 10, position: [0, 0.5, -5], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
+  { id: 'cursedwisp-1', name: 'Cursed Wisp', maxHp: 105, color: '#7a2f2f', attackDamage: 23, attackInterval: 10, position: [0, 0.5, -19], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
+  { id: 'brokengolem-1', name: 'Broken Golem', maxHp: 210, color: '#5a5248', attackDamage: 28, attackInterval: 10, position: [0, 0.5, -33], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
 
-  { id: 'cursedknight-1', name: 'Cursed Knight', maxHp: 155, color: '#3a2a2a', attackDamage: 24, attackInterval: 1.5, position: [-5, 0.5, -11], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
-  { id: 'cursedknight-2', name: 'Fallen Knight', maxHp: 155, color: '#2a1a1a', attackDamage: 24, attackInterval: 1.5, position: [-7, 0.5, -14], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
+  { id: 'cursedknight-1', name: 'Cursed Knight', maxHp: 155, color: '#3a2a2a', attackDamage: 24, attackInterval: 10, position: [-5, 0.5, -11], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
+  { id: 'cursedknight-2', name: 'Fallen Knight', maxHp: 155, color: '#2a1a1a', attackDamage: 24, attackInterval: 10, position: [-7, 0.5, -14], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
 
-  { id: 'trapsprite-2', name: 'Snare Sprite', maxHp: 125, color: '#e8a76f', attackDamage: 21, attackInterval: 1.4, position: [5, 0.5, -23], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
-  { id: 'cursedwisp-2', name: 'Hex Wisp', maxHp: 105, color: '#8a3f3f', attackDamage: 23, attackInterval: 0.85, position: [7, 0.5, -26], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
+  { id: 'trapsprite-2', name: 'Snare Sprite', maxHp: 125, color: '#e8a76f', attackDamage: 21, attackInterval: 10, position: [5, 0.5, -23], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
+  { id: 'cursedwisp-2', name: 'Hex Wisp', maxHp: 105, color: '#8a3f3f', attackDamage: 23, attackInterval: 10, position: [7, 0.5, -26], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
 
-  { id: 'brokengolem-2', name: 'Shattered Golem', maxHp: 210, color: '#4a4238', attackDamage: 28, attackInterval: 1.2, position: [-4, 0.5, -45], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
-  { id: 'glitchwyrm-1', name: 'Glitch Wyrm', maxHp: 430, color: '#ff2e63', attackDamage: 42, attackInterval: 1.0, position: [4, 0.5, -46], armor: 0, imageUrl: '/monsters/glitchwyrm_attack.svg' },
+  { id: 'brokengolem-2', name: 'Shattered Golem', maxHp: 210, color: '#4a4238', attackDamage: 28, attackInterval: 10, position: [-4, 0.5, -45], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
+  { id: 'glitchwyrm-1', name: 'Glitch Wyrm', maxHp: 430, color: '#ff2e63', attackDamage: 42, attackInterval: 10, position: [4, 0.5, -46], armor: 0, imageUrl: '/monsters/glitchwyrm_attack.svg' },
 
-  { id: 'cursedwisp-3', name: 'Blight Wisp', maxHp: 105, color: '#a34f4f', attackDamage: 23, attackInterval: 0.85, position: [-10, 0.5, -45], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
+  { id: 'cursedwisp-3', name: 'Blight Wisp', maxHp: 105, color: '#a34f4f', attackDamage: 23, attackInterval: 10, position: [-10, 0.5, -45], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
 ]
 
 const LEVEL_6_PICKUPS: PickupData[] = [

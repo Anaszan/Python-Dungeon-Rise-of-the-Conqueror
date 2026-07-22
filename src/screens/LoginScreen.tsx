@@ -1,41 +1,43 @@
 import { useState, type FormEvent } from 'react'
 import { useAuthStore } from '../auth/authStore'
-import { EyeIcon, EyeOffIcon, LockIcon, MailIcon, PhoneIcon, SparkIcon, UserIcon } from './AuthIcons'
+import { PASSWORD_RE, PASSWORD_HINT } from '../auth/passwordRules'
+import { EyeIcon, EyeOffIcon, GoogleIcon, LockIcon, MailIcon, SparkIcon } from './AuthIcons'
 
 const REMEMBER_KEY = 'pd-remember-identifier'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export function LoginScreen({ onBack }: { onBack: () => void }) {
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn')
-  const [identifier, setIdentifier] = useState(() => localStorage.getItem(REMEMBER_KEY) ?? '')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [nickname, setNickname] = useState('')
+  const [email, setEmail] = useState(() => localStorage.getItem(REMEMBER_KEY) ?? '')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [remember, setRemember] = useState(() => Boolean(localStorage.getItem(REMEMBER_KEY)))
-  const { signIn, signUp, resetPassword, loading, error, notice } = useAuthStore()
+  const { signIn, signUp, signInWithGoogle, resetPassword, loading, error, notice } = useAuthStore()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (remember) {
-      localStorage.setItem(REMEMBER_KEY, identifier)
+      localStorage.setItem(REMEMBER_KEY, email)
     } else {
       localStorage.removeItem(REMEMBER_KEY)
     }
     if (mode === 'signIn') {
-      signIn(identifier, password)
-    } else {
-      signUp(email, password, nickname, phone)
+      signIn(email, password)
+      return
     }
+    if (!PASSWORD_RE.test(password)) {
+      useAuthStore.setState({ error: PASSWORD_HINT, notice: null })
+      return
+    }
+    signUp(email, password)
   }
 
   const handleForgotPassword = () => {
-    if (!EMAIL_RE.test(identifier)) {
+    if (!EMAIL_RE.test(email)) {
       useAuthStore.setState({ error: 'กรอกอีเมลของคุณในช่องด้านบนก่อนเพื่อรีเซ็ตรหัสผ่าน', notice: null })
       return
     }
-    resetPassword(identifier)
+    resetPassword(email)
   }
 
   return (
@@ -52,79 +54,32 @@ export function LoginScreen({ onBack }: { onBack: () => void }) {
           {mode === 'signIn' ? 'ยินดีต้อนรับกลับสู่ Python Dungeon' : 'เข้าร่วมการผจญภัยแห่ง Python'}
         </p>
 
-        {mode === 'signIn' ? (
-          <div className="auth-field">
-            <label htmlFor="auth-identifier">อีเมล / เบอร์โทร / ชื่อเล่น</label>
-            <div className="auth-input-wrapper">
-              <span className="auth-input-icon">
-                <UserIcon />
-              </span>
-              <input
-                id="auth-identifier"
-                type="text"
-                placeholder="กรอกอีเมล เบอร์โทร หรือชื่อเล่น"
-                autoComplete="username"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                required
-              />
-            </div>
+        <button type="button" className="auth-oauth-btn" onClick={() => signInWithGoogle()} disabled={loading}>
+          <GoogleIcon />
+          เข้าสู่ระบบด้วย Google
+        </button>
+
+        <div className="auth-divider">
+          <span>หรือ</span>
+        </div>
+
+        <div className="auth-field">
+          <label htmlFor="auth-email">อีเมล</label>
+          <div className="auth-input-wrapper">
+            <span className="auth-input-icon">
+              <MailIcon />
+            </span>
+            <input
+              id="auth-email"
+              type="email"
+              placeholder="username@example.com"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        ) : (
-          <>
-            <div className="auth-field">
-              <label htmlFor="auth-email">อีเมล</label>
-              <div className="auth-input-wrapper">
-                <span className="auth-input-icon">
-                  <MailIcon />
-                </span>
-                <input
-                  id="auth-email"
-                  type="email"
-                  placeholder="username@example.com"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="auth-field">
-              <label htmlFor="auth-phone">เบอร์โทร</label>
-              <div className="auth-input-wrapper">
-                <span className="auth-input-icon">
-                  <PhoneIcon />
-                </span>
-                <input
-                  id="auth-phone"
-                  type="tel"
-                  placeholder="08x-xxx-xxxx"
-                  autoComplete="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="auth-field">
-              <label htmlFor="auth-nickname">ชื่อเล่น</label>
-              <div className="auth-input-wrapper">
-                <span className="auth-input-icon">
-                  <UserIcon />
-                </span>
-                <input
-                  id="auth-nickname"
-                  type="text"
-                  placeholder="ตั้งชื่อเล่นของเจ้า"
-                  autoComplete="nickname"
-                  value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-          </>
-        )}
+        </div>
 
         <div className="auth-field">
           <label htmlFor="auth-password">รหัสผ่าน</label>
@@ -139,7 +94,7 @@ export function LoginScreen({ onBack }: { onBack: () => void }) {
               autoComplete={mode === 'signIn' ? 'current-password' : 'new-password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              minLength={6}
+              minLength={8}
               required
             />
             <button
@@ -151,6 +106,7 @@ export function LoginScreen({ onBack }: { onBack: () => void }) {
               {showPassword ? <EyeOffIcon /> : <EyeIcon />}
             </button>
           </div>
+          {mode === 'signUp' && <p className="auth-password-hint">{PASSWORD_HINT}</p>}
         </div>
 
         <div className="auth-row">

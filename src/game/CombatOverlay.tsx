@@ -18,6 +18,7 @@ export function CombatOverlay() {
   const attackPower = useGameStore((s) => s.attackPower)
   const skillCooldown = useGameStore((s) => s.skillCooldown)
   const attackCooldown = useGameStore((s) => s.attackCooldown)
+  const monsterAttackCountdown = useGameStore((s) => s.monsterAttackCountdown)
   const characterClass = useGameStore((s) => s.characterClass) ?? DEFAULT_CHARACTER_CLASS
   const skinColor = useGameStore((s) => s.skinColor)
   const damageMonster = useGameStore((s) => s.damageMonster)
@@ -102,6 +103,20 @@ export function CombatOverlay() {
         <p className="combat-player-hp">
           เลือดคุณ: {playerHp} / {PLAYER_MAX_HP}
         </p>
+
+        {!defeated && (
+          <div className="monster-attack-timer">
+            <p className="monster-attack-timer-label">
+              {monster.name} จะโจมตีในอีก {Math.ceil(monsterAttackCountdown)} วินาที
+            </p>
+            <div className="monster-attack-timer-track">
+              <div
+                className="monster-attack-timer-fill"
+                style={{ width: `${Math.max(0, Math.min(100, (monsterAttackCountdown / monster.attackInterval) * 100))}%` }}
+              />
+            </div>
+          </div>
+        )}
 
         {defeated ? (
           <>

@@ -5,6 +5,7 @@ import { CombatOverlay } from './game/CombatOverlay'
 import { LandingPage } from './screens/LandingPage'
 import { StoryIntro } from './screens/StoryIntro'
 import { LoginScreen } from './screens/LoginScreen'
+import { ResetPasswordScreen } from './screens/ResetPasswordScreen'
 import { CharacterCustomize } from './screens/CharacterCustomize'
 import { ChapterIntro } from './screens/ChapterIntro'
 import { Leaderboard } from './screens/Leaderboard'
@@ -24,7 +25,7 @@ function App() {
   const [pastLanding, setPastLanding] = useState(false)
   const [pastIntro, setPastIntro] = useState(false)
   const [chapterIntroSeenFor, setChapterIntroSeenFor] = useState<number | null>(null)
-  const { session, loading } = useAuthStore()
+  const { session, loading, passwordRecovery } = useAuthStore()
   const hydrateSave = useGameStore((s) => s.hydrateSave)
   const resetSave = useGameStore((s) => s.resetSave)
   const saveLoaded = useGameStore((s) => s.saveLoaded)
@@ -44,7 +45,13 @@ function App() {
   let showSoundToggle = false
   let playMenuMusic = false
 
-  if (!pastLanding) {
+  if (passwordRecovery) {
+    // Overrides every other screen: the user got here via the "reset
+    // password" email link, which signs them into a recovery session before
+    // they've set a new password — the rest of the app must wait for that.
+    content = <ResetPasswordScreen />
+    playMenuMusic = true
+  } else if (!pastLanding) {
     content = <LandingPage loading={loading} onEnter={() => setPastLanding(true)} />
     playMenuMusic = true
   } else if (!session) {
