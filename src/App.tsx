@@ -11,6 +11,7 @@ import { ChapterIntro } from './screens/ChapterIntro'
 import { Leaderboard } from './screens/Leaderboard'
 import { LogoutButton } from './screens/LogoutButton'
 import { PlayerHUD } from './screens/PlayerHUD'
+import { TouchJoystick } from './game/TouchJoystick'
 import { LevelBanner } from './screens/LevelBanner'
 import { GameOverOverlay } from './screens/GameOverOverlay'
 import { GameAudio } from './audio/GameAudio'
@@ -91,6 +92,7 @@ function App() {
           <GameScene />
         </Canvas>
         <PlayerHUD />
+        <TouchJoystick />
         <LevelBanner />
         <CombatOverlay />
         <GameOverOverlay />

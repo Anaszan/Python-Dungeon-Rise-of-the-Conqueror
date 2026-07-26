@@ -1179,6 +1179,40 @@ canvas {
   color: var(--parchment-dim);
 }
 
+.touch-joystick-base {
+  /* Hidden by default: this is a thumb control for touchscreens, and would
+     just be dead space overlapping the scene on a mouse-driven desktop. */
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .touch-joystick-base {
+    position: fixed;
+    left: calc(24px + env(safe-area-inset-left));
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--wood-light) 0%, var(--wood) 70%);
+    border: 1px solid var(--gold-dim);
+    touch-action: none;
+  }
+}
+
+.touch-joystick-knob {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--gold-bright), var(--gold-dim));
+  border: 1px solid var(--gold);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
 .sound-toggle {
   position: fixed;
   right: calc(16px + env(safe-area-inset-right));

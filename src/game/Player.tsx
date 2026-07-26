@@ -2,6 +2,7 @@ import { useRef, type RefObject } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useKeyboardMap } from './useKeyboardMap'
+import { touchMoveState } from './TouchJoystick'
 import { PLAYER_SPEED } from './constants'
 import { isWalkable, type Region } from './dungeon'
 import { useGameStore } from './store'
@@ -33,8 +34,12 @@ export function Player({
     if (useGameStore.getState().phase !== 'exploring') return
 
     const m = move.current
-    dir.current.set((m.right ? 1 : 0) - (m.left ? 1 : 0), 0, (m.backward ? 1 : 0) - (m.forward ? 1 : 0))
-    const moving = dir.current.lengthSq() > 0
+    dir.current.set(
+      (m.right ? 1 : 0) - (m.left ? 1 : 0) + touchMoveState.x,
+      0,
+      (m.backward ? 1 : 0) - (m.forward ? 1 : 0) + touchMoveState.z,
+    )
+    const moving = dir.current.lengthSq() > 0.0001
 
     if (moving) {
       dir.current.normalize()
