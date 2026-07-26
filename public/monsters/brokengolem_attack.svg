@@ -1,0 +1,54 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bkStone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9a9488"/>
+      <stop offset="50%" stop-color="#5a5248"/>
+      <stop offset="100%" stop-color="#2a2620"/>
+    </linearGradient>
+    <radialGradient id="bkGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff2e63" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff2e63" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bkShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bkSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0a0a08" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="450" rx="145" ry="24" fill="url(#bkShadow)"/>
+
+  <g filter="url(#bkSoft)">
+    <rect x="195" y="345" width="45" height="100" rx="5" fill="url(#bkStone)"/>
+    <rect x="265" y="345" width="45" height="100" rx="5" fill="url(#bkStone)"/>
+
+    <path d="M180 235 L200 220 L310 220 L325 240 L318 350 L185 350 Z" fill="url(#bkStone)"/>
+    <path d="M195 245 L235 240 L232 275 L192 278 Z" fill="#2a2620" opacity="0.6"/>
+    <path d="M270 240 L308 244 L305 276 L266 274 Z" fill="#2a2620" opacity="0.6"/>
+
+    <path d="M170 240 C155 260 150 285 158 310 L178 300 C173 280 176 260 188 246 Z" fill="url(#bkStone)"/>
+    <path d="M330 240 C345 260 350 285 342 310 L322 300 C327 280 324 260 312 246 Z" fill="url(#bkStone)"/>
+
+    <path d="M205 155 L295 155 L300 220 L200 220 Z" fill="url(#bkStone)"/>
+    <path d="M200 175 L300 172" stroke="#12100c" stroke-width="4" opacity="0.5"/>
+
+    <!-- glowing cracked eye-core, unstable -->
+    <circle cx="250" cy="195" r="26" fill="url(#bkGlow)">
+      <animate attributeName="r" values="18;30;18" dur="0.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="0.5s" repeatCount="indefinite"/>
+    </circle>
+    <path d="M225 175 L250 195 L228 215 M275 175 L250 195 L272 215" stroke="#12100c" stroke-width="3" fill="none"/>
+
+    <!-- floating broken chunks -->
+    <rect x="130" y="180" width="18" height="18" fill="url(#bkStone)" transform="rotate(20 139 189)">
+      <animate attributeName="y" values="180;172;180" dur="1.4s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="352" y="200" width="14" height="14" fill="url(#bkStone)" transform="rotate(-15 359 207)">
+      <animate attributeName="y" values="200;190;200" dur="1.7s" repeatCount="indefinite"/>
+    </rect>
+
+    <path d="M315 265 C340 250 358 228 370 200 L392 210 C378 240 356 265 328 285 Z" fill="url(#bkStone)"/>
+  </g>
+</svg>

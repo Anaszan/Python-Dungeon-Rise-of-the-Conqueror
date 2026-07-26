@@ -1,0 +1,130 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="brSkin" cx="35%" cy="25%" r="90%">
+      <stop offset="0%" stop-color="#6bae4a"/>
+      <stop offset="45%" stop-color="#3a7a26"/>
+      <stop offset="100%" stop-color="#1f4a12"/>
+    </radialGradient>
+    <radialGradient id="brSkinDark" cx="35%" cy="25%" r="90%">
+      <stop offset="0%" stop-color="#4f8c34"/>
+      <stop offset="50%" stop-color="#2c5c1a"/>
+      <stop offset="100%" stop-color="#14300a"/>
+    </radialGradient>
+    <linearGradient id="brLeather" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8a5a30"/>
+      <stop offset="100%" stop-color="#4a2f16"/>
+    </linearGradient>
+    <linearGradient id="brStone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8b4ac"/>
+      <stop offset="100%" stop-color="#787468"/>
+    </linearGradient>
+    <radialGradient id="brShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="brDust" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9bc94" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c9bc94" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="brSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#0a1505" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="465" rx="150" ry="26" fill="url(#brShadow)"/>
+
+  <!-- dust clouds kicked up at the feet -->
+  <ellipse cx="170" cy="450" rx="42" ry="16" fill="url(#brDust)"/>
+  <ellipse cx="300" cy="458" rx="50" ry="18" fill="url(#brDust)"/>
+  <ellipse cx="230" cy="440" rx="30" ry="12" fill="url(#brDust)"/>
+
+  <g filter="url(#brSoft)">
+    <!-- thick short legs, wide stance -->
+    <path d="M195 375 C182 405 180 432 190 458 L228 458 C222 430 224 400 232 378 Z" fill="url(#brSkinDark)"/>
+    <path d="M270 378 C280 402 284 430 276 458 L238 458 C232 430 236 402 244 380 Z" fill="url(#brSkin)"/>
+    <path d="M188 456 L226 456 L230 468 L184 468 Z" fill="#0e2007"/>
+    <path d="M236 456 L274 456 L278 468 L232 468 Z" fill="#0e2007"/>
+
+    <!-- belt -->
+    <path d="M180 350 L320 348 L316 372 L184 374 Z" fill="url(#brLeather)"/>
+
+    <!-- barrel torso -->
+    <path d="M170 245 C155 290 158 335 185 365 C220 392 280 392 315 362
+             C338 332 336 288 320 245 C280 210 210 210 170 245 Z" fill="url(#brSkin)"/>
+
+    <!-- leather chest armor plate -->
+    <path d="M195 255 L305 250 L312 310 C280 328 220 328 188 310 Z" fill="url(#brLeather)"/>
+    <path d="M205 265 L295 262 L298 285 L202 288 Z" fill="#a06a3a" opacity="0.6"/>
+
+    <!-- scar across the chest -->
+    <path d="M215 270 L235 320" stroke="#7a2a20" stroke-width="4" stroke-linecap="round" opacity="0.75"/>
+
+    <!-- massive shoulders + pads -->
+    <ellipse cx="165" cy="230" rx="42" ry="46" fill="url(#brSkin)"/>
+    <ellipse cx="325" cy="228" rx="42" ry="46" fill="url(#brSkin)"/>
+    <ellipse cx="160" cy="205" rx="36" ry="20" fill="url(#brLeather)"/>
+    <ellipse cx="330" cy="203" rx="36" ry="20" fill="url(#brLeather)"/>
+
+    <!-- back arm braced -->
+    <path d="M150 260 C135 290 130 320 140 350 L172 348 C168 320 168 290 175 265 Z" fill="url(#brSkinDark)"/>
+
+    <!-- head, squarish jaw -->
+    <path d="M215 130 C250 118 288 132 298 168 C308 200 288 232 252 238
+             C214 240 186 214 190 178 C192 156 198 140 215 130 Z" fill="url(#brSkin)"/>
+
+    <!-- jaw underbite bump -->
+    <path d="M205 220 C225 236 265 236 288 218 C270 240 232 246 205 220 Z" fill="url(#brSkinDark)"/>
+
+    <!-- brow ridge, heavy and angry -->
+    <path d="M198 168 C215 155 240 152 258 160" stroke="#14300a" stroke-width="8" stroke-linecap="round" fill="none"/>
+
+    <!-- angry eyes -->
+    <ellipse cx="216" cy="180" rx="7" ry="5" fill="#ff3b25">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="266" cy="182" rx="7" ry="5" fill="#ff3b25">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <!-- tusks -->
+    <path d="M222 218 L216 194 L232 214 Z" fill="#efe9d8"/>
+    <path d="M260 218 L266 194 L250 214 Z" fill="#efe9d8"/>
+
+    <!-- scar across face -->
+    <path d="M244 150 L258 210" stroke="#7a2a20" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+
+    <!-- front arm raised high, gripping hammer handle -->
+    <path d="M300 235 C330 200 355 155 372 105 L406 118 C392 170 364 218 330 258 Z" fill="url(#brSkin)"/>
+  </g>
+
+  <!-- stone hammer, raised and swinging down -->
+  <g transform="translate(392,60) rotate(28)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-6;6;-6" dur="0.6s" repeatCount="indefinite"/>
+      <rect x="-12" y="0" width="24" height="150" rx="6" fill="#4a2f16"/>
+      <rect x="-16" y="140" width="32" height="16" rx="4" fill="#3a2410"/>
+      <rect x="-46" y="-46" width="92" height="70" rx="10" fill="url(#brStone)"/>
+      <rect x="-46" y="-46" width="92" height="20" fill="#e2ded4" opacity="0.4"/>
+      <rect x="-38" y="-20" width="20" height="14" fill="#5c5850" opacity="0.5"/>
+      <rect x="10" y="-8" width="18" height="14" fill="#5c5850" opacity="0.5"/>
+
+      <!-- impact burst at hammer head -->
+      <g transform="translate(0,-46)">
+        <path d="M0 -14 L4 -4 L15 -2 L7 6 L9 18 L0 11 L-9 18 L-7 6 L-15 -2 L-4 -4 Z" fill="#f2efe6" opacity="0.85">
+          <animateTransform attributeName="transform" type="scale" values="0.6;1.2;0.6" dur="0.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="0.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </g>
+  </g>
+
+  <!-- small stone chips flying off -->
+  <rect x="0" y="0" width="8" height="8" fill="#b8b4ac" opacity="0.8" transform="translate(370,50) rotate(20)">
+    <animateMotion path="M0,0 L-30,-20" dur="0.7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0" dur="0.7s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="0" y="0" width="6" height="6" fill="#787468" opacity="0.7" transform="translate(430,55) rotate(-15)">
+    <animateMotion path="M0,0 L28,-24" dur="0.8s" begin="0.15s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0" dur="0.8s" begin="0.15s" repeatCount="indefinite"/>
+  </rect>
+</svg>

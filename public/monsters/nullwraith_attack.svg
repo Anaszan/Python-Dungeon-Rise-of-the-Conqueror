@@ -1,0 +1,95 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="nwBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a3a42"/>
+      <stop offset="50%" stop-color="#161619"/>
+      <stop offset="100%" stop-color="#020203"/>
+    </linearGradient>
+    <radialGradient id="nwSmoke" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#9a9aa2"/>
+      <stop offset="100%" stop-color="#9a9aa2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nwShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nwSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="nwBlur"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <ellipse cx="250" cy="440" rx="120" ry="24" fill="url(#nwShadow)"/>
+
+  <!-- faint gray smoke aura -->
+  <ellipse cx="250" cy="260" rx="180" ry="200" fill="url(#nwSmoke)" opacity="0.25" filter="url(#nwBlur)">
+    <animate attributeName="rx" values="165;190;165" dur="2.4s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <g filter="url(#nwSoft)">
+    <!-- legs dissolving into smoke -->
+    <path d="M220 380 C210 410 208 435 214 458 C222 448 228 430 228 405 Z" fill="url(#nwBody)" opacity="0.75"/>
+    <path d="M270 380 C280 412 284 438 278 460 C270 448 264 428 264 405 Z" fill="url(#nwBody)" opacity="0.75"/>
+
+    <!-- torso, tall and gaunt humanoid shadow -->
+    <path d="M250 145
+             C285 150 305 185 300 225
+             C312 255 308 300 292 335
+             C300 360 292 385 270 395
+             C250 402 230 400 222 388
+             C205 375 200 350 208 325
+             C192 295 190 255 202 225
+             C198 185 215 150 250 145 Z"
+          fill="url(#nwBody)"/>
+
+    <!-- shoulders -->
+    <ellipse cx="215" cy="215" rx="20" ry="26" fill="url(#nwBody)"/>
+    <ellipse cx="288" cy="212" rx="20" ry="26" fill="url(#nwBody)"/>
+
+    <!-- head, smooth and featureless (no face) -->
+    <ellipse cx="250" cy="150" rx="34" ry="42" fill="url(#nwBody)"/>
+    <ellipse cx="240" cy="138" rx="14" ry="16" fill="#3a3a42" opacity="0.35"/>
+
+    <!-- reaching attack arm, clawed hand thrust forward -->
+    <path d="M296 245 C340 235 375 220 405 195 L420 210 C395 240 358 262 315 275 Z" fill="url(#nwBody)"/>
+    <path d="M405 192 L420 178 M414 202 L432 192 M418 216 L438 212" stroke="#020203" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- trailing far arm, hanging and dissolving -->
+    <path d="M212 250 C190 270 175 300 172 335 C185 322 200 300 212 275 Z" fill="url(#nwBody)" opacity="0.7"/>
+  </g>
+
+  <!-- trailing smoke tendrils rising off the shoulders -->
+  <g opacity="0.55">
+    <ellipse cx="205" cy="180" rx="18" ry="30" fill="url(#nwSmoke)" transform="rotate(-15 205 180)">
+      <animate attributeName="cy" values="185;165;185" dur="2s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="300" cy="175" rx="16" ry="26" fill="url(#nwSmoke)" transform="rotate(12 300 175)">
+      <animate attributeName="cy" values="180;158;180" dur="2.3s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- base wisps (body dissolves near the ground) -->
+  <g opacity="0.5">
+    <ellipse cx="220" cy="450" rx="26" ry="12" fill="url(#nwSmoke)"/>
+    <ellipse cx="265" cy="458" rx="30" ry="14" fill="url(#nwSmoke)"/>
+    <ellipse cx="290" cy="440" rx="20" ry="10" fill="url(#nwSmoke)"/>
+  </g>
+
+  <!-- monochrome impact burst at the claw tip -->
+  <g transform="translate(424,206)">
+    <path d="M0 -11 L3 -3 L12 -2 L5 5 L7 14 L0 8 L-7 14 L-5 5 L-12 -2 L-3 -3 Z" fill="#c8c8ce" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.2;0.6" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- fine ash particles drifting from the strike -->
+  <circle r="3" fill="#c8c8ce" opacity="0.7">
+    <animateMotion path="M424,206 L390,180" dur="0.9s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;0" dur="0.9s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="2.5" fill="#8a8a90" opacity="0.6">
+    <animateMotion path="M424,206 L400,235" dur="1s" begin="0.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0" dur="1s" begin="0.2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

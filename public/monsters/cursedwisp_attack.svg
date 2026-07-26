@@ -1,0 +1,54 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cwCore" cx="45%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#ff8a7a"/>
+      <stop offset="40%" stop-color="#a9302f"/>
+      <stop offset="100%" stop-color="#3a0a0a"/>
+    </radialGradient>
+    <radialGradient id="cwGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff5a3a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff5a3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cwShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="250" cy="410" rx="80" ry="16" fill="url(#cwShadow)"/>
+
+  <circle cx="250" cy="250" r="130" fill="url(#cwGlow)">
+    <animate attributeName="r" values="100;140;100" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.35;0.7;0.35" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <g>
+    <path d="M250 160 C180 165 145 215 155 265 C163 310 200 345 250 345
+             C300 345 337 310 345 265 C355 215 320 165 250 160 Z" fill="url(#cwCore)"/>
+
+    <!-- jagged fractured cracks -->
+    <path d="M200 190 L215 240 L195 260 L225 300" stroke="#12080a" stroke-width="4" fill="none" opacity="0.7"/>
+    <path d="M310 200 L292 245 L315 265 L285 305" stroke="#12080a" stroke-width="4" fill="none" opacity="0.7"/>
+
+    <path d="M215 250 L242 260 L215 268 Z" fill="#12080a"/>
+    <path d="M285 250 L258 260 L285 268 Z" fill="#12080a"/>
+    <ellipse cx="224" cy="259" rx="4" ry="4" fill="#ffcf8a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.6s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="276" cy="259" rx="4" ry="4" fill="#ffcf8a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.6s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <path d="M220 290 Q250 310 280 290 Q260 302 250 302 Q240 302 220 290 Z" fill="#1a0a0a"/>
+  </g>
+
+  <g transform="translate(150,200)">
+    <path d="M0 -10 L3 -3 L11 -2 L5 5 L6 13 L0 8 L-6 13 L-5 5 L-11 -2 L-3 -3 Z" fill="#ff8a7a" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.2;0.6" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <circle cx="360" cy="220" r="4" fill="#ff5a3a" opacity="0.7">
+    <animate attributeName="opacity" values="0.2;0.9;0.2" dur="1s" repeatCount="indefinite"/>
+  </circle>
+</svg>

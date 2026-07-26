@@ -1,0 +1,120 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="scSkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#d8f0a0"/>
+      <stop offset="45%" stop-color="#a8d95e"/>
+      <stop offset="100%" stop-color="#6a9c2e"/>
+    </radialGradient>
+    <radialGradient id="scSkinDark" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#bfe083"/>
+      <stop offset="50%" stop-color="#8ab84a"/>
+      <stop offset="100%" stop-color="#4f7a20"/>
+    </radialGradient>
+    <linearGradient id="scLeaf" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7dc23f"/>
+      <stop offset="100%" stop-color="#356b16"/>
+    </linearGradient>
+    <linearGradient id="scCloth" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c9b98a"/>
+      <stop offset="100%" stop-color="#8a7550"/>
+    </linearGradient>
+    <linearGradient id="scWood" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a06a3a"/>
+      <stop offset="100%" stop-color="#5c3a1e"/>
+    </linearGradient>
+    <linearGradient id="scMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8ecef"/>
+      <stop offset="50%" stop-color="#a6adb5"/>
+      <stop offset="100%" stop-color="#666e77"/>
+    </linearGradient>
+    <radialGradient id="scShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="scSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#16250a" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="460" rx="120" ry="22" fill="url(#scShadow)"/>
+
+  <!-- falling leaves drifting around -->
+  <g fill="url(#scLeaf)" opacity="0.75">
+    <ellipse cx="80" cy="120" rx="10" ry="5" transform="rotate(30 80 120)">
+      <animate attributeName="cy" values="110;135;110" dur="2.6s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="420" cy="90" rx="9" ry="4.5" transform="rotate(-20 420 90)">
+      <animate attributeName="cy" values="85;108;85" dur="2.2s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="70" cy="220" rx="8" ry="4" transform="rotate(60 70 220)">
+      <animate attributeName="cy" values="215;238;215" dur="2.9s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <g filter="url(#scSoft)">
+    <!-- back leg, slim -->
+    <path d="M218 355 C210 388 208 418 216 450 L240 450 C236 420 238 390 244 358 Z" fill="url(#scSkinDark)"/>
+    <path d="M214 448 L238 448 L240 458 L212 458 Z" fill="#3a2712"/>
+
+    <!-- front leg, lunging stance -->
+    <path d="M278 358 C290 390 296 418 288 450 L262 450 C259 420 262 392 267 360 Z" fill="url(#scSkin)"/>
+    <path d="M260 448 L286 448 L288 458 L257 458 Z" fill="#3a2712"/>
+
+    <!-- cloth wrap -->
+    <path d="M215 300 L295 296 C293 320 286 335 274 342 L228 342 C216 333 213 316 215 300 Z" fill="url(#scCloth)"/>
+
+    <!-- slim torso -->
+    <path d="M212 245 C202 275 206 305 222 328 C242 346 272 346 288 326
+             C302 304 300 274 288 246 C266 226 232 224 212 245 Z" fill="url(#scSkin)"/>
+
+    <!-- satchel bag on the side -->
+    <rect x="290" y="270" width="34" height="42" rx="6" fill="url(#scCloth)" transform="rotate(8 307 291)"/>
+    <path d="M228 250 L300 285" stroke="#5c4a2a" stroke-width="4" fill="none" opacity="0.7"/>
+
+    <!-- head, slim -->
+    <path d="M228 150 C262 144 292 164 294 198 C296 228 274 250 246 250
+             C216 249 197 226 199 196 C200 172 209 156 228 150 Z" fill="url(#scSkin)"/>
+
+    <!-- pointed ears -->
+    <path d="M200 178 C170 164 148 168 138 184 C160 196 183 200 204 198 Z" fill="url(#scSkin)"/>
+    <path d="M292 176 C318 160 340 163 353 178 C334 192 311 198 289 197 Z" fill="url(#scSkin)"/>
+
+    <!-- leaf hat: dome + fanned leaves -->
+    <ellipse cx="248" cy="140" rx="58" ry="26" fill="url(#scLeaf)"/>
+    <path d="M200 138 C205 108 225 90 246 90 C232 108 220 124 214 145 Z" fill="url(#scLeaf)"/>
+    <path d="M248 88 C250 62 258 44 270 36 C266 62 262 84 260 108 Z" fill="#8fd950"/>
+    <path d="M262 96 C278 78 298 70 316 74 C300 90 284 104 270 116 Z" fill="url(#scLeaf)"/>
+
+    <!-- sharp narrow eyes -->
+    <path d="M212 200 L236 207 L212 213 Z" fill="#1a2408"/>
+    <path d="M284 200 L260 207 L284 213 Z" fill="#1a2408"/>
+
+    <!-- small nose -->
+    <path d="M242 212 C246 218 246 223 242 226 C248 228 254 226 256 221 C253 215 248 212 242 212 Z" fill="#4f7a20" opacity="0.5"/>
+
+    <!-- thin mouth, focused expression -->
+    <path d="M222 232 Q248 240 274 232" stroke="#2c4010" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- back arm gripping spear shaft near hip -->
+    <path d="M296 255 C310 245 322 240 334 242 C328 254 320 264 308 270 Z" fill="url(#scSkinDark)"/>
+
+    <!-- front arm thrust forward gripping the spear -->
+    <path d="M290 232 C325 218 358 198 388 172 L400 186 C374 214 342 236 306 252 Z" fill="url(#scSkin)"/>
+  </g>
+
+  <!-- wooden spear thrust forward -->
+  <g transform="translate(190,208) rotate(-14)">
+    <rect x="-260" y="-8" width="330" height="14" rx="6" fill="url(#scWood)"/>
+    <rect x="55" y="-14" width="26" height="26" rx="4" fill="#5c3a1e"/>
+    <path d="M78 -18 L150 0 L78 18 Z" fill="url(#scMetal)"/>
+    <path d="M80 -8 L130 0 L80 8 Z" fill="#ffffff" opacity="0.5"/>
+  </g>
+
+  <!-- impact burst at spear tip -->
+  <g transform="translate(320,164)">
+    <path d="M0 -10 L3 -3 L11 -2 L5 5 L6 13 L0 8 L-6 13 L-5 5 L-11 -2 L-3 -3 Z" fill="#eafce0" opacity="0.85">
+      <animateTransform attributeName="transform" type="scale" values="0.6;1.15;0.6" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.95;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

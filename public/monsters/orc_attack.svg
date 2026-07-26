@@ -1,0 +1,66 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="orcSkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#a8c97a"/>
+      <stop offset="50%" stop-color="#6f8f42"/>
+      <stop offset="100%" stop-color="#3d5522"/>
+    </radialGradient>
+    <linearGradient id="orcLeather" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7a5228"/>
+      <stop offset="100%" stop-color="#3a2612"/>
+    </linearGradient>
+    <linearGradient id="orcAxe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8ecef"/>
+      <stop offset="50%" stop-color="#a6adb5"/>
+      <stop offset="100%" stop-color="#565e66"/>
+    </linearGradient>
+    <radialGradient id="orcShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="orcSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0e1a08" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="460" rx="140" ry="24" fill="url(#orcShadow)"/>
+
+  <g filter="url(#orcSoft)">
+    <path d="M205 350 C192 388 190 420 202 452 L240 452 C234 420 236 386 246 356 Z" fill="url(#orcSkin)"/>
+    <path d="M290 355 C304 390 310 420 300 452 L262 452 C258 420 262 388 270 358 Z" fill="url(#orcSkin)"/>
+
+    <path d="M200 235 C188 275 195 315 218 342 C248 365 290 362 310 335
+             C328 308 325 268 308 235 C280 210 232 208 200 235 Z" fill="url(#orcSkin)"/>
+    <path d="M210 250 L300 245 L305 280 L206 285 Z" fill="url(#orcLeather)"/>
+
+    <ellipse cx="225" cy="240" rx="26" ry="20" fill="url(#orcLeather)" transform="rotate(-12 225 240)"/>
+
+    <path d="M222 140 C265 132 305 155 308 198 C310 235 282 265 248 265
+             C210 263 186 232 189 195 C190 165 200 148 222 140 Z" fill="url(#orcSkin)"/>
+
+    <path d="M190 172 C155 152 128 158 115 178 C142 195 170 200 196 197 Z" fill="url(#orcSkin)"/>
+    <path d="M300 168 C332 148 360 152 375 172 C350 188 322 195 296 192 Z" fill="url(#orcSkin)"/>
+
+    <path d="M205 195 C220 184 238 182 252 190" stroke="#2e4014" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M262 190 C276 182 292 184 305 195" stroke="#2e4014" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M210 205 L238 214 L210 222 Z" fill="#150f06"/>
+    <path d="M292 205 L264 214 L292 222 Z" fill="#150f06"/>
+    <ellipse cx="220" cy="213" rx="3.5" ry="3.5" fill="#ff5a3a"/>
+    <ellipse cx="282" cy="213" rx="3.5" ry="3.5" fill="#ff5a3a"/>
+
+    <path d="M212 240 Q250 265 292 240 Q268 254 250 254 Q232 254 212 240 Z" fill="#12200a"/>
+    <path d="M224 240 L231 254 L239 240 Z" fill="#eee7d0"/>
+    <path d="M263 240 L271 254 L278 240 Z" fill="#eee7d0"/>
+
+    <path d="M298 262 C325 245 348 222 365 194 L390 205 C374 236 349 262 316 282 Z" fill="url(#orcSkin)"/>
+  </g>
+
+  <g transform="translate(392,150) rotate(35)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-8;8;-8" dur="0.55s" repeatCount="indefinite"/>
+      <rect x="-10" y="0" width="20" height="60" rx="4" fill="#3a2612"/>
+      <path d="M-40 -50 C-45 -85 -15 -95 15 -85 C40 -75 40 -45 15 -30 C-10 -15 -35 -20 -40 -50 Z" fill="url(#orcAxe)"/>
+      <path d="M-25 -55 C-28 -75 -5 -82 12 -74" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.5"/>
+    </g>
+  </g>
+</svg>

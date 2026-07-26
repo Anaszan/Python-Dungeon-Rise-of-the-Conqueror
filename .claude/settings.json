@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f debug.html src/debugMain.tsx repro.mjs repro2.mjs repro3.mjs after-restart.png)",
+      "Bash(rm -rf \"C:\\\\Users\\\\Teerapat\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--project-end\\\\294771bc-9c88-4c83-a765-539ebcdd219e\\\\scratchpad\\\\repro.mjs\")",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "Bash(npx --yes playwright install chromium)",
+      "Read(//c//**)",
+      "Bash(npm config *)"
+    ]
+  }
+}

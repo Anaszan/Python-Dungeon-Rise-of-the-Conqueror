@@ -1,0 +1,65 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gwBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6a8f"/>
+      <stop offset="50%" stop-color="#ff2e63"/>
+      <stop offset="100%" stop-color="#7a0a2a"/>
+    </linearGradient>
+    <linearGradient id="gwCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7afff0"/>
+      <stop offset="100%" stop-color="#0aa090"/>
+    </linearGradient>
+    <radialGradient id="gwShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="250" cy="450" rx="150" ry="24" fill="url(#gwShadow)"/>
+
+  <g>
+    <!-- serpentine glitch-fragmented body, offset RGB-split slices -->
+    <path d="M120 350 C160 320 150 270 190 250 C230 230 220 180 260 165
+             C300 150 300 110 340 100" stroke="url(#gwBody)" stroke-width="46" fill="none" stroke-linecap="round"/>
+    <path d="M120 350 C160 320 150 270 190 250 C230 230 220 180 260 165
+             C300 150 300 110 340 100" stroke="url(#gwCyan)" stroke-width="46" fill="none" stroke-linecap="round" opacity="0.35" transform="translate(6,-4)">
+      <animate attributeName="transform" values="translate(6,-4);translate(-8,5);translate(6,-4)" dur="0.25s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- glitch-displaced segment blocks -->
+    <rect x="150" y="290" width="34" height="20" fill="#7afff0" opacity="0.6">
+      <animate attributeName="x" values="150;165;140;150" dur="0.3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="240" y="205" width="30" height="18" fill="#ff2e63" opacity="0.7">
+      <animate attributeName="x" values="240;255;225;240" dur="0.25s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="300" y="130" width="26" height="16" fill="#7afff0" opacity="0.6">
+      <animate attributeName="x" values="300;315;288;300" dur="0.35s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- head -->
+    <path d="M340 100 C365 85 395 90 405 115 C415 140 395 165 365 165
+             C345 165 330 145 328 125 Z" fill="url(#gwBody)"/>
+    <path d="M355 120 L378 128 L355 136 Z" fill="#12000a"/>
+    <ellipse cx="362" cy="128" rx="3.5" ry="3.5" fill="#7afff0">
+      <animate attributeName="opacity" values="0.5;1;0.2;1;0.5" dur="0.4s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <!-- jagged fanged jaw -->
+    <path d="M370 145 L410 155 L372 158 Z" fill="#12000a"/>
+    <path d="M375 148 L380 158 L385 148 Z" fill="#f2f2f2"/>
+    <path d="M392 151 L397 159 L402 151 Z" fill="#f2f2f2"/>
+
+    <!-- trailing corruption particles -->
+    <rect x="95" y="360" width="12" height="12" fill="#ff2e63" opacity="0.7">
+      <animate attributeName="opacity" values="0.8;0.1;0.8" dur="0.3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="80" y="340" width="8" height="8" fill="#7afff0" opacity="0.6">
+      <animate attributeName="opacity" values="0.7;0.1;0.7" dur="0.25s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <ellipse cx="410" cy="120" rx="16" ry="10" fill="#ffffff" opacity="0.85">
+    <animate attributeName="opacity" values="0.4;0.95;0.4" dur="0.35s" repeatCount="indefinite"/>
+  </ellipse>
+</svg>

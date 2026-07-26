@@ -1,0 +1,65 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8f80c9"/>
+      <stop offset="50%" stop-color="#5a4f8a"/>
+      <stop offset="100%" stop-color="#2a2450"/>
+    </linearGradient>
+    <linearGradient id="skArmorDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a4270"/>
+      <stop offset="100%" stop-color="#1a1638"/>
+    </linearGradient>
+    <radialGradient id="skGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9b8ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c9b8ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="skSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a081a" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="450" rx="130" ry="22" fill="url(#skShadow)"/>
+
+  <g filter="url(#skSoft)">
+    <path d="M210 355 C198 390 195 420 205 450 L238 450 C233 420 236 388 245 358 Z" fill="url(#skArmorDark)"/>
+    <path d="M285 358 C298 392 305 420 296 450 L262 450 C258 420 262 390 268 360 Z" fill="url(#skArmorDark)"/>
+
+    <path d="M205 240 C195 275 200 310 220 335 C245 355 285 355 305 330
+             C322 305 320 270 305 240 C280 218 235 216 205 240 Z" fill="url(#skArmor)"/>
+    <path d="M215 250 L295 245 L300 275 L210 282 Z" fill="url(#skArmorDark)"/>
+
+    <ellipse cx="230" cy="245" rx="24" ry="18" fill="url(#skArmor)" transform="rotate(-15 230 245)"/>
+    <ellipse cx="280" cy="245" rx="24" ry="18" fill="url(#skArmor)" transform="rotate(15 280 245)"/>
+
+    <!-- closed helm -->
+    <path d="M215 150 C218 120 282 120 285 150 C288 190 265 215 250 215
+             C235 215 212 190 215 150 Z" fill="url(#skArmorDark)"/>
+    <path d="M225 175 L235 195 L245 175 Z" fill="#000000"/>
+    <path d="M255 175 L265 195 L275 175 Z" fill="#000000"/>
+    <ellipse cx="235" cy="185" rx="3" ry="3" fill="#c9b8ff">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="265" cy="185" rx="3" ry="3" fill="#c9b8ff">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
+    <path d="M240 150 L235 120 L250 145 L265 120 L260 150 Z" fill="url(#skArmor)"/>
+
+    <path d="M295 260 C320 245 340 225 355 200 L378 210 C365 238 342 262 312 280 Z" fill="url(#skArmorDark)"/>
+  </g>
+
+  <g transform="translate(385,140) rotate(30)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-6;6;-6" dur="0.5s" repeatCount="indefinite"/>
+      <rect x="-8" y="0" width="16" height="34" rx="3" fill="#1a1638"/>
+      <path d="M-9 0 L9 0 L4 -145 L-4 -145 Z" fill="url(#skArmor)"/>
+      <path d="M-2 -6 L2 -6 L1 -138 L-1 -138 Z" fill="#e0d4ff" opacity="0.7"/>
+      <circle cy="-150" r="10" fill="url(#skGlow)">
+        <animate attributeName="r" values="8;14;8" dur="0.6s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+</svg>

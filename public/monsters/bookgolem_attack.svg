@@ -1,0 +1,63 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgBook" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9a8058"/>
+      <stop offset="50%" stop-color="#7a6a4f"/>
+      <stop offset="100%" stop-color="#4a3f2c"/>
+    </linearGradient>
+    <linearGradient id="bgPage" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f2e8c9"/>
+      <stop offset="100%" stop-color="#c9b98a"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd27a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffd27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bgShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bgSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#1a1408" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="450" rx="140" ry="22" fill="url(#bgShadow)"/>
+
+  <g filter="url(#bgSoft)">
+    <rect x="185" y="350" width="55" height="95" rx="6" fill="url(#bgBook)"/>
+    <rect x="260" y="350" width="55" height="95" rx="6" fill="url(#bgBook)"/>
+
+    <rect x="160" y="230" width="180" height="130" rx="10" fill="url(#bgBook)"/>
+    <rect x="170" y="240" width="70" height="110" rx="4" fill="url(#bgPage)" opacity="0.9"/>
+    <rect x="260" y="240" width="70" height="110" rx="4" fill="url(#bgPage)" opacity="0.9"/>
+    <line x1="250" y1="235" x2="250" y2="355" stroke="#4a3f2c" stroke-width="4"/>
+
+    <rect x="140" y="230" width="35" height="90" rx="6" fill="url(#bgBook)" transform="rotate(-15 157 275)"/>
+    <rect x="325" y="230" width="35" height="90" rx="6" fill="url(#bgBook)" transform="rotate(15 342 275)"/>
+
+    <!-- head: an open book -->
+    <path d="M195 160 L250 145 L305 160 L305 200 L250 215 L195 200 Z" fill="url(#bgBook)"/>
+    <path d="M200 165 L247 153 L247 205 L200 195 Z" fill="url(#bgPage)"/>
+    <path d="M300 165 L253 153 L253 205 L300 195 Z" fill="url(#bgPage)"/>
+    <line x1="210" y1="170" x2="240" y2="163" stroke="#7a6a4f" stroke-width="2" opacity="0.6"/>
+    <line x1="210" y1="180" x2="240" y2="174" stroke="#7a6a4f" stroke-width="2" opacity="0.6"/>
+
+    <!-- glowing rune eyes on the page -->
+    <circle cx="222" cy="182" r="6" fill="url(#bgGlow)">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="278" cy="182" r="6" fill="url(#bgGlow)">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- arm: a swinging tome -->
+    <path d="M320 280 C350 270 375 250 392 222 L410 235 C392 265 365 288 335 300 Z" fill="url(#bgBook)"/>
+  </g>
+
+  <g transform="translate(415,215) rotate(20)">
+    <animateTransform attributeName="transform" type="rotate" values="0;25;0" dur="0.5s" repeatCount="indefinite" additive="sum"/>
+    <rect x="-24" y="-32" width="48" height="64" rx="5" fill="url(#bgBook)"/>
+    <rect x="-18" y="-26" width="36" height="52" rx="3" fill="url(#bgPage)"/>
+  </g>
+</svg>

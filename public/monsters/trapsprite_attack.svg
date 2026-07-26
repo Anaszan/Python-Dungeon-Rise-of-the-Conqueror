@@ -1,0 +1,62 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="tsBody" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#fff0cf"/>
+      <stop offset="50%" stop-color="#e8c78f"/>
+      <stop offset="100%" stop-color="#a87f42"/>
+    </radialGradient>
+    <linearGradient id="tsMetal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8ecef"/>
+      <stop offset="50%" stop-color="#a6adb5"/>
+      <stop offset="100%" stop-color="#565e66"/>
+    </linearGradient>
+    <radialGradient id="tsShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tsSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#2a1a05" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="410" rx="90" ry="16" fill="url(#tsShadow)"/>
+
+  <g filter="url(#tsSoft)">
+    <!-- gear-cog wings -->
+    <g transform="translate(175,260)">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur="4s" repeatCount="indefinite" additive="sum"/>
+      <path d="M0 -40 L8 -38 L10 -25 L18 -20 L30 -25 L34 -18 L25 -8 L28 0 L38 6 L34 14 L22 12 L14 20 L18 32 L10 36 L2 26 L-8 28 L-12 38 L-20 34 L-16 22 L-26 16 L-38 20 L-40 12 L-30 4 L-32 -8 L-42 -14 L-36 -22 L-24 -18 L-16 -26 L-18 -38 L-8 -40 Z"
+        fill="url(#tsMetal)" opacity="0.85"/>
+    </g>
+    <g transform="translate(325,260)">
+      <animateTransform attributeName="transform" type="rotate" values="360;0" dur="4s" repeatCount="indefinite" additive="sum"/>
+      <path d="M0 -40 L8 -38 L10 -25 L18 -20 L30 -25 L34 -18 L25 -8 L28 0 L38 6 L34 14 L22 12 L14 20 L18 32 L10 36 L2 26 L-8 28 L-12 38 L-20 34 L-16 22 L-26 16 L-38 20 L-40 12 L-30 4 L-32 -8 L-42 -14 L-36 -22 L-24 -18 L-16 -26 L-18 -38 L-8 -40 Z"
+        fill="url(#tsMetal)" opacity="0.85"/>
+    </g>
+
+    <path d="M225 300 C215 330 225 355 250 365 C275 355 285 330 275 300
+             C265 280 235 280 225 300 Z" fill="url(#tsBody)"/>
+
+    <path d="M220 220 C220 195 280 195 280 220 C282 250 262 270 250 270 C238 270 218 250 220 220 Z" fill="url(#tsBody)"/>
+
+    <path d="M218 228 L240 236 L218 244 Z" fill="#5a3f10"/>
+    <path d="M282 228 L260 236 L282 244 Z" fill="#5a3f10"/>
+    <ellipse cx="226" cy="235" rx="3" ry="3" fill="#ffe14a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.7s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="274" cy="235" rx="3" ry="3" fill="#ffe14a">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="0.7s" repeatCount="indefinite"/>
+    </ellipse>
+    <path d="M235 250 Q250 258 265 250" stroke="#7a5a20" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- deployed bear-trap jaws snapping forward -->
+  <g transform="translate(340,300)">
+    <path d="M0 0 C20 -30 20 -60 0 -85 L15 -80 C32 -55 32 -25 15 5 Z" fill="url(#tsMetal)">
+      <animateTransform attributeName="transform" type="rotate" values="0;-25;0" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 0 C20 30 20 60 0 85 L15 80 C32 55 32 25 15 -5 Z" fill="url(#tsMetal)" transform="translate(0,0)">
+      <animateTransform attributeName="transform" type="rotate" values="0;25;0" dur="0.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

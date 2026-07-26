@@ -1,0 +1,61 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="toCover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a3f9a"/>
+      <stop offset="50%" stop-color="#3a2a66"/>
+      <stop offset="100%" stop-color="#180f30"/>
+    </linearGradient>
+    <linearGradient id="toPage" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8d8ff"/>
+      <stop offset="100%" stop-color="#9a80c9"/>
+    </linearGradient>
+    <radialGradient id="toGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a0ff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#c9a0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="toShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="toSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#0a0518" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="440" rx="150" ry="24" fill="url(#toShadow)"/>
+
+  <!-- floating tentacle-page fronds -->
+  <g filter="url(#toSoft)">
+    <path d="M170 260 C130 250 100 270 90 310 C120 300 150 290 175 285 Z" fill="url(#toPage)" opacity="0.85">
+      <animateTransform attributeName="transform" type="rotate" values="-4 130 290;4 130 290;-4 130 290" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M330 260 C370 250 400 270 410 310 C380 300 350 290 325 285 Z" fill="url(#toPage)" opacity="0.85">
+      <animateTransform attributeName="transform" type="rotate" values="4 370 290;-4 370 290;4 370 290" dur="2.2s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- open book body -->
+    <path d="M150 200 L250 175 L350 200 L350 350 L250 375 L150 350 Z" fill="url(#toCover)"/>
+    <path d="M160 210 L245 190 L245 358 L160 340 Z" fill="url(#toPage)"/>
+    <path d="M340 210 L255 190 L255 358 L340 340 Z" fill="url(#toPage)"/>
+    <line x1="200" y1="220" x2="235" y2="212" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+    <line x1="200" y1="240" x2="235" y2="232" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+    <line x1="200" y1="260" x2="235" y2="252" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+    <line x1="300" y1="220" x2="265" y2="212" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+    <line x1="300" y1="240" x2="265" y2="232" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+    <line x1="300" y1="260" x2="265" y2="252" stroke="#5a4a80" stroke-width="2" opacity="0.6"/>
+
+    <!-- glowing malevolent eye on the spine -->
+    <circle cx="250" cy="280" r="30" fill="url(#toGlow)">
+      <animate attributeName="r" values="24;36;24" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <ellipse cx="250" cy="280" rx="16" ry="20" fill="#12081f"/>
+    <ellipse cx="250" cy="280" rx="8" ry="12" fill="#ff2e63">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="0.8s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- swirling arcane runes -->
+  <text x="120" y="150" font-size="22" fill="#c9a0ff" opacity="0.6">✦</text>
+  <text x="360" y="140" font-size="18" fill="#c9a0ff" opacity="0.5">✧</text>
+  <text x="140" y="380" font-size="16" fill="#c9a0ff" opacity="0.5">✦</text>
+</svg>

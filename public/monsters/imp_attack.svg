@@ -1,0 +1,59 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="impSkin" cx="35%" cy="25%" r="85%">
+      <stop offset="0%" stop-color="#c8ec7a"/>
+      <stop offset="45%" stop-color="#7fbf3f"/>
+      <stop offset="100%" stop-color="#3f7a1c"/>
+    </radialGradient>
+    <linearGradient id="impWing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a2a5a" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#2a1030" stop-opacity="0.7"/>
+    </linearGradient>
+    <radialGradient id="impShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="impSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#0a2005" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="250" cy="430" rx="90" ry="18" fill="url(#impShadow)"/>
+
+  <g filter="url(#impSoft)">
+    <path d="M220 260 C170 250 150 300 160 340 L140 320 L150 355 L185 345 C195 365 215 375 240 375 Z" fill="url(#impWing)"/>
+    <path d="M280 260 C330 250 350 300 340 340 L360 320 L350 355 L315 345 C305 365 285 375 260 375 Z" fill="url(#impWing)"/>
+
+    <path d="M195 300 C185 340 195 375 225 390 L275 390 C305 375 315 340 305 300
+             C295 265 260 250 250 250 C240 250 205 265 195 300 Z" fill="url(#impSkin)"/>
+
+    <path d="M215 210 C218 185 282 185 285 210 C288 240 268 262 250 262
+             C232 262 212 238 215 210 Z" fill="url(#impSkin)"/>
+
+    <path d="M212 195 L192 155 L222 178 Z" fill="url(#impSkin)"/>
+    <path d="M288 195 L308 155 L278 178 Z" fill="url(#impSkin)"/>
+
+    <path d="M212 218 L235 226 L212 234 Z" fill="#12200a"/>
+    <path d="M288 218 L265 226 L288 234 Z" fill="#12200a"/>
+    <ellipse cx="221" cy="225" rx="3.5" ry="3.5" fill="#ffe14a">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="279" cy="225" rx="3.5" ry="3.5" fill="#ffe14a">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="0.9s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <path d="M222 240 Q250 258 278 240 Q260 250 250 250 Q240 250 222 240 Z" fill="#12200a"/>
+    <path d="M230 240 L235 250 L241 240 Z" fill="#f2efe0"/>
+    <path d="M259 240 L265 250 L270 240 Z" fill="#f2efe0"/>
+
+    <path d="M300 320 C325 305 345 285 358 262 L378 272 C363 298 340 320 312 338 Z" fill="url(#impSkin)"/>
+    <g transform="translate(382,255) rotate(30)">
+      <animateTransform attributeName="transform" type="rotate" values="10;40;10" dur="0.5s" repeatCount="indefinite" additive="sum"/>
+      <path d="M0 0 L6 -6 L2 -30 L-2 -30 L-6 -6 Z" fill="#e8ecef"/>
+      <path d="M0 0 L10 4 L10 -4 Z" fill="#a6adb5"/>
+    </g>
+
+    <path d="M225 385 Q210 410 190 405" stroke="#3f7a1c" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M190 405 L184 396 L182 410 Z" fill="#3f7a1c"/>
+  </g>
+</svg>
