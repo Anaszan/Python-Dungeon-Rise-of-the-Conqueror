@@ -1180,27 +1180,19 @@ canvas {
 }
 
 .touch-joystick-base {
-  /* Hidden by default: this is a thumb control for touchscreens, and would
-     just be dead space overlapping the scene on a mouse-driven desktop. */
-  display: none;
-}
-
-@media (pointer: coarse) {
-  .touch-joystick-base {
-    position: fixed;
-    left: calc(24px + env(safe-area-inset-left));
-    bottom: calc(24px + env(safe-area-inset-bottom));
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 104px;
-    height: 104px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--wood-light) 0%, var(--wood) 70%);
-    border: 1px solid var(--gold-dim);
-    touch-action: none;
-  }
+  position: fixed;
+  left: calc(24px + env(safe-area-inset-left));
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--wood-light) 0%, var(--wood) 70%);
+  border: 1px solid var(--gold-dim);
+  touch-action: none;
 }
 
 .touch-joystick-knob {
@@ -1429,6 +1421,17 @@ canvas {
   background: radial-gradient(circle at 50% 30%, #3a1512 0%, var(--wood-dark) 70%);
 }
 
+.victory-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: radial-gradient(circle at 50% 30%, #3a2f0a 0%, var(--wood-dark) 70%);
+}
+
+.victory-overlay h1 {
+  color: var(--gold-bright);
+}
+
 .customize-panel {
   width: 100%;
   min-height: 100%;
@@ -1487,6 +1490,38 @@ canvas {
   border-color: var(--gold-bright);
 }
 
+.customize-name-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gold-dim);
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--parchment-text);
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.customize-name-input:focus {
+  outline: none;
+  border-color: var(--arcane-bright);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.2);
+}
+
+.customize-name-status {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: var(--parchment-dim);
+}
+
+.customize-name-error {
+  color: var(--hp-red-bright);
+}
+
+.customize-name-ok {
+  color: var(--mana-bright);
+}
+
 .accessory-row {
   display: flex;
   gap: 10px;
@@ -1522,4 +1557,125 @@ canvas {
 
 .customize-confirm:hover {
   background: linear-gradient(180deg, var(--gold), var(--gold-dim));
+}
+
+.customize-confirm:disabled {
+  background: #4a4030;
+  color: #8a8270;
+  cursor: not-allowed;
+}
+
+.pause-btn {
+  position: fixed;
+  right: calc(64px + env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 60;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--gold-dim);
+  background: linear-gradient(160deg, var(--wood-light), var(--wood));
+  color: var(--parchment-text);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.pause-btn:hover {
+  border-color: var(--arcane-bright);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.15), 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+}
+
+.pause-panel {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.pause-logout-btn {
+  margin-top: 10px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--gold-dim);
+  background: none;
+  color: var(--parchment-dim);
+  cursor: pointer;
+  width: 100%;
+}
+
+.pause-logout-btn:hover {
+  border-color: var(--hp-red-bright);
+  color: var(--hp-red-bright);
+}
+
+.volume-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--parchment-dim);
+}
+
+.volume-row span {
+  flex: 0 0 100px;
+}
+
+.volume-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--arcane-bright);
+}
+
+.volume-mute-btn {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--gold-dim);
+  background: var(--wood-dark);
+  color: var(--parchment-text);
+  cursor: pointer;
+  font-size: 12.5px;
+}
+
+.volume-mute-btn:hover {
+  border-color: var(--arcane-bright);
+}
+
+.profile-editor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.profile-save-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--gold-dim);
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold-dim));
+  color: var(--wood-dark);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-save-btn:hover {
+  background: linear-gradient(180deg, var(--gold), var(--gold-dim));
+}
+
+.profile-save-btn:disabled {
+  background: #4a4030;
+  color: #8a8270;
+  cursor: not-allowed;
 }

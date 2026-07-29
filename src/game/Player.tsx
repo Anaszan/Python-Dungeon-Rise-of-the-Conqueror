@@ -31,7 +31,8 @@ export function Player({
   const skinColor = useGameStore((s) => s.skinColor)
 
   useFrame((_, delta) => {
-    if (useGameStore.getState().phase !== 'exploring') return
+    const state = useGameStore.getState()
+    if (state.phase !== 'exploring' || state.paused) return
 
     const m = move.current
     dir.current.set(

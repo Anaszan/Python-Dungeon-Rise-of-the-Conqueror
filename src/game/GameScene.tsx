@@ -23,6 +23,7 @@ export function GameScene() {
 
   useFrame(() => {
     const state = useGameStore.getState()
+    if (state.paused) return
 
     // Reposition the player back to the level's spawn point the instant a
     // restart or level-advance is observed, right here in the frame loop —

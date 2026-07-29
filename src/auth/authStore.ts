@@ -49,7 +49,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ error: null, notice: null, loading: true })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin },
+      options: {
+        redirectTo: window.location.origin,
+        // Without this, Google skips the account-chooser screen and silently
+        // signs back in with whichever account the browser already has an
+        // active Google session for — forcing it to always prompt.
+        queryParams: { prompt: 'select_account' },
+      },
     })
     // On success the browser navigates away to Google immediately, so this
     // only ever resolves here when the redirect itself failed to start.

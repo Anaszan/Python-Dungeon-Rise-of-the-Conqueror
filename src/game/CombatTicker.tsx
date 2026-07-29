@@ -19,7 +19,9 @@ export function CombatTicker() {
       attackCooldown,
       tickCooldowns,
       setMonsterAttackCountdown,
+      paused,
     } = useGameStore.getState()
+    if (paused) return
     if (skillCooldown > 0 || attackCooldown > 0) tickCooldowns(delta)
 
     if (phase !== 'combat' || !activeMonsterId) {

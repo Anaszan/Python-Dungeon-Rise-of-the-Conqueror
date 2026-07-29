@@ -13,7 +13,7 @@ export type CombatMonster = {
   attackInterval: number
 }
 
-type GamePhase = 'exploring' | 'combat' | 'gameover'
+type GamePhase = 'exploring' | 'combat' | 'gameover' | 'victory'
 
 type GameState = {
   phase: GamePhase
@@ -36,7 +36,13 @@ type GameState = {
   monsterAttackCountdown: number
   characterClass: CharacterClass | null
   skinColor: string
+  characterName: string | null
   saveLoaded: boolean
+  // Mid-game pause: freezes player movement, the combat attack timer, and
+  // exploration triggers (see the `paused` checks in Player.tsx, GameScene.tsx,
+  // and CombatTicker.tsx) without touching `phase`, so resuming drops the
+  // player back into exactly whatever exploring/combat state they paused in.
+  paused: boolean
 
   enterCombat: (monster: CombatMonster) => void
   damageMonster: (amount: number) => void
@@ -50,7 +56,8 @@ type GameState = {
   setMonsterAttackCountdown: (seconds: number) => void
   exitCombat: () => void
   clearFledMonster: () => void
-  confirmCharacter: (characterClass: CharacterClass, skinColor: string) => void
+  setPaused: (paused: boolean) => void
+  confirmCharacter: (characterClass: CharacterClass, skinColor: string, characterName: string) => void
   hydrateSave: (save: SaveData) => void
   resetSave: () => void
   restart: () => void
@@ -68,6 +75,7 @@ function persist() {
     skillCooldown,
     characterClass,
     skinColor,
+    characterName,
   } = useGameStore.getState()
   saveProgress(userId, {
     defeatedMonsterIds: [...defeatedIds],
@@ -78,6 +86,7 @@ function persist() {
     skillCooldown,
     characterClass,
     skinColor,
+    characterName,
   })
 }
 
@@ -96,7 +105,9 @@ export const useGameStore = create<GameState>((set, get) => ({
   monsterAttackCountdown: 0,
   characterClass: null,
   skinColor: DEFAULT_SKIN_COLOR,
+  characterName: null,
   saveLoaded: false,
+  paused: false,
 
   enterCombat: (monster) =>
     set((state) => ({
@@ -206,6 +217,11 @@ export const useGameStore = create<GameState>((set, get) => ({
       return
     }
 
+    if (levelCleared && currentLevel === LEVELS.length) {
+      set({ phase: 'victory', activeMonsterId: null, fledMonsterId: null })
+      return
+    }
+
     set((state) => ({
       phase: 'exploring',
       activeMonsterId: null,
@@ -215,8 +231,10 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   clearFledMonster: () => set({ fledMonsterId: null }),
 
-  confirmCharacter: (characterClass, skinColor) => {
-    set({ characterClass, skinColor })
+  setPaused: (paused) => set({ paused }),
+
+  confirmCharacter: (characterClass, skinColor, characterName) => {
+    set({ characterClass, skinColor, characterName })
     persist()
   },
 
@@ -237,6 +255,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       skillCooldown: save.skillCooldown,
       characterClass: save.characterClass,
       skinColor: save.skinColor,
+      characterName: save.characterName,
       saveLoaded: true,
     }),
 
@@ -254,6 +273,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       skillCooldown: 0,
       attackCooldown: 0,
       monsterAttackCountdown: 0,
+      paused: false,
     })
     persist()
   },
@@ -277,6 +297,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       monsterAttackCountdown: 0,
       characterClass: null,
       skinColor: DEFAULT_SKIN_COLOR,
+      characterName: null,
       saveLoaded: false,
+      paused: false,
     }),
 }))

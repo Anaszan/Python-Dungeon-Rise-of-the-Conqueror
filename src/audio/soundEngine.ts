@@ -6,6 +6,14 @@ import type { CharacterClass } from '../character/characterOptions'
 // oscillators/noise instead of decoded from assets.
 
 const MUTE_KEY = 'pd-audio-muted'
+const MUSIC_VOLUME_KEY = 'pd-music-volume'
+const SFX_VOLUME_KEY = 'pd-sfx-volume'
+
+// Base gain each bus was tuned at before per-user volume sliders existed —
+// a slider value of 1 (max) reproduces that original mix exactly, and lower
+// values scale down from there.
+const MUSIC_BASE_GAIN = 0.32
+const SFX_BASE_GAIN = 0.7
 
 let ctx: AudioContext | null = null
 let masterGain: GainNode | null = null
@@ -16,6 +24,18 @@ let noiseBuffer: AudioBuffer | null = null
 
 let muted = typeof localStorage !== 'undefined' && localStorage.getItem(MUTE_KEY) === '1'
 const muteListeners = new Set<(muted: boolean) => void>()
+
+function readStoredVolume(key: string): number {
+  if (typeof localStorage === 'undefined') return 1
+  const raw = localStorage.getItem(key)
+  if (raw === null) return 1
+  const n = Number(raw)
+  return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 1
+}
+
+let musicVolume = readStoredVolume(MUSIC_VOLUME_KEY)
+let sfxVolume = readStoredVolume(SFX_VOLUME_KEY)
+const volumeListeners = new Set<() => void>()
 
 function ensureContext(): AudioContext {
   if (ctx) return ctx
@@ -29,11 +49,11 @@ function ensureContext(): AudioContext {
   masterGain.connect(c.destination)
 
   musicBus = c.createGain()
-  musicBus.gain.value = 0.32
+  musicBus.gain.value = MUSIC_BASE_GAIN * musicVolume
   musicBus.connect(masterGain)
 
   sfxBus = c.createGain()
-  sfxBus.gain.value = 0.7
+  sfxBus.gain.value = SFX_BASE_GAIN * sfxVolume
   sfxBus.connect(masterGain)
 
   // A short feedback delay on the music bus only, for a "stone hallway"
@@ -102,6 +122,33 @@ export function toggleMuted() {
 export function onMuteChange(fn: (muted: boolean) => void): () => void {
   muteListeners.add(fn)
   return () => muteListeners.delete(fn)
+}
+
+export function getMusicVolume(): number {
+  return musicVolume
+}
+
+export function getSfxVolume(): number {
+  return sfxVolume
+}
+
+export function setMusicVolume(next: number) {
+  musicVolume = Math.min(1, Math.max(0, next))
+  if (typeof localStorage !== 'undefined') localStorage.setItem(MUSIC_VOLUME_KEY, String(musicVolume))
+  if (musicBus && ctx) musicBus.gain.setTargetAtTime(MUSIC_BASE_GAIN * musicVolume, ctx.currentTime, 0.05)
+  volumeListeners.forEach((fn) => fn())
+}
+
+export function setSfxVolume(next: number) {
+  sfxVolume = Math.min(1, Math.max(0, next))
+  if (typeof localStorage !== 'undefined') localStorage.setItem(SFX_VOLUME_KEY, String(sfxVolume))
+  if (sfxBus && ctx) sfxBus.gain.setTargetAtTime(SFX_BASE_GAIN * sfxVolume, ctx.currentTime, 0.05)
+  volumeListeners.forEach((fn) => fn())
+}
+
+export function onVolumeChange(fn: () => void): () => void {
+  volumeListeners.add(fn)
+  return () => volumeListeners.delete(fn)
 }
 
 // ---------- low-level synth helpers ----------

@@ -14,6 +14,9 @@ import { PlayerHUD } from './screens/PlayerHUD'
 import { TouchJoystick } from './game/TouchJoystick'
 import { LevelBanner } from './screens/LevelBanner'
 import { GameOverOverlay } from './screens/GameOverOverlay'
+import { VictoryOverlay } from './screens/VictoryOverlay'
+import { PauseButton } from './screens/PauseButton'
+import { PauseMenu } from './screens/PauseMenu'
 import { GameAudio } from './audio/GameAudio'
 import { MenuAudio } from './audio/MenuAudio'
 import { SoundToggle } from './audio/SoundToggle'
@@ -31,6 +34,7 @@ function App() {
   const resetSave = useGameStore((s) => s.resetSave)
   const saveLoaded = useGameStore((s) => s.saveLoaded)
   const characterClass = useGameStore((s) => s.characterClass)
+  const characterName = useGameStore((s) => s.characterName)
   const currentLevel = useGameStore((s) => s.currentLevel)
 
   useEffect(() => {
@@ -70,7 +74,7 @@ function App() {
     )
     playMenuMusic = true
     showSoundToggle = true
-  } else if (!characterClass) {
+  } else if (!characterClass || !characterName) {
     content = <CharacterCustomize />
     playMenuMusic = true
     showSoundToggle = true
@@ -96,8 +100,11 @@ function App() {
         <LevelBanner />
         <CombatOverlay />
         <GameOverOverlay />
+        <VictoryOverlay />
         <Leaderboard />
         <LogoutButton />
+        <PauseButton />
+        <PauseMenu />
       </div>
     )
     showSoundToggle = true
