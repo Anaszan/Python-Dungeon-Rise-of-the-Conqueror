@@ -1156,6 +1156,16 @@ canvas {
   color: var(--parchment-text);
 }
 
+.player-hud-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-bright);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .player-hp-track {
   width: 100%;
   height: 10px;

@@ -43,6 +43,14 @@ function App() {
     loadSave(session.user.id).then(hydrateSave)
   }, [session, hydrateSave, resetSave])
 
+  useEffect(() => {
+    // Covers the Google OAuth redirect: the browser does a full-page reload
+    // back to the app, which resets `pastLanding` to false — without this,
+    // an already-authenticated user would land back on the marketing page
+    // still showing the "เข้าสู่ระบบ" button instead of continuing into the game.
+    if (session) setPastLanding(true)
+  }, [session])
+
   let content: ReactNode
   // The mute button only makes sense once music can be toggled mid-experience
   // (pre-game briefing screens and the dungeon itself) — the landing page and
