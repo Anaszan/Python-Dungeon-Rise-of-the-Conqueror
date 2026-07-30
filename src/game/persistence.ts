@@ -78,3 +78,25 @@ export async function submitScore(userId: string, monstersDefeated: number) {
 
   if (error) console.error('Failed to submit score:', error.message)
 }
+
+export type ProgressLeaderboardRow = {
+  display_name: string | null
+  character_name: string | null
+  current_level: number
+  is_conqueror: boolean
+  monsters_defeated: number | null
+  completed_at: string | null
+}
+
+// game_saves is owner-only RLS, so this goes through a SECURITY DEFINER RPC
+// (see migrations_007_progress_leaderboard.sql) instead of a direct select —
+// that's also what lets it return every player's current_level (not just
+// scores rows) so Leaderboard.tsx can show non-conquerors' standing too.
+export async function fetchProgressLeaderboard(): Promise<ProgressLeaderboardRow[]> {
+  const { data, error } = await supabase.rpc('get_progress_leaderboard')
+  if (error) {
+    console.error('Failed to load leaderboard:', error.message)
+    return []
+  }
+  return (data ?? []) as ProgressLeaderboardRow[]
+}

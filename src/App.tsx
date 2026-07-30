@@ -10,6 +10,7 @@ import { CharacterCustomize } from './screens/CharacterCustomize'
 import { ChapterIntro } from './screens/ChapterIntro'
 import { Leaderboard } from './screens/Leaderboard'
 import { LogoutButton } from './screens/LogoutButton'
+import { PlayerProfile } from './screens/PlayerProfile'
 import { PlayerHUD } from './screens/PlayerHUD'
 import { TouchJoystick } from './game/TouchJoystick'
 import { LevelBanner } from './screens/LevelBanner'
@@ -110,6 +111,7 @@ function App() {
         <GameOverOverlay />
         <VictoryOverlay />
         <Leaderboard />
+        <PlayerProfile />
         <LogoutButton />
         <PauseButton />
         <PauseMenu />

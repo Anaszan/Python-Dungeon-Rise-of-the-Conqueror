@@ -63,7 +63,8 @@ src/
     LoginScreen.tsx          ฟอร์ม เข้าสู่ระบบ (อีเมล/เบอร์โทร/ชื่อเล่น + รหัสผ่าน) / สมัครสมาชิก (อีเมล+เบอร์โทร+ชื่อเล่น+รหัสผ่าน)
     LogoutButton.tsx         ปุ่มออกจากระบบมุมบนขวาระหว่างเล่นเกม
     PlayerHUD.tsx            แถบ HP/ATK มุมจอระหว่างเล่น
-    Leaderboard.tsx          ปุ่ม + หน้าต่างกระดานอันดับผู้เล่น (10 อันดับแรก)
+    Leaderboard.tsx          ปุ่ม + หน้าต่างกระดานอันดับผู้เล่นทุกคน — ผู้พิชิตเกม (มีแถวใน scores) ขึ้นก่อนเสมอ
+                             พร้อมไอคอนมงกุฎ ตามด้วยผู้เล่นที่เหลือเรียงตามด่านปัจจุบัน พร้อมบอกว่าอยู่ด่านไหน
     GameOverOverlay.tsx      หน้าจอเมื่อผู้เล่นตาย พร้อมปุ่มเริ่มใหม่
   character/
     CharacterModel.tsx       โมเดลตัวละครตามอาชีพที่เลือก (นักรบ/นักบวช/นักเวท/โจร) โหลดโมเดล CC0 จริงจาก
@@ -83,6 +84,9 @@ supabase/
                              สำหรับล็อกอินด้วยเบอร์โทร/ชื่อเล่น
   migrations_005_character_selection.sql   เพิ่ม game_saves.character_class / game_saves.skin_color
                              สำหรับเก็บอาชีพ/สีผิวที่เลือกไว้ถาวรต่อบัญชี
+  migrations_007_progress_leaderboard.sql   เพิ่มฟังก์ชัน get_progress_leaderboard (RPC, SECURITY DEFINER)
+                             ให้ Leaderboard.tsx อ่าน current_level ของผู้เล่นทุกคนได้ ทั้งที่ game_saves
+                             เป็น owner-only RLS
 ```
 
 ## กติกาเกม
@@ -202,7 +206,7 @@ session จะถูก sync อัตโนมัติผ่าน `onAuthStat
    VITE_SUPABASE_URL=https://your-project.supabase.co
    VITE_SUPABASE_ANON_KEY=your-anon-key
    ```
-2. รัน SQL ใน `supabase/schema.sql` แล้วตามด้วย `supabase/migrations_002_player_stats.sql`, `supabase/migrations_003_levels_and_skill.sql`, `supabase/migrations_004_phone_nickname_login.sql` และ `supabase/migrations_005_character_selection.sql` ตามลำดับ บน Supabase SQL Editor
+2. รัน SQL ใน `supabase/schema.sql` แล้วตามด้วย `supabase/migrations_002_player_stats.sql`, `supabase/migrations_003_levels_and_skill.sql`, `supabase/migrations_004_phone_nickname_login.sql`, `supabase/migrations_005_character_selection.sql` และ `supabase/migrations_007_progress_leaderboard.sql` ตามลำดับ บน Supabase SQL Editor
 3. ติดตั้ง dependencies และรัน dev server:
    ```
    npm install

@@ -1,16 +1,11 @@
 import { useState } from 'react'
-import { supabase } from '../lib/supabase'
-
-type ScoreRow = {
-  monsters_defeated: number
-  completed_at: string
-  profiles: { display_name: string | null } | null
-}
+import { fetchProgressLeaderboard, type ProgressLeaderboardRow } from '../game/persistence'
+import { LEVELS } from '../game/levels'
 
 export function Leaderboard() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [scores, setScores] = useState<ScoreRow[]>([])
+  const [rows, setRows] = useState<ProgressLeaderboardRow[]>([])
 
   const toggle = async () => {
     if (open) {
@@ -19,13 +14,7 @@ export function Leaderboard() {
     }
     setOpen(true)
     setLoading(true)
-    const { data, error } = await supabase
-      .from('scores')
-      .select('monsters_defeated, completed_at, profiles(display_name)')
-      .order('monsters_defeated', { ascending: false })
-      .order('completed_at', { ascending: true })
-      .limit(10)
-    if (!error) setScores((data ?? []) as unknown as ScoreRow[])
+    setRows(await fetchProgressLeaderboard())
     setLoading(false)
   }
 
@@ -40,15 +29,28 @@ export function Leaderboard() {
             <h1>อันดับผู้เล่น</h1>
             {loading ? (
               <p>กำลังโหลด...</p>
-            ) : scores.length === 0 ? (
-              <p>ยังไม่มีผู้เล่นพิชิตเกมนี้</p>
+            ) : rows.length === 0 ? (
+              <p>ยังไม่มีผู้เล่น</p>
             ) : (
               <ol className="leaderboard-list">
-                {scores.map((s, i) => (
-                  <li key={i}>
-                    {s.profiles?.display_name ?? 'ผู้เล่นนิรนาม'} — {s.monsters_defeated} ตัว
-                  </li>
-                ))}
+                {rows.map((row, i) => {
+                  const name = row.display_name ?? row.character_name ?? 'ผู้เล่นนิรนาม'
+                  const levelName = LEVELS[row.current_level - 1]?.name
+                  return (
+                    <li key={i} className={row.is_conqueror ? 'leaderboard-row-conqueror' : undefined}>
+                      {row.is_conqueror ? (
+                        <>
+                          👑 {name} — ผู้พิชิตดันเจี้ยน ({row.monsters_defeated} ตัว)
+                        </>
+                      ) : (
+                        <>
+                          {name} — ด่าน {row.current_level}/{LEVELS.length}
+                          {levelName ? `: ${levelName}` : ''}
+                        </>
+                      )}
+                    </li>
+                  )
+                })}
               </ol>
             )}
             <button type="button" onClick={toggle}>
