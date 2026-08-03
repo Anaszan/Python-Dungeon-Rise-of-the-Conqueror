@@ -361,20 +361,20 @@ const LEVEL_6_REGIONS: Region[] = LEVEL_2_REGIONS
 const LEVEL_6_WALLS: Wall[] = LEVEL_2_WALLS
 
 const LEVEL_6_MONSTERS: MonsterData[] = [
-  { id: 'trapsprite-1', name: 'Trap Sprite', maxHp: 125, color: '#e8c78f', attackDamage: 21, attackInterval: 10, position: [0, 0.5, -5], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
-  { id: 'cursedwisp-1', name: 'Cursed Wisp', maxHp: 105, color: '#7a2f2f', attackDamage: 23, attackInterval: 10, position: [0, 0.5, -19], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
-  { id: 'brokengolem-1', name: 'Broken Golem', maxHp: 210, color: '#5a5248', attackDamage: 28, attackInterval: 10, position: [0, 0.5, -33], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
+  { id: 'trapsprite-1', name: 'Trap Sprite', maxHp: 125, color: '#e8c78f', attackDamage: 21, attackInterval: 10, position: [0, 0.5, -5], armor: 0, imageUrl: '/monsters/04_Archivist.png' },
+  { id: 'cursedwisp-1', name: 'Cursed Wisp', maxHp: 105, color: '#7a2f2f', attackDamage: 23, attackInterval: 10, position: [0, 0.5, -19], armor: 0, imageUrl: '/monsters/03_GhostLibrarian.png' },
+  { id: 'brokengolem-1', name: 'Broken Golem', maxHp: 210, color: '#5a5248', attackDamage: 28, attackInterval: 10, position: [0, 0.5, -33], armor: 0, imageUrl: '/monsters/BookGolem.png' },
 
-  { id: 'cursedknight-1', name: 'Cursed Knight', maxHp: 155, color: '#3a2a2a', attackDamage: 24, attackInterval: 10, position: [-5, 0.5, -11], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
-  { id: 'cursedknight-2', name: 'Fallen Knight', maxHp: 155, color: '#2a1a1a', attackDamage: 24, attackInterval: 10, position: [-7, 0.5, -14], armor: 0, imageUrl: '/monsters/cursedknight_attack.svg' },
+  { id: 'cursedknight-1', name: 'Cursed Knight', maxHp: 155, color: '#3a2a2a', attackDamage: 24, attackInterval: 10, position: [-5, 0.5, -11], armor: 0, imageUrl: '/monsters/05_ArchivistScribe.png' },
+  { id: 'cursedknight-2', name: 'Fallen Knight', maxHp: 155, color: '#2a1a1a', attackDamage: 24, attackInterval: 10, position: [-7, 0.5, -14], armor: 0, imageUrl: '/monsters/06_ArchivistWarden.png' },
 
-  { id: 'trapsprite-2', name: 'Snare Sprite', maxHp: 125, color: '#e8a76f', attackDamage: 21, attackInterval: 10, position: [5, 0.5, -23], armor: 0, imageUrl: '/monsters/trapsprite_attack.svg' },
-  { id: 'cursedwisp-2', name: 'Hex Wisp', maxHp: 105, color: '#8a3f3f', attackDamage: 23, attackInterval: 10, position: [7, 0.5, -26], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
+  { id: 'trapsprite-2', name: 'Snare Sprite', maxHp: 125, color: '#e8a76f', attackDamage: 21, attackInterval: 10, position: [5, 0.5, -23], armor: 0, imageUrl: '/monsters/04_Archivist.png' },
+  { id: 'cursedwisp-2', name: 'Hex Wisp', maxHp: 105, color: '#8a3f3f', attackDamage: 23, attackInterval: 10, position: [7, 0.5, -26], armor: 0, imageUrl: '/monsters/07_WhisperingLibrarian.png' },
 
-  { id: 'brokengolem-2', name: 'Shattered Golem', maxHp: 210, color: '#4a4238', attackDamage: 28, attackInterval: 10, position: [-4, 0.5, -45], armor: 0, imageUrl: '/monsters/brokengolem_attack.svg' },
-  { id: 'glitchwyrm-1', name: 'Glitch Wyrm', maxHp: 430, color: '#ff2e63', attackDamage: 42, attackInterval: 10, position: [4, 0.5, -46], armor: 0, imageUrl: '/monsters/glitchwyrm_attack.svg' },
+  { id: 'brokengolem-2', name: 'Shattered Golem', maxHp: 210, color: '#4a4238', attackDamage: 28, attackInterval: 10, position: [-4, 0.5, -45], armor: 0, imageUrl: '/monsters/02_IndexGolem.png' },
+  { id: 'glitchwyrm-1', name: 'Glitch Wyrm', maxHp: 430, color: '#ff2e63', attackDamage: 42, attackInterval: 10, position: [4, 0.5, -46], armor: 0, imageUrl: '/monsters/09_ForbiddenTome.png' },
 
-  { id: 'cursedwisp-3', name: 'Blight Wisp', maxHp: 105, color: '#a34f4f', attackDamage: 23, attackInterval: 10, position: [-10, 0.5, -45], armor: 0, imageUrl: '/monsters/cursedwisp_attack.svg' },
+  { id: 'cursedwisp-3', name: 'Blight Wisp', maxHp: 105, color: '#a34f4f', attackDamage: 23, attackInterval: 10, position: [-10, 0.5, -45], armor: 0, imageUrl: '/monsters/08_SilentLibrarian.png' },
 ]
 
 const LEVEL_6_PICKUPS: PickupData[] = [
