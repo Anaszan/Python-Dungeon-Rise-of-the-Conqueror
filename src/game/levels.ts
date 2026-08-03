@@ -320,18 +320,18 @@ const LEVEL_5_REGIONS: Region[] = LEVEL_1_REGIONS
 const LEVEL_5_WALLS: Wall[] = LEVEL_1_WALLS
 
 const LEVEL_5_MONSTERS: MonsterData[] = [
-  { id: 'bookgolem-1', name: 'Book Golem', maxHp: 115, color: '#7a6a4f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -4], imageUrl: '/monsters/bookgolem_attack.svg' },
-  { id: 'bookgolem-2', name: 'Index Golem', maxHp: 115, color: '#8a7a5f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -16], imageUrl: '/monsters/bookgolem_attack.svg' },
-  { id: 'ghostlib-1', name: 'Ghost Librarian', maxHp: 200, color: '#cfd8f0', attackDamage: 26, attackInterval: 10, position: [0, 0.5, -28], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
+  { id: 'bookgolem-1', name: 'Book Golem', maxHp: 115, color: '#7a6a4f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -4], imageUrl: '/monsters/BookGolem.png' },
+  { id: 'bookgolem-2', name: 'Index Golem', maxHp: 115, color: '#8a7a5f', attackDamage: 20, attackInterval: 10, position: [0, 0.5, -16], imageUrl: '/monsters/02_IndexGolem.png' },
+  { id: 'ghostlib-1', name: 'Ghost Librarian', maxHp: 200, color: '#cfd8f0', attackDamage: 26, attackInterval: 10, position: [0, 0.5, -28], imageUrl: '/monsters/03_GhostLibrarian.png' },
 
-  { id: 'archivist-1', name: 'Archivist', maxHp: 155, color: '#4f7a6a', attackDamage: 23, attackInterval: 10, position: [-4, 0.5, -8], imageUrl: '/monsters/archivist_attack.svg' },
-  { id: 'archivist-2', name: 'Archivist Scribe', maxHp: 155, color: '#5f8a7a', attackDamage: 23, attackInterval: 10, position: [-6.5, 0.5, -11], imageUrl: '/monsters/archivist_attack.svg' },
+  { id: 'archivist-1', name: 'Archivist', maxHp: 155, color: '#4f7a6a', attackDamage: 23, attackInterval: 10, position: [-4, 0.5, -8], imageUrl: '/monsters/04_Archivist.png' },
+  { id: 'archivist-2', name: 'Archivist Scribe', maxHp: 155, color: '#5f8a7a', attackDamage: 23, attackInterval: 10, position: [-6.5, 0.5, -11], imageUrl: '/monsters/05_ArchivistScribe.png' },
 
-  { id: 'archivist-3', name: 'Archivist Warden', maxHp: 155, color: '#3f6a5a', attackDamage: 23, attackInterval: 10, position: [5, 0.5, -19], imageUrl: '/monsters/archivist_attack.svg' },
-  { id: 'ghostlib-2', name: 'Whispering Librarian', maxHp: 200, color: '#b8c7e8', attackDamage: 26, attackInterval: 10, position: [7, 0.5, -21], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
+  { id: 'archivist-3', name: 'Archivist Warden', maxHp: 155, color: '#3f6a5a', attackDamage: 23, attackInterval: 10, position: [5, 0.5, -19], imageUrl: '/monsters/06_ArchivistWarden.png' },
+  { id: 'ghostlib-2', name: 'Whispering Librarian', maxHp: 200, color: '#b8c7e8', attackDamage: 26, attackInterval: 10, position: [7, 0.5, -21], imageUrl: '/monsters/07_WhisperingLibrarian.png' },
 
-  { id: 'ghostlib-3', name: 'Silent Librarian', maxHp: 200, color: '#e0e8f8', attackDamage: 26, attackInterval: 10, position: [-3, 0.5, -37], imageUrl: '/monsters/ghostlibrarian_attack.svg' },
-  { id: 'tome-1', name: 'Forbidden Tome', maxHp: 380, color: '#3a2a66', attackDamage: 38, attackInterval: 10, position: [3, 0.5, -37], imageUrl: '/monsters/tome_attack.svg' },
+  { id: 'ghostlib-3', name: 'Silent Librarian', maxHp: 200, color: '#e0e8f8', attackDamage: 26, attackInterval: 10, position: [-3, 0.5, -37], imageUrl: '/monsters/08_SilentLibrarian.png' },
+  { id: 'tome-1', name: 'Forbidden Tome', maxHp: 380, color: '#3a2a66', attackDamage: 38, attackInterval: 10, position: [3, 0.5, -37], imageUrl: '/monsters/09_ForbiddenTome.png' },
 ]
 
 const LEVEL_5_PICKUPS: PickupData[] = [
