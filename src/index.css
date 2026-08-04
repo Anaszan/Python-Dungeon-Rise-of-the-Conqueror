@@ -112,9 +112,11 @@ canvas {
 /* Everything on the stage is absolutely placed rather than gridded: a 2x2
    grid would cap each fighter at half the stage height, and the point of
    this framing is that the fighters are the big elements. They get most of
-   the height each and overlap through the middle, with the status cards
-   floating over the corner diagonally opposite their own fighter so neither
-   card covers the other side's art. */
+   the height each and overlap through the middle.
+
+   Each status card sits on its own fighter's side of the screen — player
+   left, monster right — but in the opposite corner vertically, so a card
+   never covers the fighter it belongs to. */
 .battle-info {
   position: absolute;
   z-index: 2;
@@ -128,14 +130,16 @@ canvas {
   text-align: left;
 }
 
+/* Monster's card is on the monster's side (right), below its sprite. */
 .battle-info-enemy {
-  top: clamp(8px, 2vw, 18px);
-  left: clamp(8px, 2vw, 18px);
-}
-
-.battle-info-player {
   bottom: clamp(8px, 2vw, 18px);
   right: clamp(8px, 2vw, 18px);
+}
+
+/* Player's card is on the player's side (left), above their character. */
+.battle-info-player {
+  top: clamp(8px, 2vw, 18px);
+  left: clamp(8px, 2vw, 18px);
 }
 
 .battle-info-name {

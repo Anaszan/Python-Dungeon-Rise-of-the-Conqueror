@@ -37,6 +37,7 @@ function App() {
   const characterClass = useGameStore((s) => s.characterClass)
   const characterName = useGameStore((s) => s.characterName)
   const currentLevel = useGameStore((s) => s.currentLevel)
+  const phase = useGameStore((s) => s.phase)
 
   useEffect(() => {
     resetSave()
@@ -110,9 +111,17 @@ function App() {
         <CombatOverlay />
         <GameOverOverlay />
         <VictoryOverlay />
-        <Leaderboard />
-        <PlayerProfile />
-        <LogoutButton />
+        {/* Hidden for the duration of a fight: these sit in the corner the
+            battle screen gives the monster, and each opens a modal that
+            would cover the fight while the monster's attack timer keeps
+            running. */}
+        {phase !== 'combat' && (
+          <>
+            <Leaderboard />
+            <PlayerProfile />
+            <LogoutButton />
+          </>
+        )}
         <PauseButton />
         <PauseMenu />
       </div>
