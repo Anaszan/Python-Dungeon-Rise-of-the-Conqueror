@@ -8,6 +8,14 @@ import { SpellConsole } from './SpellConsole'
 import { DEFAULT_CHARACTER_CLASS } from '../character/characterOptions'
 import { CharacterPortrait } from '../character/CharacterPortrait'
 
+// Pokemon-style HP bars read their state from color before you parse the
+// numbers: green while healthy, amber once it bites, red in the danger zone.
+function hpTone(pct: number) {
+  if (pct > 50) return 'hp-ok'
+  if (pct > 20) return 'hp-warn'
+  return 'hp-danger'
+}
+
 export function CombatOverlay() {
   const phase = useGameStore((s) => s.phase)
   const currentLevel = useGameStore((s) => s.currentLevel)
@@ -69,6 +77,7 @@ export function CombatOverlay() {
   if (!monster) return null
 
   const hpPct = Math.max(0, Math.min(100, (hp / monster.maxHp) * 100))
+  const playerHpPct = Math.max(0, Math.min(100, (playerHp / PLAYER_MAX_HP) * 100))
   const defeated = hp <= 0
 
   const levelData = LEVELS[currentLevel - 1]
@@ -78,88 +87,109 @@ export function CombatOverlay() {
 
   return (
     <div className="combat-overlay">
-      <div className={`combat-panel${playerHit ? ' panel-shake' : ''}${!defeated ? ' combat-panel-wide' : ''}`}>
-        <div className="versus-row">
-          <div className={`player-portrait${playerHit ? ' recoil' : ''}${monsterHit ? ' lunge' : ''}`}>
-            <CharacterPortrait appearance={{ characterClass, skinColor }} />
+      <div className={`battle-screen${playerHit ? ' panel-shake' : ''}`}>
+        {/* Pokemon's battle framing: each combatant's status card sits
+            diagonally opposite its own sprite, so neither card covers the
+            other side's art. */}
+        <div className="battle-stage">
+          <div className="battle-info battle-info-enemy">
+            <p className="battle-info-name">{monster.name}</p>
+            <div className="hp-bar-track">
+              <div className={`hp-bar-fill ${hpTone(hpPct)}`} style={{ width: `${hpPct}%` }} />
+            </div>
+            <p className="battle-info-hp">
+              {hp} / {monster.maxHp} HP
+            </p>
+            {!defeated && (
+              <div className="battle-attack-timer">
+                <p className="battle-attack-timer-label">
+                  โจมตีในอีก {Math.ceil(monsterAttackCountdown)} วินาที
+                </p>
+                <div className="battle-attack-timer-track">
+                  <div
+                    className="battle-attack-timer-fill"
+                    style={{
+                      width: `${Math.max(0, Math.min(100, (monsterAttackCountdown / monster.attackInterval) * 100))}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-          <span className="versus-label">VS</span>
-          <div className={`monster-portrait${monsterHit ? ' recoil' : ''}${playerHit ? ' lunge' : ''}`}>
+
+          <div
+            className={`battle-sprite battle-sprite-enemy${monsterHit ? ' recoil' : ''}${playerHit ? ' lunge' : ''}${defeated ? ' fainted' : ''}`}
+          >
+            <div className="battle-platform" />
             {monster.imageUrl ? (
               <img src={monster.imageUrl} alt={monster.name} />
             ) : (
-              <div className="monster-portrait-fallback" style={{ background: monster.color }} />
+              <div className="battle-sprite-fallback" style={{ background: monster.color }} />
             )}
           </div>
-        </div>
-        <h2>{monster.name}</h2>
-        <div className="hp-bar-track">
-          <div className="hp-bar-fill" style={{ width: `${hpPct}%` }} />
-        </div>
-        <p className="hp-label">
-          {hp} / {monster.maxHp} HP
-        </p>
 
-        <p className="combat-player-hp">
-          เลือดคุณ: {playerHp} / {PLAYER_MAX_HP}
-        </p>
-
-        {!defeated && (
-          <div className="monster-attack-timer">
-            <p className="monster-attack-timer-label">
-              {monster.name} จะโจมตีในอีก {Math.ceil(monsterAttackCountdown)} วินาที
-            </p>
-            <div className="monster-attack-timer-track">
-              <div
-                className="monster-attack-timer-fill"
-                style={{ width: `${Math.max(0, Math.min(100, (monsterAttackCountdown / monster.attackInterval) * 100))}%` }}
-              />
-            </div>
+          <div
+            className={`battle-sprite battle-sprite-player${playerHit ? ' recoil' : ''}${monsterHit ? ' lunge' : ''}`}
+          >
+            <div className="battle-platform" />
+            <CharacterPortrait appearance={{ characterClass, skinColor }} view="back" />
           </div>
-        )}
 
-        {defeated ? (
-          <>
-            <p className="combat-message">
-              {levelCleared
-                ? isLastLevel
-                  ? 'ชนะเกม! คุณกอบกู้อาณาจักรโค้ดสำเร็จ 🎉'
-                  : `ด่าน ${currentLevel} ผ่านแล้ว! เตรียมตัวลุยด่านต่อไป`
-                : 'Defeated!'}
-            </p>
-            <button onClick={exitCombat}>{levelCleared && !isLastLevel ? 'ไปด่านต่อไป' : 'Continue'}</button>
-          </>
-        ) : (
-          <>
-            <Mentor
-              key={activeMonsterId}
-              compact
-              lines={[
-                `เจ้าพบ ${monster.name}! ใช้กล่อง "โจมตี" กับ "สกิลพิเศษ" ด้านล่าง ทั้งสองต้องเขียนโค้ด Python เองทั้งคู่`,
-                `ทบทวนบทที่ ${lesson.chapter} (${lesson.chapterTitle}) ได้จากคำใบ้ในโค้ดตั้งต้น หรือย้อนกลับไปฟังคำสอนตอนเข้าด่านนี้ใหม่อีกครั้ง`,
-                'ทั้งสองคาถามีช่วงพักพลัง (คูลดาวน์) หลังร่ายทุกครั้ง — โจมตีพักสั้นกว่า สกิลพิเศษพักนานกว่าแต่แรงกว่า',
-              ]}
-            />
-            <SpellConsole
-              lesson={lesson}
-              monsterId={activeMonsterId}
-              monsterHp={hp}
-              monsterName={monster.name}
-              monsterArmor={monster.armor ?? 999}
-              playerHp={playerHp}
-              playerAtk={attackPower}
-              skillCooldown={skillCooldown}
-              attackCooldown={attackCooldown}
-              onAttack={damageMonster}
-              onSkillDamage={damageMonster}
-              onAttackCast={startAttackCooldown}
-              onSkillCast={startSkillCooldown}
-            />
-            <div className="combat-actions combat-actions-secondary">
-              <button onClick={exitCombat}>Flee</button>
+          <div className="battle-info battle-info-player">
+            <p className="battle-info-name">คุณ</p>
+            <div className="hp-bar-track">
+              <div className={`hp-bar-fill ${hpTone(playerHpPct)}`} style={{ width: `${playerHpPct}%` }} />
             </div>
-          </>
-        )}
+            <p className="battle-info-hp">
+              {playerHp} / {PLAYER_MAX_HP} HP
+            </p>
+          </div>
+        </div>
+
+        <div className="battle-command-box">
+          {defeated ? (
+            <div className="battle-result">
+              <p className="combat-message">
+                {levelCleared
+                  ? isLastLevel
+                    ? 'ชนะเกม! คุณกอบกู้อาณาจักรโค้ดสำเร็จ 🎉'
+                    : `ด่าน ${currentLevel} ผ่านแล้ว! เตรียมตัวลุยด่านต่อไป`
+                  : `${monster.name} ถูกปราบแล้ว!`}
+              </p>
+              <button onClick={exitCombat}>{levelCleared && !isLastLevel ? 'ไปด่านต่อไป' : 'Continue'}</button>
+            </div>
+          ) : (
+            <>
+              <Mentor
+                key={activeMonsterId}
+                compact
+                lines={[
+                  `เจ้าพบ ${monster.name}! ใช้กล่อง "โจมตี" กับ "สกิลพิเศษ" ด้านล่าง ทั้งสองต้องเขียนโค้ด Python เองทั้งคู่`,
+                  `ทบทวนบทที่ ${lesson.chapter} (${lesson.chapterTitle}) ได้จากคำใบ้ในโค้ดตั้งต้น หรือย้อนกลับไปฟังคำสอนตอนเข้าด่านนี้ใหม่อีกครั้ง`,
+                  'ทั้งสองคาถามีช่วงพักพลัง (คูลดาวน์) หลังร่ายทุกครั้ง — โจมตีพักสั้นกว่า สกิลพิเศษพักนานกว่าแต่แรงกว่า',
+                ]}
+              />
+              <SpellConsole
+                lesson={lesson}
+                monsterId={activeMonsterId}
+                monsterHp={hp}
+                monsterName={monster.name}
+                monsterArmor={monster.armor ?? 999}
+                playerHp={playerHp}
+                playerAtk={attackPower}
+                skillCooldown={skillCooldown}
+                attackCooldown={attackCooldown}
+                onAttack={damageMonster}
+                onSkillDamage={damageMonster}
+                onAttackCast={startAttackCooldown}
+                onSkillCast={startSkillCooldown}
+              />
+              <div className="combat-actions combat-actions-secondary">
+                <button onClick={exitCombat}>Flee</button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   )

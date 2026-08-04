@@ -80,159 +80,314 @@ canvas {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
     env(safe-area-inset-left);
   box-sizing: border-box;
-  background: radial-gradient(circle at 50% 20%, #3a2814 0%, var(--wood-dark) 70%);
+  background: var(--wood-dark);
 }
 
-.combat-panel {
-  width: 100%;
-  min-height: 100%;
-  padding: 40px clamp(20px, 8vw, 160px);
-  box-sizing: border-box;
+/* Battle screen, laid out the way a Pokemon fight is: a shallow arena strip
+   on top with both combatants facing off, and the command box filling the
+   rest below it. The arena is a fixed slice of the viewport so the console
+   underneath always keeps a usable amount of room. */
+.battle-screen {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(160deg, var(--wood-light), var(--wood));
-  text-align: center;
   color: var(--parchment-text);
 }
 
-.combat-panel h2 {
-  margin: 0 0 12px;
+.battle-stage {
+  position: relative;
+  flex-shrink: 0;
+  height: clamp(220px, 38vh, 360px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 130% 60% at 50% 108%, rgba(122, 86, 42, 0.85), transparent 72%),
+    radial-gradient(circle at 50% 12%, #4a3418 0%, transparent 62%),
+    linear-gradient(180deg, #150e07 0%, #2b1d12 58%, #3d2a17 100%);
+}
+
+/* Everything on the stage is absolutely placed rather than gridded: a 2x2
+   grid would cap each fighter at half the stage height, and the point of
+   this framing is that the fighters are the big elements. They get most of
+   the height each and overlap through the middle, with the status cards
+   floating over the corner diagonally opposite their own fighter so neither
+   card covers the other side's art. */
+.battle-info {
+  position: absolute;
+  z-index: 2;
+  width: min(44%, 250px);
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 2px solid var(--gold-dim);
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(61, 42, 23, 0.95), rgba(26, 18, 11, 0.95));
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+  text-align: left;
+}
+
+.battle-info-enemy {
+  top: clamp(8px, 2vw, 18px);
+  left: clamp(8px, 2vw, 18px);
+}
+
+.battle-info-player {
+  bottom: clamp(8px, 2vw, 18px);
+  right: clamp(8px, 2vw, 18px);
+}
+
+.battle-info-name {
+  margin: 0 0 6px;
   font-family: 'Cinzel', 'Noto Sans Thai', serif;
+  font-size: clamp(13px, 1.6vw, 16px);
   color: var(--gold-bright);
 }
 
-.versus-row {
+.battle-info-hp {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: var(--parchment-dim);
+}
+
+.battle-sprite {
+  position: absolute;
+  z-index: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  gap: clamp(10px, 3vw, 24px);
-  margin-bottom: 12px;
+  padding-bottom: 12px;
+  box-sizing: border-box;
 }
 
-.versus-label {
-  font-family: 'Cinzel', 'Noto Sans Thai', serif;
-  font-size: 14px;
-  color: var(--gold-dim);
-  flex-shrink: 0;
+/* The enemy sits back and upstage, the player nearer and lower — the depth
+   cue that makes it read as one room seen over the player's shoulder. */
+.battle-sprite-enemy {
+  top: 4%;
+  right: 3%;
+  width: min(44%, 300px);
+  height: 56%;
 }
 
-.player-portrait,
-.monster-portrait {
-  width: 120px;
-  height: 120px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: radial-gradient(circle at 50% 40%, rgba(212, 175, 55, 0.15), transparent 70%);
-  border: 2px solid var(--gold-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+/* Nudged in from the edge so the character clears the enemy's status card
+   above it rather than sitting directly under it. */
+.battle-sprite-player {
+  bottom: 0;
+  left: 8%;
+  width: min(50%, 360px);
+  height: 70%;
 }
 
-.player-portrait img,
-.monster-portrait img {
-  width: 100%;
-  height: 100%;
+.battle-sprite img {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
 }
 
-.monster-portrait-fallback {
+.battle-sprite-fallback {
+  position: relative;
+  z-index: 1;
   width: 60%;
-  height: 60%;
+  aspect-ratio: 1;
   border-radius: 50%;
 }
 
-/* Player just hit the monster: it recoils and whitens for an instant. */
-.monster-portrait.recoil img,
-.monster-portrait.recoil .monster-portrait-fallback {
-  animation: monster-recoil 0.3s ease;
+/* The player's side is a live 3D canvas rather than a sprite, so it fills
+   its cell instead of sitting on the baseline like an image does. */
+.battle-sprite-player canvas {
+  position: relative;
+  z-index: 1;
 }
 
-@keyframes monster-recoil {
+/* Pool of light each combatant stands in — sells the two of them as being
+   in the same room rather than floating in a status panel. */
+.battle-platform {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  width: clamp(80px, 62%, 200px);
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(212, 175, 55, 0.32),
+    rgba(212, 175, 55, 0.08) 58%,
+    transparent 74%
+  );
+  pointer-events: none;
+}
+
+.battle-sprite-player .battle-platform {
+  width: clamp(110px, 74%, 240px);
+  height: 32px;
+}
+
+.battle-command-box {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: clamp(12px, 2.5vw, 22px) clamp(14px, 6vw, 140px);
+  border-top: 3px solid var(--gold-dim);
+  background: linear-gradient(160deg, var(--wood-light), var(--wood));
+  box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.battle-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 100%;
+}
+
+/* Phones: the arena gives up height and the status cards tighten up, so the
+   code console below keeps enough room to actually type in. */
+@media (max-width: 560px) {
+  .battle-stage {
+    height: clamp(190px, 32vh, 260px);
+  }
+
+  .battle-info {
+    width: min(52%, 190px);
+    padding: 6px 8px;
+  }
+
+  .battle-sprite-enemy {
+    width: 46%;
+  }
+
+  .battle-sprite-player {
+    left: 4%;
+    width: 54%;
+    height: 66%;
+  }
+
+  .battle-info-name {
+    margin-bottom: 4px;
+  }
+
+  .battle-info-hp,
+  .battle-attack-timer-label {
+    font-size: 10px;
+  }
+
+  .battle-info .hp-bar-track {
+    height: 10px;
+  }
+}
+
+/* Hit reactions run on the art itself, not the cell, so the pool of light
+   each combatant stands in stays put while they move. Both sides now sit on
+   a diagonal — player bottom-left, enemy top-right — so a lunge travels
+   toward the opponent and a recoil is knocked back away from them. */
+
+/* Player just hit the monster: it recoils up-right and whitens for an instant. */
+.battle-sprite-enemy.recoil img,
+.battle-sprite-enemy.recoil .battle-sprite-fallback {
+  animation: enemy-recoil 0.3s ease;
+}
+
+@keyframes enemy-recoil {
   0% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     filter: brightness(1);
   }
   30% {
-    transform: translateX(10px) rotate(4deg);
+    transform: translate(12px, -8px) rotate(4deg);
     filter: brightness(2.6) saturate(0.4);
   }
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     filter: brightness(1);
   }
 }
 
-/* The monster just landed its own attack: it lunges toward the viewer. */
-.monster-portrait.lunge img,
-.monster-portrait.lunge .monster-portrait-fallback {
-  animation: monster-lunge 0.3s ease;
+/* The monster just landed its own attack: it dives down-left at the player. */
+.battle-sprite-enemy.lunge img,
+.battle-sprite-enemy.lunge .battle-sprite-fallback {
+  animation: enemy-lunge 0.3s ease;
 }
 
-@keyframes monster-lunge {
+@keyframes enemy-lunge {
   0% {
-    transform: scale(1) translateX(0);
+    transform: scale(1) translate(0, 0);
     filter: brightness(1);
   }
   40% {
-    transform: scale(1.1) translateX(-8px);
+    transform: scale(1.12) translate(-14px, 10px);
     filter: brightness(1.3);
   }
   100% {
-    transform: scale(1) translateX(0);
+    transform: scale(1) translate(0, 0);
     filter: brightness(1);
   }
 }
 
-/* Mirror image of the monster's recoil/lunge, for the player-side portrait:
-   the player recoils when hit, and lunges toward the monster when landing
-   a hit — opposite translateX direction since the player sits on the left. */
-.player-portrait.recoil img,
-.player-portrait.recoil canvas {
+/* Mirror image for the player's side: knocked back down-left when hit,
+   driving up-right into the monster when landing one. */
+.battle-sprite-player.recoil canvas,
+.battle-sprite-player.recoil img {
   animation: player-recoil 0.3s ease;
 }
 
 @keyframes player-recoil {
   0% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     filter: brightness(1);
   }
   30% {
-    transform: translateX(-10px) rotate(-4deg);
+    transform: translate(-12px, 8px) rotate(-4deg);
     filter: brightness(2.6) saturate(0.4);
   }
   100% {
-    transform: translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     filter: brightness(1);
   }
 }
 
-.player-portrait.lunge img,
-.player-portrait.lunge canvas {
+.battle-sprite-player.lunge canvas,
+.battle-sprite-player.lunge img {
   animation: player-lunge 0.3s ease;
 }
 
 @keyframes player-lunge {
   0% {
-    transform: scale(1) translateX(0);
+    transform: scale(1) translate(0, 0);
   }
   40% {
-    transform: scale(1.08) translateX(8px);
+    transform: scale(1.08) translate(14px, -10px);
   }
   100% {
-    transform: scale(1) translateX(0);
+    transform: scale(1) translate(0, 0);
   }
 }
 
-.combat-panel.panel-shake {
+/* Defeat: the monster drops out of frame instead of just freezing at 0 HP. */
+.battle-sprite-enemy.fainted img,
+.battle-sprite-enemy.fainted .battle-sprite-fallback {
+  animation: enemy-faint 0.6s ease forwards;
+}
+
+@keyframes enemy-faint {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(48px) scale(0.85);
+    opacity: 0;
+  }
+}
+
+.battle-screen.panel-shake {
   animation: panel-shake 0.3s ease;
 }
 
@@ -270,38 +425,41 @@ canvas {
   transition: width 0.2s ease;
 }
 
-.hp-label {
-  margin: 8px 0 16px;
-  font-size: 14px;
+/* On the battle stage the bar's color carries the state before you read the
+   numbers, the way a Pokemon HP bar does. Bars elsewhere (practice dummy,
+   landing page) keep the plain red fill above. */
+.hp-bar-fill.hp-ok {
+  background: linear-gradient(180deg, #86e26f, #3fa32c);
+}
+
+.hp-bar-fill.hp-warn {
+  background: linear-gradient(180deg, #f5d15c, #c99320);
+}
+
+.hp-bar-fill.hp-danger {
+  background: linear-gradient(180deg, var(--hp-red-bright), var(--hp-red));
+}
+
+.battle-attack-timer {
+  margin: 8px 0 0;
+}
+
+.battle-attack-timer-label {
+  font-size: 11px;
   color: var(--parchment-dim);
+  margin: 0 0 3px;
 }
 
-.combat-player-hp {
-  font-size: 13px;
-  color: var(--mana-bright);
-  margin: -8px 0 16px;
-}
-
-.monster-attack-timer {
-  margin: 0 0 16px;
-}
-
-.monster-attack-timer-label {
-  font-size: 12px;
-  color: var(--parchment-dim);
-  margin: 0 0 4px;
-}
-
-.monster-attack-timer-track {
+.battle-attack-timer-track {
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
   background: var(--wood-dark);
   border: 1px solid var(--gold-dim);
   overflow: hidden;
 }
 
-.monster-attack-timer-fill {
+.battle-attack-timer-fill {
   height: 100%;
   background: linear-gradient(180deg, var(--gold-bright), var(--gold-dim));
   transition: width 1s linear;
@@ -339,10 +497,6 @@ canvas {
   color: #8a8270;
   border-color: #4a4030;
   cursor: not-allowed;
-}
-
-.combat-panel-wide {
-  justify-content: flex-start;
 }
 
 .combat-actions-secondary {
