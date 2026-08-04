@@ -92,6 +92,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
 supabase.auth.getSession().then(({ data }) => {
   useAuthStore.setState({ session: data.session, loading: false })
+}).catch((err) => {
+  useAuthStore.setState({ loading: false, error: err instanceof Error ? err.message : 'เชื่อมต่อระบบยืนยันตัวตนไม่สำเร็จ' })
 })
 
 supabase.auth.onAuthStateChange((event, session) => {
