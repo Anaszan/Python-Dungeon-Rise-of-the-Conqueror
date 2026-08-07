@@ -1,7 +1,7 @@
 import { supabase } from '../lib/supabase'
 import { PLAYER_MAX_HP, BASE_ATTACK_POWER } from './constants'
-import type { CharacterClass } from '../character/characterOptions'
-import { DEFAULT_SKIN_COLOR } from '../character/characterOptions'
+import type { CharacterClass, CharacterGender } from '../character/characterOptions'
+import { DEFAULT_GENDER, DEFAULT_SKIN_COLOR } from '../character/characterOptions'
 
 export type SaveData = {
   defeatedMonsterIds: string[]
@@ -11,6 +11,7 @@ export type SaveData = {
   currentLevel: number
   skillCooldown: number
   characterClass: CharacterClass | null
+  gender: CharacterGender
   skinColor: string
   characterName: string | null
 }
@@ -19,7 +20,7 @@ export async function loadSave(userId: string): Promise<SaveData> {
   const { data, error } = await supabase
     .from('game_saves')
     .select(
-      'defeated_monster_ids, player_hp, attack_power, collected_pickup_ids, current_level, skill_cooldown, character_class, skin_color, character_name',
+      'defeated_monster_ids, player_hp, attack_power, collected_pickup_ids, current_level, skill_cooldown, character_class, gender, skin_color, character_name',
     )
     .eq('user_id', userId)
     .maybeSingle()
@@ -34,6 +35,9 @@ export async function loadSave(userId: string): Promise<SaveData> {
     currentLevel: data?.current_level ?? 1,
     skillCooldown: data?.skill_cooldown ?? 0,
     characterClass: (data?.character_class as CharacterClass | null) ?? null,
+    // Saves written before migrations_008 have no gender — they keep the
+    // model they've always been rendered with.
+    gender: (data?.gender as CharacterGender | null) ?? DEFAULT_GENDER,
     skinColor: data?.skin_color ?? DEFAULT_SKIN_COLOR,
     characterName: data?.character_name ?? null,
   }
@@ -49,6 +53,7 @@ export async function saveProgress(userId: string, save: SaveData) {
     current_level: save.currentLevel,
     skill_cooldown: save.skillCooldown,
     character_class: save.characterClass,
+    gender: save.gender,
     skin_color: save.skinColor,
     character_name: save.characterName,
     updated_at: new Date().toISOString(),

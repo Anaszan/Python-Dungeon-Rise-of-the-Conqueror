@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useGameStore } from '../game/store'
 import { LEVELS } from '../game/levels'
-import { CHARACTER_CLASS_OPTIONS } from '../character/characterOptions'
+import { CHARACTER_CLASS_OPTIONS, GENDER_OPTIONS } from '../character/characterOptions'
 import { CharacterPortrait } from '../character/CharacterPortrait'
 import { PLAYER_MAX_HP } from '../game/constants'
 
@@ -9,6 +9,7 @@ export function PlayerProfile() {
   const [open, setOpen] = useState(false)
   const characterName = useGameStore((s) => s.characterName)
   const characterClass = useGameStore((s) => s.characterClass)
+  const gender = useGameStore((s) => s.gender)
   const skinColor = useGameStore((s) => s.skinColor)
   const attackPower = useGameStore((s) => s.attackPower)
   const playerHp = useGameStore((s) => s.playerHp)
@@ -16,6 +17,7 @@ export function PlayerProfile() {
   const currentLevel = useGameStore((s) => s.currentLevel)
 
   const classLabel = CHARACTER_CLASS_OPTIONS.find((c) => c.id === characterClass)?.label ?? '-'
+  const genderLabel = GENDER_OPTIONS.find((g) => g.id === gender)?.label ?? '-'
 
   const totalMonsters = LEVELS.reduce((sum, l) => sum + l.monsters.length, 0)
   const totalDefeated = LEVELS.reduce(
@@ -37,12 +39,14 @@ export function PlayerProfile() {
             <div className="profile-header">
               {characterClass && (
                 <div className="profile-portrait">
-                  <CharacterPortrait appearance={{ characterClass, skinColor }} />
+                  <CharacterPortrait appearance={{ characterClass, gender, skinColor }} />
                 </div>
               )}
               <div className="profile-identity">
                 <div className="profile-name">{characterName ?? 'ผู้เล่นนิรนาม'}</div>
-                <div className="profile-class">{classLabel}</div>
+                <div className="profile-class">
+                  {classLabel} · {genderLabel}
+                </div>
                 <div className="profile-stats-row">
                   <span>ATK {attackPower}</span>
                   <span>

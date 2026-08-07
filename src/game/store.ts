@@ -3,7 +3,12 @@ import { useAuthStore } from '../auth/authStore'
 import { saveProgress, submitScore, type SaveData } from './persistence'
 import { LEVELS } from './levels'
 import { PLAYER_MAX_HP, BASE_ATTACK_POWER, SKILL_COOLDOWN_SECONDS, ATTACK_COOLDOWN_SECONDS } from './constants'
-import { DEFAULT_SKIN_COLOR, type CharacterClass } from '../character/characterOptions'
+import {
+  DEFAULT_GENDER,
+  DEFAULT_SKIN_COLOR,
+  type CharacterClass,
+  type CharacterGender,
+} from '../character/characterOptions'
 import { playAttackImpact, playPlayerHurt } from '../audio/soundEngine'
 
 export type CombatMonster = {
@@ -35,6 +40,7 @@ type GameState = {
   // persisted, same reasoning as attackCooldown.
   monsterAttackCountdown: number
   characterClass: CharacterClass | null
+  gender: CharacterGender
   skinColor: string
   characterName: string | null
   saveLoaded: boolean
@@ -57,7 +63,12 @@ type GameState = {
   exitCombat: () => void
   clearFledMonster: () => void
   setPaused: (paused: boolean) => void
-  confirmCharacter: (characterClass: CharacterClass, skinColor: string, characterName: string) => void
+  confirmCharacter: (
+    characterClass: CharacterClass,
+    gender: CharacterGender,
+    skinColor: string,
+    characterName: string,
+  ) => void
   hydrateSave: (save: SaveData) => void
   resetSave: () => void
   restart: () => void
@@ -74,6 +85,7 @@ function persist() {
     currentLevel,
     skillCooldown,
     characterClass,
+    gender,
     skinColor,
     characterName,
   } = useGameStore.getState()
@@ -85,6 +97,7 @@ function persist() {
     currentLevel,
     skillCooldown,
     characterClass,
+    gender,
     skinColor,
     characterName,
   })
@@ -104,6 +117,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   attackCooldown: 0,
   monsterAttackCountdown: 0,
   characterClass: null,
+  gender: DEFAULT_GENDER,
   skinColor: DEFAULT_SKIN_COLOR,
   characterName: null,
   saveLoaded: false,
@@ -233,8 +247,8 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   setPaused: (paused) => set({ paused }),
 
-  confirmCharacter: (characterClass, skinColor, characterName) => {
-    set({ characterClass, skinColor, characterName })
+  confirmCharacter: (characterClass, gender, skinColor, characterName) => {
+    set({ characterClass, gender, skinColor, characterName })
     persist()
   },
 
@@ -254,6 +268,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       currentLevel: save.currentLevel,
       skillCooldown: save.skillCooldown,
       characterClass: save.characterClass,
+      gender: save.gender,
       skinColor: save.skinColor,
       characterName: save.characterName,
       saveLoaded: true,
@@ -296,6 +311,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       attackCooldown: 0,
       monsterAttackCountdown: 0,
       characterClass: null,
+      gender: DEFAULT_GENDER,
       skinColor: DEFAULT_SKIN_COLOR,
       characterName: null,
       saveLoaded: false,

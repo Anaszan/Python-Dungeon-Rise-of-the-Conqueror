@@ -4,8 +4,10 @@ import { OrbitControls } from '@react-three/drei'
 import { useGameStore } from '../game/store'
 import {
   CHARACTER_CLASS_OPTIONS,
+  GENDER_OPTIONS,
   SKIN_COLOR_OPTIONS,
   DEFAULT_CHARACTER_CLASS,
+  DEFAULT_GENDER,
   DEFAULT_SKIN_COLOR,
 } from '../character/characterOptions'
 import { CharacterModel } from '../character/CharacterModel'
@@ -18,11 +20,13 @@ type NameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid' | 'err
 
 export function CharacterCustomize() {
   const storeClass = useGameStore((s) => s.characterClass)
+  const storeGender = useGameStore((s) => s.gender)
   const storeSkinColor = useGameStore((s) => s.skinColor)
   const storeName = useGameStore((s) => s.characterName)
   const confirmCharacter = useGameStore((s) => s.confirmCharacter)
 
   const [characterClass, setCharacterClass] = useState(storeClass ?? DEFAULT_CHARACTER_CLASS)
+  const [gender, setGender] = useState(storeGender ?? DEFAULT_GENDER)
   const [skinColor, setSkinColor] = useState(storeSkinColor ?? DEFAULT_SKIN_COLOR)
   const [characterName, setCharacterName] = useState(storeName ?? '')
   const [nameStatus, setNameStatus] = useState<NameStatus>('idle')
@@ -79,7 +83,7 @@ export function CharacterCustomize() {
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 3, 2]} intensity={1} />
             <group position={[0, -0.3, 0]}>
-              <CharacterModel appearance={{ characterClass, skinColor }} />
+              <CharacterModel appearance={{ characterClass, gender, skinColor }} />
             </group>
             <OrbitControls enablePan={false} enableZoom={false} />
           </Canvas>
@@ -125,6 +129,22 @@ export function CharacterCustomize() {
         </div>
 
         <div className="customize-section">
+          <p>เพศ</p>
+          <div className="accessory-row">
+            {GENDER_OPTIONS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                className={`accessory-btn ${gender === opt.id ? 'accessory-active' : ''}`}
+                onClick={() => setGender(opt.id)}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="customize-section">
           <p>สีผิว</p>
           <div className="swatch-row">
             {SKIN_COLOR_OPTIONS.map((color) => (
@@ -144,7 +164,7 @@ export function CharacterCustomize() {
           type="button"
           className="customize-confirm"
           disabled={!canConfirm}
-          onClick={() => confirmCharacter(characterClass, skinColor, trimmedName)}
+          onClick={() => confirmCharacter(characterClass, gender, skinColor, trimmedName)}
         >
           เริ่มการผจญภัย
         </button>

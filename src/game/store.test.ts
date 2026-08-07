@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { LEVELS } from './levels'
 import { PLAYER_MAX_HP, BASE_ATTACK_POWER } from './constants'
-import { DEFAULT_SKIN_COLOR } from '../character/characterOptions'
+import { DEFAULT_GENDER, DEFAULT_SKIN_COLOR } from '../character/characterOptions'
 
 // The store persists progress to Supabase on nearly every action — none of
 // that belongs in a unit test for the state machine, so every module on
@@ -38,6 +38,7 @@ describe('useGameStore', () => {
     expect(s.playerHp).toBe(PLAYER_MAX_HP)
     expect(s.attackPower).toBe(BASE_ATTACK_POWER)
     expect(s.characterClass).toBeNull()
+    expect(s.gender).toBe(DEFAULT_GENDER)
     expect(s.characterName).toBeNull()
     expect(s.paused).toBe(false)
   })
@@ -114,10 +115,11 @@ describe('useGameStore', () => {
     expect(useGameStore.getState().phase).toBe('gameover')
   })
 
-  it('confirmCharacter stores the chosen class, skin, and name', () => {
-    useGameStore.getState().confirmCharacter('wizard', '#abcdef', 'Gandalf')
+  it('confirmCharacter stores the chosen class, gender, skin, and name', () => {
+    useGameStore.getState().confirmCharacter('wizard', 'female', '#abcdef', 'Gandalf')
     const s = useGameStore.getState()
     expect(s.characterClass).toBe('wizard')
+    expect(s.gender).toBe('female')
     expect(s.skinColor).toBe('#abcdef')
     expect(s.characterName).toBe('Gandalf')
   })
@@ -131,6 +133,7 @@ describe('useGameStore', () => {
       currentLevel: 2,
       skillCooldown: 0,
       characterClass: 'rogue',
+      gender: 'female',
       skinColor: DEFAULT_SKIN_COLOR,
       characterName: 'Shade',
     })
@@ -149,6 +152,7 @@ describe('useGameStore', () => {
       currentLevel: 1,
       skillCooldown: 0,
       characterClass: null,
+      gender: DEFAULT_GENDER,
       skinColor: DEFAULT_SKIN_COLOR,
       characterName: null,
     })
@@ -165,7 +169,7 @@ describe('useGameStore', () => {
   })
 
   it('restart resets progress but keeps the chosen character, and clears any stuck pause', () => {
-    useGameStore.getState().confirmCharacter('cleric', '#111111', 'Elora')
+    useGameStore.getState().confirmCharacter('cleric', 'female', '#111111', 'Elora')
     useGameStore.setState({ currentLevel: 3, playerHp: 10, paused: true })
 
     useGameStore.getState().restart()
@@ -175,17 +179,19 @@ describe('useGameStore', () => {
     expect(s.playerHp).toBe(PLAYER_MAX_HP)
     expect(s.paused).toBe(false)
     expect(s.characterClass).toBe('cleric')
+    expect(s.gender).toBe('female')
     expect(s.characterName).toBe('Elora')
   })
 
   it('resetSave clears the chosen character and any stuck pause', () => {
-    useGameStore.getState().confirmCharacter('cleric', '#111111', 'Elora')
+    useGameStore.getState().confirmCharacter('cleric', 'female', '#111111', 'Elora')
     useGameStore.setState({ paused: true })
 
     useGameStore.getState().resetSave()
 
     const s = useGameStore.getState()
     expect(s.characterClass).toBeNull()
+    expect(s.gender).toBe(DEFAULT_GENDER)
     expect(s.characterName).toBeNull()
     expect(s.paused).toBe(false)
   })

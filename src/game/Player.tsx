@@ -28,6 +28,7 @@ export function Player({
   const walkPhase = useRef(0)
   const bobAmount = useRef(0)
   const characterClass = useGameStore((s) => s.characterClass) ?? DEFAULT_CHARACTER_CLASS
+  const gender = useGameStore((s) => s.gender)
   const skinColor = useGameStore((s) => s.skinColor)
 
   useFrame((_, delta) => {
@@ -68,7 +69,7 @@ export function Player({
   return (
     <group ref={root} position={[0, 0.6, 0]}>
       <group ref={modelGroup}>
-        <CharacterModel appearance={{ characterClass, skinColor }} />
+        <CharacterModel appearance={{ characterClass, gender, skinColor }} />
       </group>
     </group>
   )
