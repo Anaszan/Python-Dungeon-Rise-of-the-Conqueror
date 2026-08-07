@@ -40,7 +40,7 @@ function createStoneFloorTexture() {
   const ctx = canvas.getContext('2d')!
   const rand = mulberry32(1337)
 
-  ctx.fillStyle = '#39301f'
+  ctx.fillStyle = '#4b402a'
   ctx.fillRect(0, 0, size, size)
 
   const tiles = 6
@@ -48,7 +48,7 @@ function createStoneFloorTexture() {
   for (let ty = 0; ty < tiles; ty++) {
     for (let tx = 0; tx < tiles; tx++) {
       const variance = rand() * 14 - 7
-      const [r, g, b] = (tx + ty) % 2 === 0 ? [0x46, 0x3a, 0x24] : [0x3d, 0x32, 0x20]
+      const [r, g, b] = (tx + ty) % 2 === 0 ? [0x5b, 0x4c, 0x30] : [0x51, 0x43, 0x2b]
       const shade = `rgb(${r + variance}, ${g + variance * 0.8}, ${b + variance * 0.5})`
       const px = tx * tileSize
       const py = ty * tileSize
@@ -66,7 +66,7 @@ function createStoneFloorTexture() {
         tileSize * 0.7,
       )
       grad.addColorStop(0, 'rgba(0, 0, 0, 0)')
-      grad.addColorStop(1, 'rgba(0, 0, 0, 0.35)')
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0.22)')
       ctx.fillStyle = grad
       ctx.fillRect(px + 2, py + 2, tileSize - 4, tileSize - 4)
 
@@ -125,7 +125,7 @@ function createBrickWallTexture() {
   const ctx = canvas.getContext('2d')!
   const rand = mulberry32(4242)
 
-  ctx.fillStyle = '#231c12'
+  ctx.fillStyle = '#352b1b'
   ctx.fillRect(0, 0, size, size)
 
   const rows = 10
@@ -137,7 +137,7 @@ function createBrickWallTexture() {
     for (let i = -1; i <= bricksPerRow; i++) {
       const x = i * brickWidth + offset
       const variance = rand() * 16 - 8
-      const [r, g, b] = (row + i) % 2 === 0 ? [0x5a, 0x4a, 0x30] : [0x51, 0x3f, 0x28]
+      const [r, g, b] = (row + i) % 2 === 0 ? [0x72, 0x5e, 0x3d] : [0x67, 0x51, 0x34]
       ctx.fillStyle = `rgb(${r + variance}, ${g + variance * 0.85}, ${b + variance * 0.6})`
       const bx = x + 2
       const by = row * rowHeight + 2

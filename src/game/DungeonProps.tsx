@@ -29,7 +29,7 @@ export function Torch({ position }: { position: [number, number, number] }) {
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
     const flicker = 1.1 + Math.sin(t * 11) * 0.15 + Math.sin(t * 23) * 0.08
-    if (lightRef.current) lightRef.current.intensity = flicker * 1.6
+    if (lightRef.current) lightRef.current.intensity = flicker * 2.6
     if (flameRef.current) flameRef.current.scale.setScalar(0.9 + flicker * 0.15)
   })
 
@@ -39,7 +39,7 @@ export function Torch({ position }: { position: [number, number, number] }) {
         <cylinderGeometry args={[0.05, 0.06, 1.1, 6]} />
         <meshStandardMaterial color="#2c2418" />
       </mesh>
-      <pointLight ref={lightRef} position={[0, 1.15, 0]} color="#ffaa3c" intensity={1.6} distance={7} decay={2} />
+      <pointLight ref={lightRef} position={[0, 1.15, 0]} color="#ffaa3c" intensity={2.6} distance={12} decay={2} />
       <Billboard position={[0, 1.15, 0]}>
         <mesh ref={flameRef}>
           <planeGeometry args={[0.5, 0.5]} />
