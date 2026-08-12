@@ -1,0 +1,20 @@
+------------------------------------------------------
+"Ultimate Modular Women Pack" by @Quaternius
+Consider supporting him on Patreon, even $1 helps a lot!
+
+https://www.patreon.com/quaternius
+https://quaternius.com/packs/ultimatemodularwomen.html
+-------------------------------------------------------
+
+License:
+CC0 1.0 Universal (CC0 1.0)
+Public Domain Dedication
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Files here (downloaded as .glb from https://poly.pizza):
+  Witch.glb            -> "Witch"             (wizard + cleric, recolored)
+  HoodedAdventurer.glb -> "Hooded Adventurer" (warrior)
+  Adventurer.glb       -> "Adventurer"        (rogue)
+
+Same low-poly style as the male models in ../warrior, ../cleric, ../wizard
+and ../rogue, which come from the same artist's "LowPoly RPG Characters".

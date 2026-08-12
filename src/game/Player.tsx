@@ -2,8 +2,9 @@ import { useRef, type RefObject } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useKeyboardMap } from './useKeyboardMap'
+import { touchMoveState } from './TouchJoystick'
 import { PLAYER_SPEED } from './constants'
-import { isWalkable, type Region } from './dungeon'
+import { canStandAt, isWalkable, type Region } from './dungeon'
 import { useGameStore } from './store'
 import { DEFAULT_CHARACTER_CLASS } from '../character/characterOptions'
 import { CharacterModel } from '../character/CharacterModel'
@@ -27,14 +28,20 @@ export function Player({
   const walkPhase = useRef(0)
   const bobAmount = useRef(0)
   const characterClass = useGameStore((s) => s.characterClass) ?? DEFAULT_CHARACTER_CLASS
+  const gender = useGameStore((s) => s.gender)
   const skinColor = useGameStore((s) => s.skinColor)
 
   useFrame((_, delta) => {
-    if (useGameStore.getState().phase !== 'exploring') return
+    const state = useGameStore.getState()
+    if (state.phase !== 'exploring' || state.paused) return
 
     const m = move.current
-    dir.current.set((m.right ? 1 : 0) - (m.left ? 1 : 0), 0, (m.backward ? 1 : 0) - (m.forward ? 1 : 0))
-    const moving = dir.current.lengthSq() > 0
+    dir.current.set(
+      (m.right ? 1 : 0) - (m.left ? 1 : 0) + touchMoveState.x,
+      0,
+      (m.backward ? 1 : 0) - (m.forward ? 1 : 0) + touchMoveState.z,
+    )
+    const moving = dir.current.lengthSq() > 0.0001
 
     if (moving) {
       dir.current.normalize()
@@ -42,8 +49,18 @@ export function Player({
       const nextX = pos.x + dir.current.x * PLAYER_SPEED * delta
       const nextZ = pos.z + dir.current.z * PLAYER_SPEED * delta
 
-      if (isWalkable(nextX, pos.z, regions)) pos.x = nextX
-      if (isWalkable(pos.x, nextZ, regions)) pos.z = nextZ
+      // Standing somewhere canStandAt() rejects would make every step
+      // illegal and wedge the player in place, so if that ever happens
+      // (a spawn point authored right against a wall) fall back to the
+      // plain point test until they've walked clear of the edge again.
+      const clear = canStandAt(pos.x, pos.z, regions)
+      const allowed = (x: number, z: number) =>
+        clear ? canStandAt(x, z, regions) : isWalkable(x, z, regions)
+
+      // Axis at a time, so running into a wall diagonally slides along it
+      // instead of stopping dead.
+      if (allowed(nextX, pos.z)) pos.x = nextX
+      if (allowed(pos.x, nextZ)) pos.z = nextZ
 
       facing.current = Math.atan2(dir.current.x, dir.current.z)
     }
@@ -62,7 +79,7 @@ export function Player({
   return (
     <group ref={root} position={[0, 0.6, 0]}>
       <group ref={modelGroup}>
-        <CharacterModel appearance={{ characterClass, skinColor }} />
+        <CharacterModel appearance={{ characterClass, gender, skinColor }} />
       </group>
     </group>
   )

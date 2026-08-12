@@ -10,9 +10,14 @@ import { CharacterCustomize } from './screens/CharacterCustomize'
 import { ChapterIntro } from './screens/ChapterIntro'
 import { Leaderboard } from './screens/Leaderboard'
 import { LogoutButton } from './screens/LogoutButton'
+import { PlayerProfile } from './screens/PlayerProfile'
 import { PlayerHUD } from './screens/PlayerHUD'
+import { TouchJoystick } from './game/TouchJoystick'
 import { LevelBanner } from './screens/LevelBanner'
 import { GameOverOverlay } from './screens/GameOverOverlay'
+import { VictoryOverlay } from './screens/VictoryOverlay'
+import { PauseButton } from './screens/PauseButton'
+import { PauseMenu } from './screens/PauseMenu'
 import { GameAudio } from './audio/GameAudio'
 import { MenuAudio } from './audio/MenuAudio'
 import { SoundToggle } from './audio/SoundToggle'
@@ -30,13 +35,23 @@ function App() {
   const resetSave = useGameStore((s) => s.resetSave)
   const saveLoaded = useGameStore((s) => s.saveLoaded)
   const characterClass = useGameStore((s) => s.characterClass)
+  const characterName = useGameStore((s) => s.characterName)
   const currentLevel = useGameStore((s) => s.currentLevel)
+  const phase = useGameStore((s) => s.phase)
 
   useEffect(() => {
     resetSave()
     if (!session) return
     loadSave(session.user.id).then(hydrateSave)
   }, [session, hydrateSave, resetSave])
+
+  useEffect(() => {
+    // Covers the Google OAuth redirect: the browser does a full-page reload
+    // back to the app, which resets `pastLanding` to false — without this,
+    // an already-authenticated user would land back on the marketing page
+    // still showing the "เข้าสู่ระบบ" button instead of continuing into the game.
+    if (session) setPastLanding(true)
+  }, [session])
 
   let content: ReactNode
   // The mute button only makes sense once music can be toggled mid-experience
@@ -69,7 +84,7 @@ function App() {
     )
     playMenuMusic = true
     showSoundToggle = true
-  } else if (!characterClass) {
+  } else if (!characterClass || !characterName) {
     content = <CharacterCustomize />
     playMenuMusic = true
     showSoundToggle = true
@@ -91,11 +106,24 @@ function App() {
           <GameScene />
         </Canvas>
         <PlayerHUD />
+        <TouchJoystick />
         <LevelBanner />
         <CombatOverlay />
         <GameOverOverlay />
-        <Leaderboard />
-        <LogoutButton />
+        <VictoryOverlay />
+        {/* Hidden for the duration of a fight: these sit in the corner the
+            battle screen gives the monster, and each opens a modal that
+            would cover the fight while the monster's attack timer keeps
+            running. */}
+        {phase !== 'combat' && (
+          <>
+            <Leaderboard />
+            <PlayerProfile />
+            <LogoutButton />
+          </>
+        )}
+        <PauseButton />
+        <PauseMenu />
       </div>
     )
     showSoundToggle = true

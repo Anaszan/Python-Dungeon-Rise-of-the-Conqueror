@@ -1,22 +1,77 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { useGameStore } from '../game/store'
 import {
   CHARACTER_CLASS_OPTIONS,
+  GENDER_OPTIONS,
   SKIN_COLOR_OPTIONS,
   DEFAULT_CHARACTER_CLASS,
+  DEFAULT_GENDER,
   DEFAULT_SKIN_COLOR,
 } from '../character/characterOptions'
 import { CharacterModel } from '../character/CharacterModel'
+import { isCharacterNameTaken } from '../game/persistence'
+
+const NAME_MIN_LENGTH = 2
+const NAME_MAX_LENGTH = 20
+
+type NameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid' | 'error'
 
 export function CharacterCustomize() {
   const storeClass = useGameStore((s) => s.characterClass)
+  const storeGender = useGameStore((s) => s.gender)
   const storeSkinColor = useGameStore((s) => s.skinColor)
+  const storeName = useGameStore((s) => s.characterName)
   const confirmCharacter = useGameStore((s) => s.confirmCharacter)
 
   const [characterClass, setCharacterClass] = useState(storeClass ?? DEFAULT_CHARACTER_CLASS)
+  const [gender, setGender] = useState(storeGender ?? DEFAULT_GENDER)
   const [skinColor, setSkinColor] = useState(storeSkinColor ?? DEFAULT_SKIN_COLOR)
+  const [characterName, setCharacterName] = useState(storeName ?? '')
+  const [nameStatus, setNameStatus] = useState<NameStatus>('idle')
+
+  useEffect(() => {
+    const trimmed = characterName.trim()
+
+    // Unchanged from the name already saved on this account — no need to
+    // check it against itself (the unique constraint would only ever match
+    // this same row anyway).
+    if (trimmed === (storeName ?? '')) {
+      setNameStatus('idle')
+      return
+    }
+
+    if (trimmed.length === 0) {
+      setNameStatus('idle')
+      return
+    }
+
+    if (trimmed.length < NAME_MIN_LENGTH || trimmed.length > NAME_MAX_LENGTH) {
+      setNameStatus('invalid')
+      return
+    }
+
+    setNameStatus('checking')
+    let cancelled = false
+    const timer = setTimeout(async () => {
+      try {
+        const taken = await isCharacterNameTaken(trimmed)
+        if (!cancelled) setNameStatus(taken ? 'taken' : 'available')
+      } catch {
+        if (!cancelled) setNameStatus('error')
+      }
+    }, 400)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
+  }, [characterName, storeName])
+
+  const trimmedName = characterName.trim()
+  const nameUnchanged = trimmedName === (storeName ?? '') && trimmedName.length > 0
+  const canConfirm = nameUnchanged || nameStatus === 'available'
 
   return (
     <div className="screen-overlay">
@@ -28,10 +83,33 @@ export function CharacterCustomize() {
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 3, 2]} intensity={1} />
             <group position={[0, -0.3, 0]}>
-              <CharacterModel appearance={{ characterClass, skinColor }} />
+              <CharacterModel appearance={{ characterClass, gender, skinColor }} />
             </group>
             <OrbitControls enablePan={false} enableZoom={false} />
           </Canvas>
+        </div>
+
+        <div className="customize-section">
+          <p>ชื่อตัวละคร</p>
+          <input
+            type="text"
+            className="customize-name-input"
+            value={characterName}
+            onChange={(e) => setCharacterName(e.target.value)}
+            maxLength={NAME_MAX_LENGTH}
+            placeholder="ตั้งชื่อตัวละครของคุณ"
+          />
+          {nameStatus === 'checking' && <p className="customize-name-status">กำลังตรวจสอบชื่อ...</p>}
+          {nameStatus === 'taken' && <p className="customize-name-status customize-name-error">ชื่อนี้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น</p>}
+          {nameStatus === 'invalid' && (
+            <p className="customize-name-status customize-name-error">
+              ชื่อต้องมีความยาว {NAME_MIN_LENGTH}-{NAME_MAX_LENGTH} ตัวอักษร
+            </p>
+          )}
+          {nameStatus === 'error' && (
+            <p className="customize-name-status customize-name-error">ตรวจสอบชื่อไม่สำเร็จ กรุณาลองใหม่</p>
+          )}
+          {nameStatus === 'available' && <p className="customize-name-status customize-name-ok">ชื่อนี้ใช้ได้</p>}
         </div>
 
         <div className="customize-section">
@@ -51,25 +129,49 @@ export function CharacterCustomize() {
         </div>
 
         <div className="customize-section">
-          <p>สีผิว</p>
-          <div className="swatch-row">
-            {SKIN_COLOR_OPTIONS.map((color) => (
+          <p>เพศ</p>
+          <div className="accessory-row">
+            {GENDER_OPTIONS.map((opt) => (
               <button
-                key={color}
+                key={opt.id}
                 type="button"
-                className={`swatch ${skinColor === color ? 'swatch-active' : ''}`}
-                style={{ background: color }}
-                aria-label={color}
-                onClick={() => setSkinColor(color)}
-              />
+                className={`accessory-btn ${gender === opt.id ? 'accessory-active' : ''}`}
+                onClick={() => setGender(opt.id)}
+              >
+                {opt.label}
+              </button>
             ))}
           </div>
         </div>
 
+        {/* Male characters wear their outfit over every surface the female
+            models leave bare (see CharacterModel), so there is no skin left
+            for this to colour — the picker only appears where it does
+            something. The chosen colour is still kept in state, so switching
+            back to หญิง restores it. */}
+        {gender === 'female' && (
+          <div className="customize-section">
+            <p>สีผิว</p>
+            <div className="swatch-row">
+              {SKIN_COLOR_OPTIONS.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  className={`swatch ${skinColor === color ? 'swatch-active' : ''}`}
+                  style={{ background: color }}
+                  aria-label={color}
+                  onClick={() => setSkinColor(color)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
         <button
           type="button"
           className="customize-confirm"
-          onClick={() => confirmCharacter(characterClass, skinColor)}
+          disabled={!canConfirm}
+          onClick={() => confirmCharacter(characterClass, gender, skinColor, trimmedName)}
         >
           เริ่มการผจญภัย
         </button>

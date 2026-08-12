@@ -23,6 +23,7 @@ export function GameScene() {
 
   useFrame(() => {
     const state = useGameStore.getState()
+    if (state.paused) return
 
     // Reposition the player back to the level's spawn point the instant a
     // restart or level-advance is observed, right here in the frame loop —
@@ -82,10 +83,15 @@ export function GameScene() {
   return (
     <>
       <IsoCamera target={playerPos} />
-      <fog attach="fog" args={['#140d08', 12, 55]} />
-      <ambientLight intensity={0.5} color="#5a4630" />
-      <hemisphereLight args={['#8a6a3a', '#140d08', 0.55]} />
-      <directionalLight position={[8, 15, 6]} intensity={1.4} color="#ffcf8a" castShadow />
+      {/* Dungeon lighting. It reads as torchlit rather than pitch black: the
+          fog starts well past the camera's reach so rooms stay legible to
+          their far wall, and the ambient/hemisphere pair carries most of the
+          fill so nothing sits in true shadow. Torch point lights (see
+          DungeonProps) add the flicker on top. */}
+      <fog attach="fog" args={['#2b1e12', 26, 85]} />
+      <ambientLight intensity={1.05} color="#8a7050" />
+      <hemisphereLight args={['#b39159', '#3a2a1a', 0.95]} />
+      <directionalLight position={[8, 15, 6]} intensity={1.9} color="#ffdca6" castShadow />
       <Sparkles count={60} scale={[16, 4, 40]} size={2} speed={0.3} opacity={0.4} color="#ffd27a" />
       <Ground
         regions={levelData.regions}
