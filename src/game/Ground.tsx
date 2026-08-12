@@ -1,5 +1,5 @@
 import { Suspense, useMemo } from 'react'
-import { Grid, useTexture } from '@react-three/drei'
+import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import type { Region, Wall } from './dungeon'
 import { WALL_HEIGHT } from './dungeon'
@@ -198,32 +198,23 @@ export function Ground({
         const depth = r.zMax - r.zMin
         const x = (r.xMin + r.xMax) / 2
         const z = (r.zMin + r.zMax) / 2
+        // No <Grid> overlay on top of the floor any more. drei's Grid draws
+        // through its own unlit shader, so once the dungeon went dark (see
+        // GameScene) it was the one thing still visible everywhere — a
+        // glowing wireframe map of rooms the player's lantern had never
+        // reached. The procedural stone texture already carves its own slab
+        // grout lines, so nothing was lost by dropping it.
         return (
-          <group key={i}>
-            <mesh receiveShadow position={[x, 0, z]} rotation={[-Math.PI / 2, 0, 0]}>
-              <planeGeometry args={[width, depth]} />
-              {floorTextureUrl ? (
-                <Suspense fallback={<StoneFloorMaterial width={width} depth={depth} />}>
-                  <TexturedFloorMaterial url={floorTextureUrl} width={width} depth={depth} />
-                </Suspense>
-              ) : (
-                <StoneFloorMaterial width={width} depth={depth} />
-              )}
-            </mesh>
-            {!floorTextureUrl && (
-              <Grid
-                position={[x, 0.01, z]}
-                args={[width, depth]}
-                cellSize={1}
-                cellThickness={0.3}
-                cellColor="#2a2015"
-                sectionSize={5}
-                sectionColor="#8a6a3a"
-                fadeDistance={40}
-                infiniteGrid={false}
-              />
+          <mesh key={i} receiveShadow position={[x, 0, z]} rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[width, depth]} />
+            {floorTextureUrl ? (
+              <Suspense fallback={<StoneFloorMaterial width={width} depth={depth} />}>
+                <TexturedFloorMaterial url={floorTextureUrl} width={width} depth={depth} />
+              </Suspense>
+            ) : (
+              <StoneFloorMaterial width={width} depth={depth} />
             )}
-          </group>
+          </mesh>
         )
       })}
 

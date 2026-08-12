@@ -3,8 +3,14 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useKeyboardMap } from './useKeyboardMap'
 import { touchMoveState } from './TouchJoystick'
-import { PLAYER_SPEED } from './constants'
-import { canStandAt, isWalkable, type Region } from './dungeon'
+import {
+  LANTERN_HEIGHT,
+  LANTERN_INTENSITY,
+  LANTERN_RADIUS,
+  LIGHT_DECAY,
+  PLAYER_SPEED,
+} from './constants'
+import { canStandAt, hitsWall, isWalkable, type Region, type Wall } from './dungeon'
 import { useGameStore } from './store'
 import { DEFAULT_CHARACTER_CLASS } from '../character/characterOptions'
 import { CharacterModel } from '../character/CharacterModel'
@@ -12,9 +18,11 @@ import { CharacterModel } from '../character/CharacterModel'
 export function Player({
   positionRef,
   regions,
+  walls,
 }: {
   positionRef: RefObject<THREE.Vector3>
   regions: Region[]
+  walls: Wall[]
 }) {
   const root = useRef<THREE.Group>(null!)
   const modelGroup = useRef<THREE.Group>(null!)
@@ -51,11 +59,16 @@ export function Player({
 
       // Standing somewhere canStandAt() rejects would make every step
       // illegal and wedge the player in place, so if that ever happens
-      // (a spawn point authored right against a wall) fall back to the
-      // plain point test until they've walked clear of the edge again.
-      const clear = canStandAt(pos.x, pos.z, regions)
+      // (a spawn point authored right against a wall) fall back to a laxer
+      // test until they've walked clear of the edge again. That fallback
+      // still refuses to enter a wall's actual box — only the body's own
+      // clearance around it is dropped — so recovering from a bad spot can
+      // never turn into walking through the wall itself.
+      const clear = canStandAt(pos.x, pos.z, regions, walls)
       const allowed = (x: number, z: number) =>
-        clear ? canStandAt(x, z, regions) : isWalkable(x, z, regions)
+        clear
+          ? canStandAt(x, z, regions, walls)
+          : isWalkable(x, z, regions) && !hitsWall(x, z, walls, 0)
 
       // Axis at a time, so running into a wall diagonally slides along it
       // instead of stopping dead.
@@ -78,6 +91,18 @@ export function Player({
 
   return (
     <group ref={root} position={[0, 0.6, 0]}>
+      {/* The lantern the player carries through the dark. It hangs off the
+          root group rather than modelGroup so the pool of light stays put
+          while the walk cycle bobs the model inside it. This is the only
+          light that follows the player, so how far they can see is exactly
+          LANTERN_RADIUS in every direction until they reach a torch. */}
+      <pointLight
+        position={[0, LANTERN_HEIGHT, 0]}
+        color="#ffc978"
+        intensity={LANTERN_INTENSITY}
+        distance={LANTERN_RADIUS}
+        decay={LIGHT_DECAY}
+      />
       <group ref={modelGroup}>
         <CharacterModel appearance={{ characterClass, gender, skinColor }} />
       </group>

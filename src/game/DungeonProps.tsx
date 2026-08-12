@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Billboard } from '@react-three/drei'
 import * as THREE from 'three'
+import { LIGHT_DECAY, TORCH_INTENSITY, TORCH_RADIUS } from './constants'
 
 // Soft radial-gradient glow sprite, drawn once to a canvas — same zero-asset
 // approach as the floor/wall textures in Ground.tsx.
@@ -26,10 +27,14 @@ export function Torch({ position }: { position: [number, number, number] }) {
   const lightRef = useRef<THREE.PointLight>(null!)
   const flameRef = useRef<THREE.Mesh>(null!)
 
+  // The flicker is what sells a torch as a fire rather than a lamp, and in a
+  // dark level it moves the edge of the pool of light around with it. Divided
+  // out by its own ~1.1 baseline so TORCH_INTENSITY stays the honest average
+  // brightness rather than something the flicker quietly scales up.
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
     const flicker = 1.1 + Math.sin(t * 11) * 0.15 + Math.sin(t * 23) * 0.08
-    if (lightRef.current) lightRef.current.intensity = flicker * 2.6
+    if (lightRef.current) lightRef.current.intensity = (flicker / 1.1) * TORCH_INTENSITY
     if (flameRef.current) flameRef.current.scale.setScalar(0.9 + flicker * 0.15)
   })
 
@@ -39,7 +44,17 @@ export function Torch({ position }: { position: [number, number, number] }) {
         <cylinderGeometry args={[0.05, 0.06, 1.1, 6]} />
         <meshStandardMaterial color="#2c2418" />
       </mesh>
-      <pointLight ref={lightRef} position={[0, 1.15, 0]} color="#ffaa3c" intensity={2.6} distance={12} decay={2} />
+      {/* Along with the player's lantern, this is the only thing lighting the
+          dungeon — see GameScene. Everything outside TORCH_RADIUS of one of
+          these, and outside the player's own pool, stays dark. */}
+      <pointLight
+        ref={lightRef}
+        position={[0, 1.15, 0]}
+        color="#ffaa3c"
+        intensity={TORCH_INTENSITY}
+        distance={TORCH_RADIUS}
+        decay={LIGHT_DECAY}
+      />
       <Billboard position={[0, 1.15, 0]}>
         <mesh ref={flameRef}>
           <planeGeometry args={[0.5, 0.5]} />
@@ -88,7 +103,10 @@ export function TreasureChest({ position }: { position: [number, number, number]
       <Billboard position={[0, 0.4, 0]}>
         <mesh>
           <planeGeometry args={[1.4, 1.4]} />
-          <meshBasicMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.5} />
+          {/* Dimmer than the torch flame on purpose: the chest glimmers in a
+              dark room to hint that something is over there, without lighting
+              itself up so brightly that it reads as a third light source. */}
+          <meshBasicMaterial map={glowTex} transparent depthWrite={false} blending={THREE.AdditiveBlending} opacity={0.28} />
         </mesh>
       </Billboard>
     </group>

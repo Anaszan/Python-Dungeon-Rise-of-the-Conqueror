@@ -48,7 +48,7 @@ export function PlayerProfile() {
                   {classLabel} · {genderLabel}
                 </div>
                 <div className="profile-stats-row">
-                  <span>ATK {attackPower}</span>
+                  <span>ครีติคอล {attackPower}</span>
                   <span>
                     HP {playerHp}/{PLAYER_MAX_HP}
                   </span>

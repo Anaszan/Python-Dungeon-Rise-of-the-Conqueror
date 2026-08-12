@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { LEVELS } from './levels'
+import { ALL_MONSTERS, LEVELS } from './levels'
 import { PLAYER_MAX_HP, BASE_ATTACK_POWER } from './constants'
 import { DEFAULT_GENDER, DEFAULT_SKIN_COLOR } from '../character/characterOptions'
 
@@ -194,5 +194,78 @@ describe('useGameStore', () => {
     expect(s.gender).toBe(DEFAULT_GENDER)
     expect(s.characterName).toBeNull()
     expect(s.paused).toBe(false)
+  })
+})
+
+// Driving the real store through the whole campaign the way a player would:
+// walk into every monster of a level, kill it, leave the fight, and expect the
+// game to hand out the next level — and the victory screen after the last one.
+// The individual exitCombat cases above each pin one branch; this is the check
+// that all six levels really do chain together end to end.
+function fightAndDefeat(monster: (typeof ALL_MONSTERS)[number]) {
+  const store = useGameStore.getState()
+  store.enterCombat({
+    id: monster.id,
+    name: monster.name,
+    maxHp: monster.maxHp,
+    attackInterval: monster.attackInterval,
+  })
+  expect(useGameStore.getState().phase, `entering ${monster.name}`).toBe('combat')
+  useGameStore.getState().damageMonster(monster.maxHp)
+  expect(useGameStore.getState().monsterHp[monster.id], `${monster.name} HP`).toBe(0)
+  useGameStore.getState().exitCombat()
+}
+
+describe('level completion', () => {
+  beforeEach(() => {
+    useGameStore.getState().resetSave()
+  })
+
+  it('clears all six levels in order and ends on the victory screen', () => {
+    for (const level of LEVELS) {
+      expect(useGameStore.getState().currentLevel, `start of level ${level.level}`).toBe(level.level)
+      expect(useGameStore.getState().phase, `start of level ${level.level}`).toBe('exploring')
+
+      level.monsters.forEach(fightAndDefeat)
+    }
+
+    const s = useGameStore.getState()
+    expect(s.phase).toBe('victory')
+    expect(s.currentLevel).toBe(LEVELS.length)
+    expect(s.defeatedIds.size).toBe(ALL_MONSTERS.length)
+  })
+
+  it.each(LEVELS)('level $level does not open the exit while one monster is still alive', (level) => {
+    useGameStore.setState({ currentLevel: level.level })
+
+    // Everything but the last monster in the level.
+    level.monsters.slice(0, -1).forEach(fightAndDefeat)
+    expect(useGameStore.getState().currentLevel, 'advanced early').toBe(level.level)
+    expect(useGameStore.getState().phase).toBe('exploring')
+
+    // And now the straggler, which is what should actually open it.
+    const last = level.monsters[level.monsters.length - 1]
+    fightAndDefeat(last)
+    const s = useGameStore.getState()
+    if (level.level === LEVELS.length) expect(s.phase).toBe('victory')
+    else expect(s.currentLevel).toBe(level.level + 1)
+  })
+
+  it('treats fleeing the final monster as leaving the level unfinished', () => {
+    const level = LEVELS[0]
+    level.monsters.slice(0, -1).forEach(fightAndDefeat)
+
+    const last = level.monsters[level.monsters.length - 1]
+    useGameStore.getState().enterCombat({
+      id: last.id,
+      name: last.name,
+      maxHp: last.maxHp,
+      attackInterval: last.attackInterval,
+    })
+    useGameStore.getState().exitCombat() // fled, never killed it
+
+    const s = useGameStore.getState()
+    expect(s.currentLevel).toBe(1)
+    expect(s.fledMonsterId).toBe(last.id)
   })
 })
